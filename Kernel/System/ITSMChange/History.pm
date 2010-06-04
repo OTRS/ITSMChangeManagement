@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange/History.pm - all change and workorder history functions
-# Copyright (C) 2003-2010 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: History.pm,v 1.26 2010-01-29 19:58:35 bes Exp $
+# $Id: History.pm,v 1.26.2.1 2010-06-04 08:24:16 mb Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -17,7 +17,7 @@ use warnings;
 use Kernel::System::User;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.26 $) [1];
+$VERSION = qw($Revision: 1.26.2.1 $) [1];
 
 =head1 NAME
 
@@ -332,6 +332,9 @@ sub ChangeHistoryGet {
             Fieldname      => $Row[9],
         );
 
+        # cleanup time stamps (some databases are using e. g. 2008-02-25 22:03:00.000000)
+        $HistoryEntry{CreateTime} =~ s/^(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d:\d\d)\..+?$/$1/;
+
         push @HistoryEntries, \%HistoryEntry;
     }
 
@@ -421,6 +424,9 @@ sub HistoryEntryGet {
             HistoryType    => $Row[8],
             Fieldname      => $Row[9],
         );
+
+        # cleanup time stamps (some databases are using e. g. 2008-02-25 22:03:00.000000)
+        $HistoryEntry{CreateTime} =~ s/^(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d:\d\d)\..+?$/$1/;
     }
 
     # get user name
@@ -914,6 +920,6 @@ did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 
 =head1 VERSION
 
-$Revision: 1.26 $ $Date: 2010-01-29 19:58:35 $
+$Revision: 1.26.2.1 $ $Date: 2010-06-04 08:24:16 $
 
 =cut

@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange.pm - all change functions
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMChange.pm,v 1.235 2010-05-12 13:33:45 ub Exp $
+# $Id: ITSMChange.pm,v 1.235.2.1 2010-06-04 08:24:16 mb Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -29,7 +29,7 @@ use Kernel::System::VirtualFS;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.235 $) [1];
+$VERSION = qw($Revision: 1.235.2.1 $) [1];
 
 =head1 NAME
 
@@ -602,6 +602,12 @@ sub ChangeGet {
             );
         }
         return;
+    }
+
+    # cleanup time stamps (some databases are using e. g. 2008-02-25 22:03:00.000000)
+    for my $Timefield ( 'CreateTime', 'ChangeTime', 'RequestedTime' ) {
+        next if !$ChangeData{$Timefield};
+        $ChangeData{$Timefield} =~ s/^(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d:\d\d)\..+?$/$1/;
     }
 
     # set name of change state
@@ -3086,6 +3092,6 @@ did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 
 =head1 VERSION
 
-$Revision: 1.235 $ $Date: 2010-05-12 13:33:45 $
+$Revision: 1.235.2.1 $ $Date: 2010-06-04 08:24:16 $
 
 =cut

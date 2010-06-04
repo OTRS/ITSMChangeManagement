@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange/Template.pm - all template functions
-# Copyright (C) 2003-2010 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: Template.pm,v 1.52 2010-02-19 08:50:55 bes Exp $
+# $Id: Template.pm,v 1.52.2.1 2010-06-04 08:24:16 mb Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -25,7 +25,7 @@ use Data::Dumper;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.52 $) [1];
+$VERSION = qw($Revision: 1.52.2.1 $) [1];
 
 =head1 NAME
 
@@ -346,7 +346,7 @@ sub TemplateUpdate {
 
     # TODO: all attachments in the template should be copied
     # in the virtual fs. Otherwise it could happen that an
-    # attachment is deleted after template creation and therefor
+    # attachment is deleted after template creation and therefore
     # no longer available.
 
     return 1;
@@ -424,6 +424,12 @@ sub TemplateGet {
             Message  => "TemplateID $Param{TemplateID} does not exist!",
         );
         return;
+    }
+
+    # cleanup time stamps (some databases are using e. g. 2008-02-25 22:03:00.000000)
+    for my $Timefield ( 'CreateTime', 'ChangeTime', ) {
+        next if !$TemplateData{$Timefield};
+        $TemplateData{$Timefield} =~ s/^(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d:\d\d)\..+?$/$1/;
     }
 
     return \%TemplateData;
@@ -1397,6 +1403,6 @@ did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 
 =head1 VERSION
 
-$Revision: 1.52 $ $Date: 2010-02-19 08:50:55 $
+$Revision: 1.52.2.1 $ $Date: 2010-06-04 08:24:16 $
 
 =cut

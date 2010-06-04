@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/ITSMCondition.pm - all condition functions
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMCondition.pm,v 1.49 2010-05-18 19:53:41 ub Exp $
+# $Id: ITSMCondition.pm,v 1.49.2.1 2010-06-04 08:24:16 mb Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -24,7 +24,7 @@ use base qw(Kernel::System::ITSMChange::ITSMCondition::Expression);
 use base qw(Kernel::System::ITSMChange::ITSMCondition::Action);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.49 $) [1];
+$VERSION = qw($Revision: 1.49.2.1 $) [1];
 
 =head1 NAME
 
@@ -393,6 +393,12 @@ sub ConditionGet {
             Message  => "ConditionID $Param{ConditionID} does not exist!",
         );
         return;
+    }
+
+    # cleanup time stamps (some databases are using e. g. 2008-02-25 22:03:00.000000)
+    for my $Timefield ( 'CreateTime', 'ChangeTime', ) {
+        next if !$ConditionData{$Timefield};
+        $ConditionData{$Timefield} =~ s/^(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d:\d\d)\..+?$/$1/;
     }
 
     return \%ConditionData;
@@ -1362,6 +1368,6 @@ did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 
 =head1 VERSION
 
-$Revision: 1.49 $ $Date: 2010-05-18 19:53:41 $
+$Revision: 1.49.2.1 $ $Date: 2010-06-04 08:24:16 $
 
 =cut

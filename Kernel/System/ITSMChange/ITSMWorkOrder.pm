@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.97.2.1 2010-06-04 08:24:16 mb Exp $
+# $Id: ITSMWorkOrder.pm,v 1.97.2.2 2010-06-14 17:02:19 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -26,7 +26,7 @@ use Kernel::System::HTMLUtils;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.97.2.1 $) [1];
+$VERSION = qw($Revision: 1.97.2.2 $) [1];
 
 =head1 NAME
 
@@ -689,14 +689,18 @@ sub WorkOrderGet {
         return;
     }
 
-    # replace default time values with empty string
-    # cleanup time stamps (some databases are using e. g. 2008-02-25 22:03:00.000000)
+    TIMEFIELD:
     for my $Time (qw(PlannedStartTime PlannedEndTime ActualStartTime ActualEndTime)) {
+
+        next TIMEFIELD if !$WorkOrderData{$Time};
+
+        # cleanup time stamps (some databases are using e. g. 2008-02-25 22:03:00.000000)
+        $WorkOrderData{$Time} =~ s/^(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d:\d\d)\..+?$/$1/;
+
+        # replace default time values with empty string
         if ( $WorkOrderData{$Time} eq '9999-01-01 00:00:00' ) {
             $WorkOrderData{$Time} = '';
         }
-        next if !$WorkOrderData{$Time};
-        $WorkOrderData{$Time} =~ s/^(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d:\d\d)\..+?$/$1/;
     }
 
     # add the name of the workorder state
@@ -1429,14 +1433,18 @@ sub WorkOrderChangeTimeGet {
         $TimeReturn{ActualEndTime}    = $Row[3] || '';
     }
 
-    # set empty string if the default time was found
-    # cleanup time stamps (some databases are using e. g. 2008-02-25 22:03:00.000000)
+    TIMEFIELD:
     for my $Time ( keys %TimeReturn ) {
+
+        next TIMEFIELD if !$TimeReturn{$Time};
+
+        # cleanup time stamps (some databases are using e. g. 2008-02-25 22:03:00.000000)
+        $TimeReturn{$Time} =~ s/^(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d:\d\d)\..+?$/$1/;
+
+        # set empty string if the default time was found
         if ( $TimeReturn{$Time} eq '9999-01-01 00:00:00' ) {
             $TimeReturn{$Time} = '';
         }
-        next if !$TimeReturn{$Time};
-        $TimeReturn{$Time} =~ s/^(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d:\d\d)\..+?$/$1/;
     }
 
     # check if change has workorders with not yet defined planned_start_time entries
@@ -2729,6 +2737,6 @@ did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 
 =head1 VERSION
 
-$Revision: 1.97.2.1 $ $Date: 2010-06-04 08:24:16 $
+$Revision: 1.97.2.2 $ $Date: 2010-06-14 17:02:19 $
 
 =cut

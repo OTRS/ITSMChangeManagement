@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.97.2.5 2010-06-14 17:57:39 ub Exp $
+# $Id: ITSMWorkOrder.pm,v 1.97.2.6 2010-06-14 18:11:03 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -26,7 +26,7 @@ use Kernel::System::HTMLUtils;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.97.2.5 $) [1];
+$VERSION = qw($Revision: 1.97.2.6 $) [1];
 
 =head1 NAME
 
@@ -2336,8 +2336,16 @@ sub WorkOrderChangeEffortsGet {
     while ( my @Row = $Self->{DBObject}->FetchrowArray() ) {
 
         # add zero to prevent ugly display of zero values with MS-SQL
-        $ChangeEfforts{PlannedEffort} = $Row[0] + 0 || '';
-        $ChangeEfforts{AccountedTime} = $Row[1] + 0 || '';
+        $ChangeEfforts{PlannedEffort} = $Row[0] || '';
+        $ChangeEfforts{AccountedTime} = $Row[1] || '';
+    }
+
+    # add zero to prevent ugly display of zero values with MS-SQL
+    if ( $ChangeEfforts{PlannedEffort} ) {
+        $ChangeEfforts{PlannedEffort} += 0;
+    }
+    if ( $ChangeEfforts{AccountedTime} ) {
+        $ChangeEfforts{AccountedTime} += 0;
     }
 
     return \%ChangeEfforts;
@@ -2748,6 +2756,6 @@ did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 
 =head1 VERSION
 
-$Revision: 1.97.2.5 $ $Date: 2010-06-14 17:57:39 $
+$Revision: 1.97.2.6 $ $Date: 2010-06-14 18:11:03 $
 
 =cut

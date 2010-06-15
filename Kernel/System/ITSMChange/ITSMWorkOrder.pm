@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.97.2.6 2010-06-14 18:11:03 ub Exp $
+# $Id: ITSMWorkOrder.pm,v 1.97.2.7 2010-06-15 01:25:08 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -26,7 +26,7 @@ use Kernel::System::HTMLUtils;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.97.2.6 $) [1];
+$VERSION = qw($Revision: 1.97.2.7 $) [1];
 
 =head1 NAME
 
@@ -366,7 +366,7 @@ Another exception is the WorkOrderAgentID. Pass undef for removing the workorder
         WorkOrderTitle   => 'Replacement of mail server',              # (optional)
         Instruction      => 'Install the the new server',              # (optional)
         Report           => 'Installed new server without problems',   # (optional)
-        WorkOrderStateID => 157,                                       # (optional) or WorkOrder => 'ready'
+        WorkOrderStateID => 157,                                       # (optional) or WorkOrderState => 'ready'
         WorkOrderState   => 'ready',                                   # (optional) or WorkOrderStateID => 157
         WorkOrderTypeID  => 161,                                       # (optional) or WorkOrderType => 'pir'
         WorkOrderType    => 'pir',                                     # (optional) or WorkOrderStateID => 161
@@ -2334,8 +2334,6 @@ sub WorkOrderChangeEffortsGet {
 
     # fetch the result
     while ( my @Row = $Self->{DBObject}->FetchrowArray() ) {
-
-        # add zero to prevent ugly display of zero values with MS-SQL
         $ChangeEfforts{PlannedEffort} = $Row[0] || '';
         $ChangeEfforts{AccountedTime} = $Row[1] || '';
     }
@@ -2756,6 +2754,6 @@ did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 
 =head1 VERSION
 
-$Revision: 1.97.2.6 $ $Date: 2010-06-14 18:11:03 $
+$Revision: 1.97.2.7 $ $Date: 2010-06-15 01:25:08 $
 
 =cut

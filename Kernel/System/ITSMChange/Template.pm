@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/Template.pm - all template functions
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: Template.pm,v 1.52.2.2 2010-06-14 17:33:49 ub Exp $
+# $Id: Template.pm,v 1.52.2.3 2010-06-15 01:54:15 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -25,7 +25,7 @@ use Data::Dumper;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.52.2.2 $) [1];
+$VERSION = qw($Revision: 1.52.2.3 $) [1];
 
 =head1 NAME
 
@@ -105,7 +105,7 @@ sub new {
     # create additional objects
     $Self->{ChangeObject}    = Kernel::System::ITSMChange->new( %{$Self} );
     $Self->{WorkOrderObject} = Kernel::System::ITSMChange::ITSMWorkOrder->new( %{$Self} );
-    $Self->{LinkObject}      = Kernel::System::LinkObject->new(%Param);
+    $Self->{LinkObject}      = Kernel::System::LinkObject->new( %{$Self} );
     $Self->{ConditionObject} = Kernel::System::ITSMChange::ITSMCondition->new( %{$Self} );
     $Self->{ValidObject}     = Kernel::System::Valid->new( %{$Self} );
     $Self->{VirtualFSObject} = Kernel::System::VirtualFS->new( %{$Self} );
@@ -245,7 +245,7 @@ sub TemplateAdd {
 
     # TODO: all attachments in the template should be copied
     # in the virtual fs. Otherwise it could happen that an
-    # attachment is deleted after template creation and therefor
+    # attachment is deleted after template creation and therefore
     # no longer available.
 
     return $TemplateID;
@@ -1405,6 +1405,6 @@ did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 
 =head1 VERSION
 
-$Revision: 1.52.2.2 $ $Date: 2010-06-14 17:33:49 $
+$Revision: 1.52.2.3 $ $Date: 2010-06-15 01:54:15 $
 
 =cut

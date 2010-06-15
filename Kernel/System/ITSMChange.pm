@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange.pm - all change functions
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMChange.pm,v 1.235.2.2 2010-06-14 17:29:10 ub Exp $
+# $Id: ITSMChange.pm,v 1.235.2.3 2010-06-15 01:46:06 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -29,7 +29,7 @@ use Kernel::System::VirtualFS;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.235.2.2 $) [1];
+$VERSION = qw($Revision: 1.235.2.3 $) [1];
 
 =head1 NAME
 
@@ -865,6 +865,9 @@ sub ChangeCABGet {
         Bind => [ \$Param{ChangeID} ],
     );
 
+    my $ErrorCABID;
+
+    ROW:
     while ( my @Row = $Self->{DBObject}->FetchrowArray() ) {
         my $CABID          = $Row[0];
         my $ChangeID       = $Row[1];
@@ -873,13 +876,8 @@ sub ChangeCABGet {
 
         # error check if both columns are filled
         if ( $UserID && $CustomerUserID ) {
-            $Self->{LogObject}->Log(
-                Priority => 'error',
-                Message =>
-                    "CAB table entry with ID $CABID contains UserID and CustomerUserID! "
-                    . 'Only one at a time is allowed!',
-            );
-            return;
+            $ErrorCABID = $CABID;
+            next ROW;
         }
 
         # add data to CAB
@@ -889,6 +887,18 @@ sub ChangeCABGet {
         elsif ($CustomerUserID) {
             push @{ $CAB{CABCustomers} }, $CustomerUserID;
         }
+    }
+
+    # error check if both columns are filled
+    if ($ErrorCABID) {
+
+        $Self->{LogObject}->Log(
+            Priority => 'error',
+            Message =>
+                "CAB table entry with ID $ErrorCABID contains UserID and CustomerUserID! "
+                . 'Only one at a time is allowed!',
+        );
+        return;
     }
 
     # sort the results
@@ -3094,6 +3104,6 @@ did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 
 =head1 VERSION
 
-$Revision: 1.235.2.2 $ $Date: 2010-06-14 17:29:10 $
+$Revision: 1.235.2.3 $ $Date: 2010-06-15 01:46:06 $
 
 =cut

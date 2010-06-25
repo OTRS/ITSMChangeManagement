@@ -1,8 +1,8 @@
 # --
 # ITSMWorkOrder.t - workorder tests
-# Copyright (C) 2003-2010 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.t,v 1.120 2010-03-19 10:13:16 bes Exp $
+# $Id: ITSMWorkOrder.t,v 1.120.2.1 2010-06-25 10:48:15 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -371,7 +371,7 @@ my @ChangeTests = (
         },
     },
 
-    # a change for OrderBy workorder seaches
+    # a change for OrderBy workorder searches
     {
         Description => 'Change for testing OrderBy workorder searches.',
         SourceData  => {
@@ -1537,6 +1537,28 @@ push @WorkOrderTests, (
         SearchTest => [],
     },
 
+    {
+        Description => 'Test 1 for AccountedTime and PlannedEffort',
+        SourceData  => {
+            WorkOrderAdd => {
+                UserID   => 1,
+                ChangeID => $WorkOrderAddTestID,
+            },
+            WorkOrderUpdate => {
+                UserID         => 1,
+                WorkOrderTitle => 'Test 1 for AccountedTime and PlannedEffort',
+                PlannedEffort  => '5.5',
+                AccountedTime  => '1.5',
+            },
+        },
+        ReferenceData => {
+            WorkOrderGet => {
+                WorkOrderTitle => 'Test 1 for AccountedTime and PlannedEffort',
+                PlannedEffort  => '5.5',
+                AccountedTime  => '1.5',
+            },
+        },
+    },
 );
 
 # workorders tests for WorkOrderSearch() with OrderBy
@@ -1748,7 +1770,7 @@ for my $Test (@WorkOrderTests) {
 
     if ( $SourceData->{WorkOrderUpdate} ) {
 
-        # update the change
+        # update the workorder
         my $WorkOrderUpdateSuccess = $Self->{WorkOrderObject}->WorkOrderUpdate(
             WorkOrderID => $WorkOrderID,
             %{ $SourceData->{WorkOrderUpdate} },
@@ -1887,6 +1909,39 @@ for my $ChangeID ( sort keys %WorkOrderIDForChangeID ) {
         scalar keys %{ $WorkOrderIDForChangeID{$ChangeID} },
         'Test ' . $TestCount++ . ": ChangeGet() - number of workorders for a change.",
     );
+
+    # set efforts test...
+    my $EffortsFromWorkOrderObject = $Self->{WorkOrderObject}->WorkOrderChangeEffortsGet(
+        UserID   => 1,
+        ChangeID => $ChangeID,
+    );
+
+    for my $EffortKey ( sort keys %{$EffortsFromWorkOrderObject} ) {
+        $Self->Is(
+            $Change->{$EffortKey},
+            $EffortsFromWorkOrderObject->{$EffortKey},
+            'Test '
+                . $TestCount++
+                . ": WorkOrderChangeEffortsGet() and ChangeGet() - $EffortKey match",
+        );
+    }
+
+    # set time test...
+    my $TimeFromWorkOrderObject = $Self->{WorkOrderObject}->WorkOrderChangeTimeGet(
+        UserID   => 1,
+        ChangeID => $ChangeID,
+    );
+
+    for my $TimeKey ( sort keys %{$TimeFromWorkOrderObject} ) {
+        $Self->Is(
+            $Change->{$TimeKey},
+            $TimeFromWorkOrderObject->{$TimeKey},
+            'Test '
+                . $TestCount++
+                . ": WorkOrderChangeTimeGet() and ChangeGet() - $TimeKey match",
+        );
+    }
+
 }
 
 # count all tests that are required to and planned for fail

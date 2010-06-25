@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.97.2.7 2010-06-15 01:25:08 ub Exp $
+# $Id: ITSMWorkOrder.pm,v 1.97.2.8 2010-06-25 10:47:00 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -26,7 +26,7 @@ use Kernel::System::HTMLUtils;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.97.2.7 $) [1];
+$VERSION = qw($Revision: 1.97.2.8 $) [1];
 
 =head1 NAME
 
@@ -456,11 +456,15 @@ sub WorkOrderUpdate {
         );
     }
 
-    # default value for planned effort
+    # default values for planned effort and accounted time
     # this avoids superflous history entries
-    if ( exists $Param{PlannedEffort} ) {
-        $Param{PlannedEffort} ||= 0;
-        $Param{PlannedEffort} = sprintf '%.2f', $Param{PlannedEffort};
+    ARGUMENT:
+    for my $Argument (qw(PlannedEffort AccountedTime)) {
+
+        next ARGUMENT if !exists $Param{$Argument};
+
+        $Param{$Argument} ||= 0;
+        $Param{$Argument} = sprintf '%.2f', $Param{$Argument};
     }
 
     # check the given parameters
@@ -2646,7 +2650,7 @@ sub _CheckTimestamps {
         # for the log messages
         my $TypeLc = lc $Type;
 
-        my $StartTime;
+        my $StartTime = '';
         if ( !exists $Param{ $Type . 'StartTime' } ) {
 
             # if a time is not given, get it from the workorder
@@ -2673,7 +2677,7 @@ sub _CheckTimestamps {
             $StartTime = $Param{ $Type . 'StartTime' };
         }
 
-        my $EndTime;
+        my $EndTime = '';
         if ( !exists $Param{ $Type . 'EndTime' } ) {
 
             # if a time is not given, get it from the workorder
@@ -2744,16 +2748,16 @@ sub _CheckTimestamps {
 
 =head1 TERMS AND CONDITIONS
 
-This software is part of the OTRS project (http://otrs.org/).
+This software is part of the OTRS project (L<http://otrs.org/>).
 
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
-did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =cut
 
 =head1 VERSION
 
-$Revision: 1.97.2.7 $ $Date: 2010-06-15 01:25:08 $
+$Revision: 1.97.2.8 $ $Date: 2010-06-25 10:47:00 $
 
 =cut

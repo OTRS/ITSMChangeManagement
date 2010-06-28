@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.97.2.8 2010-06-25 10:47:00 ub Exp $
+# $Id: ITSMWorkOrder.pm,v 1.97.2.9 2010-06-28 16:58:44 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -26,7 +26,7 @@ use Kernel::System::HTMLUtils;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.97.2.8 $) [1];
+$VERSION = qw($Revision: 1.97.2.9 $) [1];
 
 =head1 NAME
 
@@ -464,7 +464,6 @@ sub WorkOrderUpdate {
         next ARGUMENT if !exists $Param{$Argument};
 
         $Param{$Argument} ||= 0;
-        $Param{$Argument} = sprintf '%.2f', $Param{$Argument};
     }
 
     # check the given parameters
@@ -521,7 +520,6 @@ sub WorkOrderUpdate {
         ActualEndTime    => 'actual_end_time',
         InstructionPlain => 'instruction_plain',
         ReportPlain      => 'report_plain',
-        PlannedEffort    => 'planned_effort',
     );
 
     # build SQL to update workorder
@@ -543,7 +541,7 @@ sub WorkOrderUpdate {
             push @Bind, \$Param{$Attribute};
         }
 
-        # it's ok when the WorkOrderAgentID is not defined
+        # it's ok if the WorkOrderAgentID is not defined
         elsif ( $Attribute eq 'WorkOrderAgentID' && !defined $Param{$Attribute} ) {
             $SQL .= "$Attribute{$Attribute} = NULL, ";
         }
@@ -557,8 +555,28 @@ sub WorkOrderUpdate {
 
     # addition of accounted time
     if ( $Param{AccountedTime} ) {
-        $SQL .= 'accounted_time = accounted_time + ?, ';
-        push @Bind, \$Param{AccountedTime};
+
+        # get current accounted time
+        my $CurrentAccountedTime = $WorkOrderData->{AccountedTime} || 0;
+
+        # add new accouted time to current accounted time
+        my $AccountedTime = $CurrentAccountedTime + $Param{AccountedTime};
+
+        # db quote
+        $AccountedTime = $Self->{DBObject}->Quote( $AccountedTime, 'Number' );
+
+        # build SQL (without binds)
+        $SQL .= "accounted_time = $AccountedTime, ";
+    }
+
+    # setting of planned effort
+    if ( $Param{PlannedEffort} ) {
+
+        # db quote
+        $Param{PlannedEffort} = $Self->{DBObject}->Quote( $Param{PlannedEffort}, 'Number' );
+
+        # build SQL (without binds)
+        $SQL .= "planned_effort = $Param{PlannedEffort}, ";
     }
 
     $SQL .= 'change_time = current_timestamp, change_by = ? ';
@@ -708,12 +726,22 @@ sub WorkOrderGet {
         }
     }
 
-    # add zero to prevent ugly display of zero values with MS-SQL
-    if ( $WorkOrderData{PlannedEffort} ) {
-        $WorkOrderData{PlannedEffort} += 0;
-    }
-    if ( $WorkOrderData{AccountedTime} ) {
-        $WorkOrderData{AccountedTime} += 0;
+    ATTRIBUTE:
+    for my $Attribute (qw(PlannedEffort AccountedTime)) {
+
+        next ATTRIBUTE if !$WorkOrderData{$Attribute};
+
+        # do not show zero values
+        if ( $WorkOrderData{$Attribute} == 0 ) {
+            $WorkOrderData{$Attribute} = '';
+            next ATTRIBUTE;
+        }
+
+        # convert decimal character from ',' to '.' if neccessary
+        $WorkOrderData{$Attribute} =~ s{,}{.}xmsg;
+
+        # format as decimal number
+        $WorkOrderData{$Attribute} = sprintf '%.2f', $WorkOrderData{$Attribute};
     }
 
     # add the name of the workorder state
@@ -2342,12 +2370,22 @@ sub WorkOrderChangeEffortsGet {
         $ChangeEfforts{AccountedTime} = $Row[1] || '';
     }
 
-    # add zero to prevent ugly display of zero values with MS-SQL
-    if ( $ChangeEfforts{PlannedEffort} ) {
-        $ChangeEfforts{PlannedEffort} += 0;
-    }
-    if ( $ChangeEfforts{AccountedTime} ) {
-        $ChangeEfforts{AccountedTime} += 0;
+    ATTRIBUTE:
+    for my $Attribute (qw(PlannedEffort AccountedTime)) {
+
+        next ATTRIBUTE if !$ChangeEfforts{$Attribute};
+
+        # do not show zero values
+        if ( $ChangeEfforts{$Attribute} == 0 ) {
+            $ChangeEfforts{$Attribute} = '';
+            next ATTRIBUTE;
+        }
+
+        # convert decimal character from ',' to '.' if neccessary
+        $ChangeEfforts{$Attribute} =~ s{,}{.}xmsg;
+
+        # format as decimal number
+        $ChangeEfforts{$Attribute} = sprintf '%.2f', $ChangeEfforts{$Attribute};
     }
 
     return \%ChangeEfforts;
@@ -2758,6 +2796,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.97.2.8 $ $Date: 2010-06-25 10:47:00 $
+$Revision: 1.97.2.9 $ $Date: 2010-06-28 16:58:44 $
 
 =cut

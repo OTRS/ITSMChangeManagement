@@ -2,7 +2,7 @@
 # ITSMWorkOrder.t - workorder tests
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.t,v 1.120.2.1 2010-06-25 10:48:15 ub Exp $
+# $Id: ITSMWorkOrder.t,v 1.120.2.2 2010-06-28 13:13:02 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -2586,13 +2586,21 @@ for my $OrderByColumn (@OrderByColumns) {
 
     # sort in the other direction
 
+    # WorkOrderSearch() sorts the ID-Fields numerically, the string fields alphabetically.
     # the sorting is completely determined by the second comparison
-    my @WorkOrdersDown
-        = sort {
-        $b->{$OrderByColumn} <=> $a->{$OrderByColumn}
-            || $b->{WorkOrderID} <=> $a->{WorkOrderID}
+    if ( $OrderByColumn eq 'WorkOrderTitle' ) {
+        @SortedWorkOrders = sort {
+            $b->{$OrderByColumn} cmp $a->{$OrderByColumn}
+                || $b->{WorkOrderID} <=> $a->{WorkOrderID}
         } @WorkOrdersForOrderByTests;
-    my @SortedIDsDown = map { $_->{WorkOrderID} } @WorkOrdersDown;
+    }
+    else {
+        @SortedWorkOrders = sort {
+            $b->{$OrderByColumn} <=> $a->{$OrderByColumn}
+                || $b->{WorkOrderID} <=> $a->{WorkOrderID}
+        } @WorkOrdersForOrderByTests;
+    }
+    my @SortedIDsDown = map { $_->{WorkOrderID} } @SortedWorkOrders;
 
     # dump the reference attribute
     my $ReferenceListDown = Data::Dumper::Dumper( \@SortedIDsDown );

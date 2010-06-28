@@ -2,7 +2,7 @@
 # ITSMWorkOrder.t - workorder tests
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.t,v 1.120.2.2 2010-06-28 13:13:02 ub Exp $
+# $Id: ITSMWorkOrder.t,v 1.120.2.3 2010-06-28 16:10:41 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -1537,25 +1537,25 @@ push @WorkOrderTests, (
         SearchTest => [],
     },
 
+    # test for accounted time and planned effort
     {
         Description => 'Test 1 for AccountedTime and PlannedEffort',
         SourceData  => {
             WorkOrderAdd => {
-                UserID   => 1,
-                ChangeID => $WorkOrderAddTestID,
+                WorkOrderTitle => 'Test 1 for AccountedTime and PlannedEffort',
+                ChangeID       => $WorkOrderAddTestID,
+                UserID         => 1,
             },
             WorkOrderUpdate => {
-                UserID         => 1,
-                WorkOrderTitle => 'Test 1 for AccountedTime and PlannedEffort',
-                PlannedEffort  => '5.5',
-                AccountedTime  => '1.5',
+                PlannedEffort => '5.5',
+                AccountedTime => '1.5',
+                UserID        => 1,
             },
         },
         ReferenceData => {
             WorkOrderGet => {
-                WorkOrderTitle => 'Test 1 for AccountedTime and PlannedEffort',
-                PlannedEffort  => '5.5',
-                AccountedTime  => '1.5',
+                PlannedEffort => '5.50',    # output is always formatted with 2 decimal places
+                AccountedTime => '1.50',    # output is always formatted with 2 decimal places
             },
         },
     },
@@ -1730,7 +1730,7 @@ for my $Test (@WorkOrderTests) {
 
         # add the workorder
         $WorkOrderID = $Self->{WorkOrderObject}->WorkOrderAdd(
-            %{ $SourceData->{WorkOrderAdd} }
+            %{ $SourceData->{WorkOrderAdd} },
         );
 
         # remember current WorkOrderID

@@ -2,7 +2,7 @@
 # ITSMChange.t - change tests
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMChange.t,v 1.174 2010-05-21 12:52:18 ub Exp $
+# $Id: ITSMChange.t,v 1.174.2.1 2010-06-29 00:07:41 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -3898,12 +3898,8 @@ for my $OrderByColumn (@OrderByColumns) {
     local $Data::Dumper::Indent = 0;
     local $Data::Dumper::Useqq  = 1;
 
-    my @SortedChanges
-        = sort {
-        $a->{$OrderByColumn} <=> $b->{$OrderByColumn}
-            || $b->{ChangeID} <=> $a->{ChangeID}
-        } @OrderBySearchTestChanges;
-    if ( $OrderByColumn eq 'ChangeTitle' ) {
+    my @SortedChanges;
+    if ( $OrderByColumn =~ m{ \A ( ChangeTitle | .+ Time ) \z }xms ) {
         @SortedChanges = sort {
             $a->{$OrderByColumn} cmp $b->{$OrderByColumn}
                 || $b->{ChangeID} <=> $a->{ChangeID}
@@ -3936,11 +3932,21 @@ for my $OrderByColumn (@OrderByColumns) {
         'Test ' . $TestCount++ . ": ChangeSearch() OrderBy $OrderByColumn (Up)."
     );
 
-    my @SortedChangesDown
-        = sort {
-        $b->{$OrderByColumn} <=> $a->{$OrderByColumn}
-            || $b->{ChangeID} <=> $a->{ChangeID}
-        } @OrderBySearchTestChanges;
+    my @SortedChangesDown;
+    if ( $OrderByColumn =~ m{ \A ( ChangeTitle | .+ Time ) \z }xms ) {
+        @SortedChangesDown
+            = sort {
+            $b->{$OrderByColumn} cmp $a->{$OrderByColumn}
+                || $b->{ChangeID} <=> $a->{ChangeID}
+            } @OrderBySearchTestChanges;
+    }
+    else {
+        @SortedChangesDown
+            = sort {
+            $b->{$OrderByColumn} <=> $a->{$OrderByColumn}
+                || $b->{ChangeID} <=> $a->{ChangeID}
+            } @OrderBySearchTestChanges;
+    }
     my @SortedIDsDown = map { $_->{ChangeID} } @SortedChangesDown;
 
     # dump the reference attribute

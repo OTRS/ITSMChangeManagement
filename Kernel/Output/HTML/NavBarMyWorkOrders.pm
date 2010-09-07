@@ -1,8 +1,8 @@
 # --
 # Kernel/Output/HTML/NavBarMyWorkOrders.pm
-# Copyright (C) 2003-2009 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: NavBarMyWorkOrders.pm,v 1.1 2009-12-01 01:02:21 ub Exp $
+# $Id: NavBarMyWorkOrders.pm,v 1.1.4.1 2010-09-07 12:37:39 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -17,7 +17,7 @@ use warnings;
 use Kernel::System::ITSMChange::ITSMWorkOrder;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.1 $) [1];
+$VERSION = qw($Revision: 1.1.4.1 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -70,7 +70,7 @@ sub Run {
     # do not show icon if frontend module is not registered
     return if !$Self->{ConfigObject}->Get('Frontend::Module')->{$Action};
 
-    # get the number of viewable changes
+    # get the number of viewable workorders
     my $Count = 0;
     if ( $Config->{'Filter::WorkOrderStates'} && @{ $Config->{'Filter::WorkOrderStates'} } ) {
 

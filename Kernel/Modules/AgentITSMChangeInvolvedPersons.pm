@@ -2,7 +2,7 @@
 # Kernel/Modules/AgentITSMChangeInvolvedPersons.pm - the OTRS::ITSM::ChangeManagement change involved persons module
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: AgentITSMChangeInvolvedPersons.pm,v 1.37 2010-05-12 16:23:44 ub Exp $
+# $Id: AgentITSMChangeInvolvedPersons.pm,v 1.37.4.1 2010-09-08 13:04:22 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -19,7 +19,7 @@ use Kernel::System::ITSMChange::Template;
 use Kernel::System::CustomerUser;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.37 $) [1];
+$VERSION = qw($Revision: 1.37.4.1 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -410,13 +410,6 @@ sub Run {
                     queryDelay     => $UserAutoCompleteConfig->{QueryDelay}     || 0.1,
                     typeAhead      => $UserAutoCompleteConfig->{TypeAhead}      || 'false',
                     maxResultsDisplayed => $UserAutoCompleteConfig->{MaxResultsDisplayed} || 20,
-                    InputNr => $InputNr,
-                },
-            );
-
-            $Self->{LayoutObject}->Block(
-                Name => 'UserSearchAutoCompleteReturnElements',
-                Data => {
                     InputNr => $InputNr,
                 },
             );

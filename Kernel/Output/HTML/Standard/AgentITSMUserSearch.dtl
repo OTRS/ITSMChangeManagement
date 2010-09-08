@@ -1,8 +1,8 @@
 # --
 # AgentITSMUserSearch.dtl - provides autocomplete feature for customer search
-# Copyright (C) 2003-2009 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: AgentITSMUserSearch.dtl,v 1.6 2009-12-03 11:15:27 bes Exp $
+# $Id: AgentITSMUserSearch.dtl,v 1.6.4.1 2010-09-08 13:04:22 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -34,10 +34,7 @@
 
 (function() {
 
-    var Dom = YAHOO.util.Dom,
-        Event = YAHOO.util.Event;
-
-    Event.onDOMReady(function() {
+    YAHOO.util.Event.onDOMReady( function() {
 
         // add yui css to body tag
         document.body.className = "yui-skin-sam";
@@ -150,13 +147,6 @@
         };
 <!-- dtl:block:UserSearchAutoCompleteCode -->
 
-        return {
-<!-- dtl:block:UserSearchAutoCompleteReturnElements -->
-            myDataSource$Data{"InputNr"}: myDataSource$Data{"InputNr"},
-            myAutoComp$Data{"InputNr"}  : myAutoComp$Data{"InputNr"},
-<!-- dtl:block:UserSearchAutoCompleteReturnElements -->
-            dummy: 1    // workaround for avoiding a trailing comma
-        };
     });
 })();
 </script>

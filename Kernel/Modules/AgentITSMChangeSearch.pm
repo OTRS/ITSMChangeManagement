@@ -2,7 +2,7 @@
 # Kernel/Modules/AgentITSMChangeSearch.pm - module for change search
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: AgentITSMChangeSearch.pm,v 1.56 2010-07-01 13:52:13 ub Exp $
+# $Id: AgentITSMChangeSearch.pm,v 1.56.2.1 2010-09-08 13:04:22 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -20,7 +20,7 @@ use Kernel::System::ITSMChange;
 use Kernel::System::ITSMChange::ITSMWorkOrder;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.56 $) [1];
+$VERSION = qw($Revision: 1.56.2.1 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -800,14 +800,6 @@ sub _MaskForm {
                 typeAhead           => $UserAutoCompleteConfig->{TypeAhead}           || 'false',
                 maxResultsDisplayed => $UserAutoCompleteConfig->{MaxResultsDisplayed} || 20,
                 InputNr             => 1,
-            },
-        );
-
-        # return for CABAgent
-        $Self->{LayoutObject}->Block(
-            Name => 'UserSearchAutoCompleteReturnElements',
-            Data => {
-                InputNr => 1,
             },
         );
 

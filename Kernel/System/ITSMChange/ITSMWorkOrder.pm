@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.114.2.1 2010-09-08 14:06:01 bes Exp $
+# $Id: ITSMWorkOrder.pm,v 1.114.2.2 2010-09-08 14:22:45 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -27,7 +27,7 @@ use Kernel::System::Cache;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.114.2.1 $) [1];
+$VERSION = qw($Revision: 1.114.2.2 $) [1];
 
 =head1 NAME
 
@@ -2923,7 +2923,7 @@ sub _CheckWorkOrderParams {
         return if $Param{$Option} !~ m{ \A \d\d\d\d-\d\d-\d\d \s \d\d:\d\d:\d\d \z }xms;
     }
 
-    # check workorder agent
+    # check workorder agent, agents without permission are allowed
     if ( exists $Param{WorkOrderAgentID} && defined $Param{WorkOrderAgentID} ) {
 
         # WorkOrderAgent must be an agent
@@ -3407,6 +3407,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.114.2.1 $ $Date: 2010-09-08 14:06:01 $
+$Revision: 1.114.2.2 $ $Date: 2010-09-08 14:22:45 $
 
 =cut

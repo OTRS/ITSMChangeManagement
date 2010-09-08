@@ -1,9 +1,9 @@
 # --
 # Kernel/Modules/AdminITSMChangeNotification.pm - to add/update/delete
 # notification rules for ITSM change management
-# Copyright (C) 2003-2010 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: AdminITSMChangeNotification.pm,v 1.13 2010-01-16 19:58:00 ub Exp $
+# $Id: AdminITSMChangeNotification.pm,v 1.13.4.1 2010-09-08 09:37:50 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -20,7 +20,7 @@ use Kernel::System::ITSMChange::Notification;
 use Kernel::System::Valid;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.13 $) [1];
+$VERSION = qw($Revision: 1.13.4.1 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -192,11 +192,14 @@ sub _Edit {
         Name => 'EventID',
         SelectedID => $Param{EventID},
     );
+
+    my $RecipientList = $Self->{NotificationObject}->RecipientList( UserID => 1 ) || [];
     $Param{RecipientOption} = $Self->{LayoutObject}->BuildSelection(
-        Data => $Self->{NotificationObject}->RecipientList( UserID => 1 ) || [],
-        Name => 'RecipientIDs',
-        Multiple   => 1,
-        Size       => 13,                    # current number of default recipients, avoid scrolling
+        Data     => $RecipientList,
+        Name     => 'RecipientIDs',
+        Multiple => 1,
+        Size     => scalar( @{$RecipientList} )
+            || 1,    # current number of default recipients, avoid scrolling
         SelectedID => $Param{RecipientIDs},
     );
 

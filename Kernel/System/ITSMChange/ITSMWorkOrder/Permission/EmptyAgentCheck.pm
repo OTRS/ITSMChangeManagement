@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange/ITSMWorkOrder/Permission/EmptyAgentCheck.pm - grant permission when agent is empty
-# Copyright (C) 2003-2010 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: EmptyAgentCheck.pm,v 1.2 2010-01-30 11:23:31 bes Exp $
+# $Id: EmptyAgentCheck.pm,v 1.2.4.1 2010-09-08 13:37:19 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -15,7 +15,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.2 $) [1];
+$VERSION = qw($Revision: 1.2.4.1 $) [1];
 
 =head1 NAME
 
@@ -183,9 +183,6 @@ sub Run {
     # allow access, when there is no workorder agent
     return 1 if !$WorkOrder->{WorkOrderAgentID};
 
-    # deny access, when workorder agent is empty
-    return if !$WorkOrder->{WorkOrderAgentID};
-
     # deny rw access otherwise
     return;
 }
@@ -194,15 +191,15 @@ sub Run {
 
 =head1 TERMS AND CONDITIONS
 
-This software is part of the OTRS project (http://otrs.org/).
+This software is part of the OTRS project (L<http://otrs.org/>).
 
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
-did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Id: EmptyAgentCheck.pm,v 1.2 2010-01-30 11:23:31 bes Exp $
+$Id: EmptyAgentCheck.pm,v 1.2.4.1 2010-09-08 13:37:19 bes Exp $
 
 =cut
 

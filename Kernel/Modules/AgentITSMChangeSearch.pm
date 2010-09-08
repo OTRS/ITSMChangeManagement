@@ -2,7 +2,7 @@
 # Kernel/Modules/AgentITSMChangeSearch.pm - module for change search
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: AgentITSMChangeSearch.pm,v 1.56.2.1 2010-09-08 13:04:22 bes Exp $
+# $Id: AgentITSMChangeSearch.pm,v 1.56.2.2 2010-09-08 15:05:53 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -20,7 +20,7 @@ use Kernel::System::ITSMChange;
 use Kernel::System::ITSMChange::ITSMWorkOrder;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.56.2.1 $) [1];
+$VERSION = qw($Revision: 1.56.2.2 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -529,7 +529,7 @@ sub _MaskForm {
     my @ConfiguredWorkOrderFreeTextFields = @{ $Param{ConfiguredWorkOrderFreeTextFields} };
 
     # Get a complete list of users
-    # for the selection 'ChangeBuilder', 'ChangeManager' and 'created by user'.
+    # for the selection 'ChangeBuilder', 'ChangeManager', 'WorkOrderAgent' and 'created by user'.
     # Out of office nice might be appended to the values.
     my %Users = $Self->{UserObject}->UserList(
         Type  => 'Long',

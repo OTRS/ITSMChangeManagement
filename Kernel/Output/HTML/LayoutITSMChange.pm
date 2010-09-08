@@ -2,7 +2,7 @@
 # Kernel/Output/HTML/LayoutITSMChange.pm - provides generic HTML output for ITSMChange
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: LayoutITSMChange.pm,v 1.44 2010-06-30 21:20:11 ub Exp $
+# $Id: LayoutITSMChange.pm,v 1.44.2.1 2010-09-08 14:54:14 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -17,7 +17,7 @@ use warnings;
 use Kernel::Output::HTML::Layout;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.44 $) [1];
+$VERSION = qw($Revision: 1.44.2.1 $) [1];
 
 =over 4
 
@@ -1162,7 +1162,7 @@ sub _ITSMChangeGetWorkOrderGraph {
         $WorkOrderInformation{WorkOrderOpacity} = 'inactive';
     }
 
-    # set workorder agent
+    # add data on the workorder agent
     if ( $WorkOrderInformation{WorkOrderAgentID} ) {
         my %WorkOrderAgentData = $Self->{UserObject}->GetUserData(
             UserID => $WorkOrderInformation{WorkOrderAgentID},
@@ -1188,7 +1188,7 @@ sub _ITSMChangeGetWorkOrderGraph {
         },
     );
 
-    # check the last thing: UserLogin
+    # show WorkOrderAgent or '-'
     if ( $WorkOrderInformation{WorkOrderAgentUserLogin} ) {
         $Self->Block(
             Name => 'WorkOrderAgent',

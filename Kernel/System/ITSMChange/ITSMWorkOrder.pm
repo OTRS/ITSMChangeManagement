@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.114.2.2 2010-09-08 14:22:45 bes Exp $
+# $Id: ITSMWorkOrder.pm,v 1.114.2.3 2010-09-13 11:26:54 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -27,7 +27,7 @@ use Kernel::System::Cache;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.114.2.2 $) [1];
+$VERSION = qw($Revision: 1.114.2.3 $) [1];
 
 =head1 NAME
 
@@ -2106,6 +2106,15 @@ the permission modules that were registered in the permission registry.
 The standard permission registry is B<ITSMWorkOrder::Permission>, but
 that can be overridden with the parameter C<PermissionRegistry>.
 
+The registered permission modules are run in the alphabetical order of
+their registry keys.
+Overall permission is granted when a permission module, which has the attribute 'Granted' set,
+grants permission. Overall permission is denied when a permission module, which has the attribute 'Required'
+set, denies permission. Overall permission is also denied when when all permission module were asked
+without coming to an conclusion.
+
+Approval is indicated by the return value 1. Denial is indicated by returning an empty list.
+
 The optional option C<LogNo> turns off logging when access was denied.
 This is useful when the method is used for checking whether a link or an action should be shown.
 
@@ -3407,6 +3416,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.114.2.2 $ $Date: 2010-09-08 14:22:45 $
+$Revision: 1.114.2.3 $ $Date: 2010-09-13 11:26:54 $
 
 =cut

@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/Template/ITSMWorkOrder.pm - all template functions for workorders
 # Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.5 2010-06-29 12:56:31 sb Exp $
+# $Id: ITSMWorkOrder.pm,v 1.5.2.1 2010-11-02 10:56:01 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -21,7 +21,7 @@ use Kernel::System::Valid;
 use Data::Dumper;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.5 $) [1];
+$VERSION = qw($Revision: 1.5.2.1 $) [1];
 
 =head1 NAME
 
@@ -181,6 +181,10 @@ sub Serialize {
             Class   => 'ITSM::ChangeManagement::WorkOrder::State',
         );
         $CleanWorkOrder->{WorkOrderStateID} = $NextStateIDs->[0];
+
+        # reset actual start and end time
+        $CleanWorkOrder->{ActualStartTime} = undef;
+        $CleanWorkOrder->{ActualEndTime}   = undef;
     }
 
     # add workorder freekey and freetext fields to list of wanted attributes
@@ -607,6 +611,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.5 $ $Date: 2010-06-29 12:56:31 $
+$Revision: 1.5.2.1 $ $Date: 2010-11-02 10:56:01 $
 
 =cut

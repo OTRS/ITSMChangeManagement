@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <otrs_config version="1.0" init="Config">
-    <CVS>$Id: ITSMChangeManagement.xml,v 1.220.2.1 2010-09-08 09:22:33 bes Exp $</CVS>
+    <CVS>$Id: ITSMChangeManagement.xml,v 1.220.2.2 2010-12-19 16:02:05 ub Exp $</CVS>
     <ConfigItem Name="Frontend::Module###AdminITSMChangeCIPAllocate" Required="0" Valid="1">
         <Description Lang="en">Frontend module registration for the AdminITSMChangeCIPAllocate configuration in the admin area.</Description>
         <Description Lang="de">Frontendmodul-Registration der AdminITSMChangeCIPAllocate Konfiguration im Admin-Bereich.</Description>
@@ -1269,20 +1269,7 @@
             </Hash>
         </Setting>
     </ConfigItem>
-    <ConfigItem Name="ITSMChange::EventModule###02-Condition" Required="0" Valid="1">
-        <Description Lang="en">ITSM event module that matches conditions and executes actions.</Description>
-        <Description Lang="de">ITSM Event Modul zum Überprüfen von Conditions und zum Ausführen von Actions.</Description>
-        <Group>ITSM Change Management</Group>
-        <SubGroup>Core::ITSMChange::Event</SubGroup>
-        <Setting>
-            <Hash>
-                <Item Key="Module">Kernel::System::ITSMChange::Event::Condition</Item>
-                <Item Key="Event">(ChangeAddPost|ChangeUpdatePost)</Item>
-                <Item Key="Transaction">0</Item>
-            </Hash>
-        </Setting>
-    </ConfigItem>
-    <ConfigItem Name="ITSMChange::EventModule###03-HistoryAdd" Required="0" Valid="1">
+    <ConfigItem Name="ITSMChange::EventModule###02-HistoryAdd" Required="0" Valid="1">
         <Description Lang="en">ITSM event module updates the history of changes.</Description>
         <Description Lang="de">ITSM Event Modul aktualisiert die Historie von Changes.</Description>
         <Group>ITSM Change Management</Group>
@@ -1291,6 +1278,19 @@
             <Hash>
                 <Item Key="Module">Kernel::System::ITSMChange::Event::HistoryAdd</Item>
                 <Item Key="Event">(ChangeAddPost|ChangeUpdatePost|ChangeCABUpdatePost|ChangeCABDeletePost|ChangeLinkAddPost|ChangeLinkDeletePost|ChangeAttachmentAddPost|ChangeAttachmentDeletePost)</Item>
+                <Item Key="Transaction">0</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMChange::EventModule###03-Condition" Required="0" Valid="1">
+        <Description Lang="en">ITSM event module that matches conditions and executes actions.</Description>
+        <Description Lang="de">ITSM Event Modul zum Überprüfen von Conditions und zum Ausführen von Actions.</Description>
+        <Group>ITSM Change Management</Group>
+        <SubGroup>Core::ITSMChange::Event</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::ITSMChange::Event::Condition</Item>
+                <Item Key="Event">(ChangeAddPost|ChangeUpdatePost)</Item>
                 <Item Key="Transaction">0</Item>
             </Hash>
         </Setting>
@@ -1360,20 +1360,7 @@
             </Hash>
         </Setting>
     </ConfigItem>
-    <ConfigItem Name="ITSMWorkOrder::EventModule###04-Condition" Required="0" Valid="1">
-        <Description Lang="en">ITSM event module that matches conditions and executes actions.</Description>
-        <Description Lang="de">ITSM Event Modul zum Überprüfen von Conditions und zum Ausführen von Actions.</Description>
-        <Group>ITSM Change Management</Group>
-        <SubGroup>Core::ITSMWorkOrder::Event</SubGroup>
-        <Setting>
-            <Hash>
-                <Item Key="Module">Kernel::System::ITSMChange::Event::Condition</Item>
-                <Item Key="Event">(WorkOrderAddPost|WorkOrderUpdatePost)</Item>
-                <Item Key="Transaction">0</Item>
-            </Hash>
-        </Setting>
-    </ConfigItem>
-    <ConfigItem Name="ITSMWorkOrder::EventModule###05-HistoryAdd" Required="0" Valid="1">
+    <ConfigItem Name="ITSMWorkOrder::EventModule###04-HistoryAdd" Required="0" Valid="1">
         <Description Lang="en">ITSM event module updates the history of workorders.</Description>
         <Description Lang="de">ITSM Event Modul aktualisiert die Historie von Workorders.</Description>
         <Group>ITSM Change Management</Group>
@@ -1382,6 +1369,19 @@
             <Hash>
                 <Item Key="Module">Kernel::System::ITSMChange::Event::HistoryAdd</Item>
                 <Item Key="Event">(WorkOrderAddPost|WorkOrderUpdatePost|WorkOrderDeletePost|WorkOrderLinkAddPost|WorkOrderLinkDeletePost|WorkOrderAttachmentAddPost|WorkOrderAttachmentDeletePost)</Item>
+                <Item Key="Transaction">0</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMWorkOrder::EventModule###05-Condition" Required="0" Valid="1">
+        <Description Lang="en">ITSM event module that matches conditions and executes actions.</Description>
+        <Description Lang="de">ITSM Event Modul zum Überprüfen von Conditions und zum Ausführen von Actions.</Description>
+        <Group>ITSM Change Management</Group>
+        <SubGroup>Core::ITSMWorkOrder::Event</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::ITSMChange::Event::Condition</Item>
+                <Item Key="Event">(WorkOrderAddPost|WorkOrderUpdatePost)</Item>
                 <Item Key="Transaction">0</Item>
             </Hash>
         </Setting>

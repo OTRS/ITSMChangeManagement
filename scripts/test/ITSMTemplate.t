@@ -1,8 +1,8 @@
 # --
-# ITSMTemplate.t - change tests
+# ITSMTemplate.t - change management template tests
 # Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMTemplate.t,v 1.5.4.1 2011-02-05 14:18:16 bes Exp $
+# $Id: ITSMTemplate.t,v 1.5.4.2 2011-02-06 12:08:16 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -24,6 +24,7 @@ use Kernel::System::ITSMChange::ITSMCondition;
 use Kernel::System::ITSMChange::ITSMWorkOrder;
 use Kernel::System::ITSMChange::Template;
 use Kernel::System::Valid;
+use Kernel::System::HTMLUtils;
 
 # ---------------------------------------------------------------------------- #
 # Note for developers:
@@ -43,6 +44,9 @@ $Self->{CustomerUserObject} = Kernel::System::CustomerUser->new( %{$Self} );
 $Self->{WorkOrderObject}    = Kernel::System::ITSMChange::ITSMWorkOrder->new( %{$Self} );
 $Self->{TemplateObject}     = Kernel::System::ITSMChange::Template->new( %{$Self} );
 $Self->{ValidObject}        = Kernel::System::Valid->new( %{$Self} );
+
+# create local objects that don't clobber $Self
+my $HTMLUtilsObject = Kernel::System::HTMLUtils->new( %{$Self} );
 
 # test if change object was created successfully
 $Self->True(
@@ -216,6 +220,23 @@ my %ChangeDefinitions = (
         ChangeBuilderID => 1,
         CABAgents       => [
             1,
+        ],
+    },
+    EntityChange => {
+        ChangeTitle => 'Entity Change - Title - ' . $UniqueSignature,
+        Description =>
+            'Entity Change - Description - registered:"&reg;" - non-blocking-space:"&nbsp;" - '
+            . $UniqueSignature,
+        Justification =>
+            'Entity Change - Justification - registered:"&reg;" - non-blocking-space:"&nbsp;" - '
+            . $UniqueSignature,
+        ChangeManagerID => 1,
+        ChangeBuilderID => 1,
+        CABAgents       => [
+            1,
+        ],
+        CABCustomers => [
+            @CustomerUserIDs,
         ],
     },
     ContainerChange => {
@@ -461,6 +482,13 @@ my %TemplateDefinitions = (
         ChangeID => $CreatedChangeID{UnicodeChange},
         UserID   => 1,
     },
+    EntityChange => {
+        Name     => 'Entity Change Template - ' . $UniqueSignature,
+        Type     => 'ITSMChange',
+        ValidID  => $Self->{ValidObject}->ValidLookup( Valid => 'valid' ),
+        ChangeID => $CreatedChangeID{EntityChange},
+        UserID   => 1,
+    },
     ASCIIWorkOrder => {
         Name        => 'Ascii WorkOrder Template - ' . $UniqueSignature,
         Type        => 'ITSMWorkOrder',
@@ -594,6 +622,24 @@ for my $ChangeTemplateName ( keys %CreatedChangeID ) {
             $ChangeAttribute,
             $ReferenceAttribute,
             "Test $TestCount: |- $RequestedAttribute (ChangeID: $ChangeID)",
+        );
+    }
+
+    # check plain version of some arguments, especially whether the result of ToAscii
+    # is correctly saved into the database
+    ARGUMENT:
+    for my $Attribute (qw(Description Justification)) {
+        next ARGUMENT if !$ChangeDefinitions{$ChangeTemplateName}->{$Attribute};
+
+        my $ChangeAttribute = $Change->{"${Attribute}Plain"} || '';
+        my $ReferenceAttribute = $HTMLUtilsObject->ToAscii(
+            String => $ChangeDefinitions{$ChangeTemplateName}->{$Attribute},
+        );
+
+        $Self->Is(
+            $ChangeAttribute,
+            $ReferenceAttribute,
+            "Test $TestCount: |- ${Attribute}Plain (ChangeID: $ChangeID)",
         );
     }
 

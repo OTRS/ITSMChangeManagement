@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange.pm - all change functions
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMChange.pm,v 1.259.2.1 2010-09-13 11:26:54 bes Exp $
+# $Id: ITSMChange.pm,v 1.259.2.2 2011-02-06 12:08:15 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -30,7 +30,7 @@ use Kernel::System::Cache;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.259.2.1 $) [1];
+$VERSION = qw($Revision: 1.259.2.2 $) [1];
 
 =head1 NAME
 
@@ -202,6 +202,13 @@ sub ChangeAdd {
         $Param{"${Argument}Plain"} = $Self->{HTMLUtilsObject}->ToAscii(
             String => $Param{$Argument},
         );
+
+        # Even when passed a plain ASCII string,
+        # ToAscii() can return a non-utf8 string with chars in the extended range.
+        # Upgrade to utf-8 in order to comply to the OTRS-convention.
+        if ( $Self->{EncodeObject}->EncodeInternalUsed() ) {
+            utf8::upgrade( $Param{"${Argument}Plain"} );
+        }
     }
 
     # check the parameters
@@ -429,6 +436,13 @@ sub ChangeUpdate {
         $Param{"${Argument}Plain"} = $Self->{HTMLUtilsObject}->ToAscii(
             String => $Param{$Argument},
         );
+
+        # Even when passed a plain ASCII string,
+        # ToAscii() can return a non-utf8 string with chars in the extended range.
+        # Upgrade to utf-8 in order to comply to the OTRS-convention.
+        if ( $Self->{EncodeObject}->EncodeInternalUsed() ) {
+            utf8::upgrade( $Param{"${Argument}Plain"} );
+        }
     }
 
     # check the given parameters
@@ -3685,6 +3699,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.259.2.1 $ $Date: 2010-09-13 11:26:54 $
+$Revision: 1.259.2.2 $ $Date: 2011-02-06 12:08:15 $
 
 =cut

@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
 # Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.114.2.4 2011-01-04 13:04:35 ub Exp $
+# $Id: ITSMWorkOrder.pm,v 1.114.2.5 2011-02-06 12:08:16 bes Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -27,7 +27,7 @@ use Kernel::System::Cache;
 use base qw(Kernel::System::EventHandler);
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.114.2.4 $) [1];
+$VERSION = qw($Revision: 1.114.2.5 $) [1];
 
 =head1 NAME
 
@@ -229,6 +229,12 @@ sub WorkOrderAdd {
             String => $Param{$Argument},
         );
 
+        # Even when passed a plain ASCII string,
+        # ToAscii() can return a non-utf8 string with chars in the extended range.
+        # Upgrade to utf-8 in order to comply to the OTRS-convention.
+        if ( $Self->{EncodeObject}->EncodeInternalUsed() ) {
+            utf8::upgrade( $Param{"${Argument}Plain"} );
+        }
     }
 
     # check the parameters
@@ -480,6 +486,13 @@ sub WorkOrderUpdate {
         $Param{"${Argument}Plain"} = $Self->{HTMLUtilsObject}->ToAscii(
             String => $Param{$Argument},
         );
+
+        # Even when passed a plain ASCII string,
+        # ToAscii() can return a non-utf8 string with chars in the extended range.
+        # Upgrade to utf-8 in order to comply to the OTRS-convention.
+        if ( $Self->{EncodeObject}->EncodeInternalUsed() ) {
+            utf8::upgrade( $Param{"${Argument}Plain"} );
+        }
     }
 
     # default values for planned effort and accounted time
@@ -3416,6 +3429,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.114.2.4 $ $Date: 2011-01-04 13:04:35 $
+$Revision: 1.114.2.5 $ $Date: 2011-02-06 12:08:16 $
 
 =cut

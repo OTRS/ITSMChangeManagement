@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
 # --
 # bin/otrs.ITSMChangesCheck.pl - check itsm changes
-# Copyright (C) 2003-2010 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: otrs.ITSMChangesCheck.pl,v 1.10 2010-02-26 07:57:03 reb Exp $
+# $Id: otrs.ITSMChangesCheck.pl,v 1.10.4.1 2011-02-11 17:04:55 ub Exp $
 # --
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU AFFERO General Public License as published by
@@ -30,8 +30,8 @@ use FindBin qw($RealBin);
 use lib dirname($RealBin);
 use lib dirname($RealBin) . '/Kernel/cpan-lib';
 
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.10 $) [1];
+use vars qw(@ISA $VERSION);
+$VERSION = qw($Revision: 1.10.4.1 $) [1];
 
 use Kernel::Config;
 use Kernel::System::Encode;
@@ -47,7 +47,12 @@ use Kernel::System::ITSMChange::ITSMWorkOrder;
 
     package OTRSMockObject;
 
-    use base 'Kernel::System::EventHandler';
+    use Kernel::System::EventHandler;
+    use vars qw(@ISA);
+
+    @ISA = (
+        'Kernel::System::EventHandler',
+    );
 
     sub new {
         my ( $Class, %Objects ) = @_;
@@ -91,7 +96,7 @@ my $MockedObject = OTRSMockObject->new(%CommonObject);
 # check args
 my $Command = shift || '--help';
 print "otrs.ITSMChangesCheck.pl <Revision $VERSION> - check itsm changes\n";
-print "Copyright (C) 2003-2010 OTRS AG, http://otrs.com/\n";
+print "Copyright (C) 2001-2011 OTRS AG, http://otrs.org/\n";
 
 # if sysconfig option is disabled -> exit
 my $SysConfig = $CommonObject{ConfigObject}->Get('ITSMChange::TimeReachedNotifications');

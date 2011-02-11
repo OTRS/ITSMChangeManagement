@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange/Notification.pm - lib for notifications in change management
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: Notification.pm,v 1.41 2010-05-21 10:22:12 ub Exp $
+# $Id: Notification.pm,v 1.41.4.1 2011-02-11 17:04:55 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -14,6 +14,7 @@ package Kernel::System::ITSMChange::Notification;
 use strict;
 use warnings;
 
+use Kernel::System::EventHandler;
 use Kernel::System::CustomerUser;
 use Kernel::System::Email;
 use Kernel::System::HTMLUtils;
@@ -23,10 +24,12 @@ use Kernel::System::Notification;
 use Kernel::System::User;
 use Kernel::System::Valid;
 
-use base qw(Kernel::System::EventHandler);
+use vars qw(@ISA $VERSION);
+$VERSION = qw($Revision: 1.41.4.1 $) [1];
 
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.41 $) [1];
+@ISA = (
+    'Kernel::System::EventHandler',
+);
 
 =head1 NAME
 
@@ -1382,12 +1385,12 @@ This software is part of the OTRS project (http://otrs.org/).
 
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
-did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =cut
 
 =head1 VERSION
 
-$Revision: 1.41 $ $Date: 2010-05-21 10:22:12 $
+$Revision: 1.41.4.1 $ $Date: 2011-02-11 17:04:55 $
 
 =cut

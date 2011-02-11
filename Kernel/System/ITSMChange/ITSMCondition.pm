@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange/ITSMCondition.pm - all condition functions
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMCondition.pm,v 1.52 2010-07-23 16:24:59 ub Exp $
+# $Id: ITSMCondition.pm,v 1.52.2.1 2011-02-11 17:04:55 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -16,15 +16,24 @@ use warnings;
 
 use Kernel::System::Valid;
 
-use base qw(Kernel::System::EventHandler);
-use base qw(Kernel::System::ITSMChange::ITSMCondition::Object);
-use base qw(Kernel::System::ITSMChange::ITSMCondition::Attribute);
-use base qw(Kernel::System::ITSMChange::ITSMCondition::Operator);
-use base qw(Kernel::System::ITSMChange::ITSMCondition::Expression);
-use base qw(Kernel::System::ITSMChange::ITSMCondition::Action);
+use Kernel::System::EventHandler;
+use Kernel::System::ITSMChange::ITSMCondition::Object;
+use Kernel::System::ITSMChange::ITSMCondition::Attribute;
+use Kernel::System::ITSMChange::ITSMCondition::Operator;
+use Kernel::System::ITSMChange::ITSMCondition::Expression;
+use Kernel::System::ITSMChange::ITSMCondition::Action;
 
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.52 $) [1];
+use vars qw(@ISA $VERSION);
+$VERSION = qw($Revision: 1.52.2.1 $) [1];
+
+@ISA = (
+    'Kernel::System::EventHandler',
+    'Kernel::System::ITSMChange::ITSMCondition::Object',
+    'Kernel::System::ITSMChange::ITSMCondition::Attribute',
+    'Kernel::System::ITSMChange::ITSMCondition::Operator',
+    'Kernel::System::ITSMChange::ITSMCondition::Expression',
+    'Kernel::System::ITSMChange::ITSMCondition::Action',
+);
 
 =head1 NAME
 
@@ -1374,6 +1383,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.52 $ $Date: 2010-07-23 16:24:59 $
+$Revision: 1.52.2.1 $ $Date: 2011-02-11 17:04:55 $
 
 =cut

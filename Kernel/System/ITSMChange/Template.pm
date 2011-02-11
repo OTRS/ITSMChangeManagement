@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange/Template.pm - all template functions
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: Template.pm,v 1.55 2010-06-29 12:56:31 sb Exp $
+# $Id: Template.pm,v 1.55.2.1 2011-02-11 17:04:55 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -14,6 +14,7 @@ package Kernel::System::ITSMChange::Template;
 use strict;
 use warnings;
 
+use Kernel::System::EventHandler;
 use Kernel::System::ITSMChange;
 use Kernel::System::ITSMChange::ITSMWorkOrder;
 use Kernel::System::ITSMChange::ITSMCondition;
@@ -22,10 +23,12 @@ use Kernel::System::Valid;
 use Kernel::System::VirtualFS;
 use Data::Dumper;
 
-use base qw(Kernel::System::EventHandler);
+use vars qw(@ISA $VERSION);
+$VERSION = qw($Revision: 1.55.2.1 $) [1];
 
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.55 $) [1];
+@ISA = (
+    'Kernel::System::EventHandler',
+);
 
 =head1 NAME
 
@@ -1406,6 +1409,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.55 $ $Date: 2010-06-29 12:56:31 $
+$Revision: 1.55.2.1 $ $Date: 2011-02-11 17:04:55 $
 
 =cut

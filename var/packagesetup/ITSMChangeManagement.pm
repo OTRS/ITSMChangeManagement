@@ -1,8 +1,8 @@
 # --
 # ITSMChangeManagement.pm - code to excecute during package installation
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMChangeManagement.pm,v 1.60 2010-05-21 10:22:12 ub Exp $
+# $Id: ITSMChangeManagement.pm,v 1.60.4.1 2011-02-15 13:33:46 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -16,6 +16,7 @@ use warnings;
 
 use Kernel::Config;
 use Kernel::System::Config;
+use Kernel::System::Cache;
 use Kernel::System::CSV;
 use Kernel::System::GeneralCatalog;
 use Kernel::System::Group;
@@ -34,7 +35,7 @@ use Kernel::System::User;
 use Kernel::System::Valid;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.60 $) [1];
+$VERSION = qw($Revision: 1.60.4.1 $) [1];
 
 =head1 NAME
 
@@ -146,6 +147,7 @@ sub new {
 
     # create additional objects
     $Self->{ConfigObject} = Kernel::Config->new();
+    $Self->{CacheObject}  = Kernel::System::Cache->new( %{$Self} );
     $Self->{CSVObject}    = Kernel::System::CSV->new( %{$Self} );
     $Self->{GroupObject}  = Kernel::System::Group->new( %{$Self} );
     $Self->{UserObject}   = Kernel::System::User->new( %{$Self} );
@@ -219,6 +221,11 @@ sub CodeInstall {
     # add system notifications
     $Self->_AddSystemNotifications();
 
+    # cleanup cache
+    $Self->{CacheObject}->CleanUp(
+        Type => 'ITSMChangeManagement',
+    );
+
     return 1;
 }
 
@@ -262,6 +269,11 @@ sub CodeReinstall {
     # set default StateMachine settings
     $Self->_StateMachineDefaultSet();
 
+    # cleanup cache
+    $Self->{CacheObject}->CleanUp(
+        Type => 'ITSMChangeManagement',
+    );
+
     return 1;
 }
 
@@ -283,6 +295,11 @@ sub CodeUpgrade {
 
     # set default CIP matrix (this is only done if no matrix exists)
     $Self->_CIPDefaultMatrixSet();
+
+    # cleanup cache
+    $Self->{CacheObject}->CleanUp(
+        Type => 'ITSMChangeManagement',
+    );
 
     return 1;
 }
@@ -385,6 +402,11 @@ sub CodeUninstall {
 
     # delete system notifications
     $Self->_DeleteSystemNotifications();
+
+    # cleanup cache
+    $Self->{CacheObject}->CleanUp(
+        Type => 'ITSMChangeManagement',
+    );
 
     return 1;
 }
@@ -2300,12 +2322,12 @@ This software is part of the OTRS project (http://otrs.org/).
 
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
-did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =cut
 
 =head1 VERSION
 
-$Revision: 1.60 $ $Date: 2010-05-21 10:22:12 $
+$Revision: 1.60.4.1 $ $Date: 2011-02-15 13:33:46 $
 
 =cut

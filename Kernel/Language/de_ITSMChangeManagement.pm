@@ -1,8 +1,8 @@
 # --
 # Kernel/Language/de_ITSMChangeManagement.pm - the german translation of ITSMChangeManagement
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: de_ITSMChangeManagement.pm,v 1.76 2010-06-29 12:56:31 sb Exp $
+# $Id: de_ITSMChangeManagement.pm,v 1.76.2.1 2011-04-04 13:52:30 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -15,7 +15,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.76 $) [1];
+$VERSION = qw($Revision: 1.76.2.1 $) [1];
 
 sub Data {
     my $Self = shift;
@@ -165,21 +165,21 @@ sub Data {
     # condition history
     $Lang->{'ChangeHistory::ConditionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ConditionAddID'}     = 'Neue Bedingung (ID=%s)';
-    $Lang->{'ChangeHistory::ConditionUpdate'}    = '%s (Bedingung ID=%s): Neu: %s -> Old: %s';
+    $Lang->{'ChangeHistory::ConditionUpdate'}    = '%s (Bedingung ID=%s): Neu: %s -> Alt: %s';
     $Lang->{'ChangeHistory::ConditionDelete'}    = 'Bedingung (ID=%s) gelöscht';
     $Lang->{'ChangeHistory::ConditionDeleteAll'} = 'Alle Bedingungen von Change (ID=%s) gelöscht';
 
     # expression history
     $Lang->{'ChangeHistory::ExpressionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ExpressionAddID'}     = 'Neue Expression (ID=%s)';
-    $Lang->{'ChangeHistory::ExpressionUpdate'}    = '%s (Expression ID=%s): Neu: %s -> Old: %s';
+    $Lang->{'ChangeHistory::ExpressionUpdate'}    = '%s (Expression ID=%s): Neu: %s -> Alt: %s';
     $Lang->{'ChangeHistory::ExpressionDelete'}    = 'Expression (ID=%s) gelöscht';
     $Lang->{'ChangeHistory::ExpressionDeleteAll'} = 'Alle logischen Ausdrücke von Bedingung (ID=%s) gelöscht';
 
     # action history
     $Lang->{'ChangeHistory::ActionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ActionAddID'}     = 'Neue Action (ID=%s)';
-    $Lang->{'ChangeHistory::ActionUpdate'}    = '%s (Action ID=%s): Neu: %s -> Old: %s';
+    $Lang->{'ChangeHistory::ActionUpdate'}    = '%s (Action ID=%s): Neu: %s -> Alt: %s';
     $Lang->{'ChangeHistory::ActionDelete'}    = 'Action (ID=%s) gelöscht';
     $Lang->{'ChangeHistory::ActionDeleteAll'} = 'Alle Aktionen von Bedingung (ID=%s) gelöscht';
     $Lang->{'ChangeHistory::ActionExecute'}   = 'Aktion (ID=%s) ausgeführt: %s';

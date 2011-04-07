@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange/ITSMCondition/Operator/ITSMWorkOrder.pm - all itsm workorder operator functions
-# Copyright (C) 2003-2010 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.6 2010-04-27 20:51:14 ub Exp $
+# $Id: ITSMWorkOrder.pm,v 1.6.4.1 2011-04-07 11:56:38 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -15,7 +15,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.6 $) [1];
+$VERSION = qw($Revision: 1.6.4.1 $) [1];
 
 use Kernel::System::ITSMChange::ITSMWorkOrder;
 
@@ -141,6 +141,11 @@ sub Set {
     # ( this will prevent infinite event looping! )
     return 1 if $WorkOrder->{ $Param{Attribute} } eq $Param{ActionValue};
 
+    # if the workorder agent should be deleted it has to be undefined
+    if ( $Param{Attribute} eq 'WorkOrderAgentID' && !$Param{ActionValue} ) {
+        $Param{ActionValue} = undef;
+    }
+
     # update workorder and return update result
     return $Self->{WorkOrderObject}->WorkOrderUpdate(
         WorkOrderID       => $Param{Selector},
@@ -212,12 +217,12 @@ This software is part of the OTRS project (http://otrs.org/).
 
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
-did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =cut
 
 =head1 VERSION
 
-$Revision: 1.6 $ $Date: 2010-04-27 20:51:14 $
+$Revision: 1.6.4.1 $ $Date: 2011-04-07 11:56:38 $
 
 =cut

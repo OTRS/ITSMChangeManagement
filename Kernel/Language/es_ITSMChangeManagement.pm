@@ -1,9 +1,9 @@
 # --
 # Kernel/Language/es_ITSMChangeManagement.pm - the spanish translation of ITSMChangeManagement
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # Copyright (C) 2010 Leonardo Certuche <leonardo.certuche at itcon-ltda.com>
 # --
-# $Id: es_ITSMChangeManagement.pm,v 1.7 2010-06-29 12:56:31 sb Exp $
+# $Id: es_ITSMChangeManagement.pm,v 1.7.2.1 2011-04-14 16:52:12 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -16,7 +16,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.7 $) [1];
+$VERSION = qw($Revision: 1.7.2.1 $) [1];
 
 sub Data {
     my $Self = shift;
@@ -133,10 +133,10 @@ sub Data {
 
     # Change history
     $Lang->{'ChangeHistory::ChangeAdd'}              = 'Nuevo Cambio (ID=%s)';
-    $Lang->{'ChangeHistory::ChangeUpdate'}           = '%s: Nuevo: %s -> Antiguo: %s';
+    $Lang->{'ChangeHistory::ChangeUpdate'}           = '%s: Nuevo: %s <- Antiguo: %s';
     $Lang->{'ChangeHistory::ChangeLinkAdd'}          = 'Vinculo a %s (ID=%s) adicionado';
     $Lang->{'ChangeHistory::ChangeLinkDelete'}       = 'Vinculo a %s (ID=%s) borrado';
-    $Lang->{'ChangeHistory::ChangeCABUpdate'}        = '%s: Nuevo: %s -> Antiguo: %s';
+    $Lang->{'ChangeHistory::ChangeCABUpdate'}        = '%s: Nuevo: %s <- Antiguo: %s';
     $Lang->{'ChangeHistory::ChangeCABDelete'}        = 'Comité de Cambios Eliminado %s';
     $Lang->{'ChangeHistory::ChangeAttachmentAdd'}    = 'Nuevo Adjunto: %s';
     $Lang->{'ChangeHistory::ChangeAttachmentDelete'} = 'Borrar Adjunto %s';
@@ -144,7 +144,7 @@ sub Data {
 
     # workorder history
     $Lang->{'WorkOrderHistory::WorkOrderAdd'}              = 'Nueva Orden de Trabajo (ID=%s)';
-    $Lang->{'WorkOrderHistory::WorkOrderUpdate'}           = '%s: Nueva: %s -> Antigua: %s';
+    $Lang->{'WorkOrderHistory::WorkOrderUpdate'}           = '%s: Nueva: %s <- Antigua: %s';
     $Lang->{'WorkOrderHistory::WorkOrderLinkAdd'}          = 'Vinculo a %s (ID=%s) adicionado';
     $Lang->{'WorkOrderHistory::WorkOrderLinkDelete'}       = 'Vinculo a %s (ID=%s) borrado';
     $Lang->{'WorkOrderHistory::WorkOrderDelete'}           = 'Orden de Trabajo (ID=%s) borrada';
@@ -153,7 +153,7 @@ sub Data {
 
     # long workorder history
     $Lang->{'WorkOrderHistory::WorkOrderAddWithWorkOrderID'}              = 'Nueva Orden de Trabajo (ID=%s)';
-    $Lang->{'WorkOrderHistory::WorkOrderUpdateWithWorkOrderID'}           = '(ID=%s) %s: Nueva: %s -> Antigua: %s';
+    $Lang->{'WorkOrderHistory::WorkOrderUpdateWithWorkOrderID'}           = '(ID=%s) %s: Nueva: %s <- Antigua: %s';
     $Lang->{'WorkOrderHistory::WorkOrderLinkAddWithWorkOrderID'}          = '(ID=%s) Vinculo a %s (ID=%s) adicionado';
     $Lang->{'WorkOrderHistory::WorkOrderLinkDeleteWithWorkOrderID'}       = '(ID=%s) Vinculo a %s (ID=%s) borrado';
     $Lang->{'WorkOrderHistory::WorkOrderDeleteWithWorkOrderID'}           = 'Orden de Trabajo (ID=%s) borrada';
@@ -163,21 +163,21 @@ sub Data {
     # condition history
     $Lang->{'ChangeHistory::ConditionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ConditionAddID'}     = 'Nueva Condición (ID=%s)';
-    $Lang->{'ChangeHistory::ConditionUpdate'}    = '%s (ID de la Condición=%s): Nuevo: %s -> Antiguo: %s';
+    $Lang->{'ChangeHistory::ConditionUpdate'}    = '%s (ID de la Condición=%s): Nuevo: %s <- Antiguo: %s';
     $Lang->{'ChangeHistory::ConditionDelete'}    = 'Codición (ID=%s) borrada';
     $Lang->{'ChangeHistory::ConditionDeleteAll'} = 'Todas las condiciones del cambio (ID=%s) borradas';
 
     # expression history
     $Lang->{'ChangeHistory::ExpressionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ExpressionAddID'}     = 'Nueva Expresión (ID=%s)';
-    $Lang->{'ChangeHistory::ExpressionUpdate'}    = '%s (ID de la Expresión=%s): Nueva: %s -> Antigua: %s';
+    $Lang->{'ChangeHistory::ExpressionUpdate'}    = '%s (ID de la Expresión=%s): Nueva: %s <- Antigua: %s';
     $Lang->{'ChangeHistory::ExpressionDelete'}    = 'Expresión (ID=%s) borrada';
     $Lang->{'ChangeHistory::ExpressionDeleteAll'} = 'Todas las Expresiones de la Condición (ID=%s) borradas';
 
     # action history
     $Lang->{'ChangeHistory::ActionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ActionAddID'}     = 'Nueva Acción (ID=%s)';
-    $Lang->{'ChangeHistory::ActionUpdate'}    = '%s (ID de la Acción=%s): Nueva: %s -> Antigua: %s';
+    $Lang->{'ChangeHistory::ActionUpdate'}    = '%s (ID de la Acción=%s): Nueva: %s <- Antigua: %s';
     $Lang->{'ChangeHistory::ActionDelete'}    = 'Acción (ID=%s) borrada';
     $Lang->{'ChangeHistory::ActionDeleteAll'} = 'Todas las Acciones de la Condición (ID=%s) borradas';
     $Lang->{'ChangeHistory::ActionExecute'}   = 'Acción (ID=%s) ejecutada: %s';

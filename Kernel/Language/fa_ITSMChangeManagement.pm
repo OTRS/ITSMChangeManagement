@@ -1,8 +1,8 @@
 ﻿# --
 # Kernel/Language/fa_ITSMChangeManagement.pm - the persian translation of ITSMChangeManagement
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: fa_ITSMChangeManagement.pm,v 1.1.2.1 2010-12-17 15:46:54 ub Exp $
+# $Id: fa_ITSMChangeManagement.pm,v 1.1.2.2 2011-04-14 16:52:12 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -15,7 +15,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.1.2.1 $) [1];
+$VERSION = qw($Revision: 1.1.2.2 $) [1];
 
 sub Data {
     my $Self = shift;
@@ -133,10 +133,10 @@ sub Data {
 
      # Change history
     $Lang->{'ChangeHistory::ChangeAdd'}              = 'تغییر جدید (ID=%s)';
-    $Lang->{'ChangeHistory::ChangeUpdate'}           = '%s: جدید: %s -> قدیم: %s';
+    $Lang->{'ChangeHistory::ChangeUpdate'}           = '%s: جدید: %s <- قدیم: %s';
     $Lang->{'ChangeHistory::ChangeLinkAdd'}          = 'ارتباط به %s (ID=%s) افزوده شد';
     $Lang->{'ChangeHistory::ChangeLinkDelete'}       = 'ارتباط به %s (ID=%s) حذف شد';
-    $Lang->{'ChangeHistory::ChangeCABUpdate'}        = '%s: جدید: %s -> قدیم: %s';
+    $Lang->{'ChangeHistory::ChangeCABUpdate'}        = '%s: جدید: %s <- قدیم: %s';
     $Lang->{'ChangeHistory::ChangeCABDelete'}        = 'هیئت مشاوران تغییر حذف شد %s';
     $Lang->{'ChangeHistory::ChangeAttachmentAdd'}    = 'پیوست جدید: %s';
     $Lang->{'ChangeHistory::ChangeAttachmentDelete'} = 'پیوست حذف شد %s';
@@ -144,7 +144,7 @@ sub Data {
 
     # workorder history
     $Lang->{'WorkOrderHistory::WorkOrderAdd'}              = 'دستور کار جدید (ID=%s)';
-    $Lang->{'WorkOrderHistory::WorkOrderUpdate'}           = '%s: جدید: %s -> قدیم: %s';
+    $Lang->{'WorkOrderHistory::WorkOrderUpdate'}           = '%s: جدید: %s <- قدیم: %s';
     $Lang->{'WorkOrderHistory::WorkOrderLinkAdd'}          = 'ارتباط به %s (ID=%s) افزوده شد';
     $Lang->{'WorkOrderHistory::WorkOrderLinkDelete'}       = 'ارتباط به %s (ID=%s) حذف شد';
     $Lang->{'WorkOrderHistory::WorkOrderDelete'}           = 'دستور کار (ID=%s) حذف شد';
@@ -154,7 +154,7 @@ sub Data {
 
     # long workorder history
     $Lang->{'WorkOrderHistory::WorkOrderAddWithWorkOrderID'}              = 'دستور کار جدید (ID=%s)';
-    $Lang->{'WorkOrderHistory::WorkOrderUpdateWithWorkOrderID'}           = '(ID=%s) %s: جدید: %s -> قدیم: %s';
+    $Lang->{'WorkOrderHistory::WorkOrderUpdateWithWorkOrderID'}           = '(ID=%s) %s: جدید: %s <- قدیم: %s';
     $Lang->{'WorkOrderHistory::WorkOrderLinkAddWithWorkOrderID'}          = '(ID=%s) ارتباط به %s (ID=%s) افزوده شد';
     $Lang->{'WorkOrderHistory::WorkOrderLinkDeleteWithWorkOrderID'}       = '(ID=%s) ارتباط به %s (ID=%s) حذف شد';
     $Lang->{'WorkOrderHistory::WorkOrderDeleteWithWorkOrderID'}           = 'دستور کار (ID=%s) حذف شد';
@@ -165,21 +165,21 @@ sub Data {
     # condition history
     $Lang->{'ChangeHistory::ConditionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ConditionAddID'}     = 'شرط جدید (ID=%s)';
-    $Lang->{'ChangeHistory::ConditionUpdate'}    = '%s (شناسه شرط=%s): جدید: %s -> قدیم: %s';
+    $Lang->{'ChangeHistory::ConditionUpdate'}    = '%s (شناسه شرط=%s): جدید: %s <- قدیم: %s';
     $Lang->{'ChangeHistory::ConditionDelete'}    = 'شرط (ID=%s) حذف شد';
     $Lang->{'ChangeHistory::ConditionDeleteAll'} = 'تمام شروط دستور کار (ID=%s) حذف شد';
 
     # expression history
     $Lang->{'ChangeHistory::ExpressionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ExpressionAddID'}     = 'عبارت منطقی جدید (ID=%s)';
-    $Lang->{'ChangeHistory::ExpressionUpdate'}    = '%s (شناسه عبارت=%s): جدید: %s -> قدیم: %s';
+    $Lang->{'ChangeHistory::ExpressionUpdate'}    = '%s (شناسه عبارت=%s): جدید: %s <- قدیم: %s';
     $Lang->{'ChangeHistory::ExpressionDelete'}    = 'عبارت منطقی (ID=%s) حذف شد';
     $Lang->{'ChangeHistory::ExpressionDeleteAll'} = 'تمام عبارات منطقی شرط (ID=%s) حذف شد';
 
     # action history
     $Lang->{'ChangeHistory::ActionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ActionAddID'}     = 'عملیات جدید (ID=%s)';
-    $Lang->{'ChangeHistory::ActionUpdate'}    = '%s (شناسه عملیات=%s): جدید: %s -> قدیم: %s';
+    $Lang->{'ChangeHistory::ActionUpdate'}    = '%s (شناسه عملیات=%s): جدید: %s <- قدیم: %s';
     $Lang->{'ChangeHistory::ActionDelete'}    = 'عملیات (ID=%s) حذف شد';
     $Lang->{'ChangeHistory::ActionDeleteAll'} = 'تمام عملیات‌های شرط (ID=%s) حذف شد';
     $Lang->{'ChangeHistory::ActionExecute'}   = 'عملیات (ID=%s) اجرا شد: %s';

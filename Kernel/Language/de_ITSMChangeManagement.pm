@@ -2,7 +2,7 @@
 # Kernel/Language/de_ITSMChangeManagement.pm - the german translation of ITSMChangeManagement
 # Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: de_ITSMChangeManagement.pm,v 1.76.2.1 2011-04-04 13:52:30 ub Exp $
+# $Id: de_ITSMChangeManagement.pm,v 1.76.2.2 2011-04-14 16:52:12 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -15,7 +15,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.76.2.1 $) [1];
+$VERSION = qw($Revision: 1.76.2.2 $) [1];
 
 sub Data {
     my $Self = shift;
@@ -133,10 +133,10 @@ sub Data {
 
     # Change history
     $Lang->{'ChangeHistory::ChangeAdd'}              = 'Neuer Change (ID=%s)';
-    $Lang->{'ChangeHistory::ChangeUpdate'}           = '%s: Neu: %s -> Alt: %s';
+    $Lang->{'ChangeHistory::ChangeUpdate'}           = '%s: Neu: %s <- Alt: %s';
     $Lang->{'ChangeHistory::ChangeLinkAdd'}          = 'Link zu %s (ID=%s) hinzugefügt';
     $Lang->{'ChangeHistory::ChangeLinkDelete'}       = 'Link zu %s (ID=%s) gelöscht';
-    $Lang->{'ChangeHistory::ChangeCABUpdate'}        = '%s: Neu: %s -> Alt: %s';
+    $Lang->{'ChangeHistory::ChangeCABUpdate'}        = '%s: Neu: %s <- Alt: %s';
     $Lang->{'ChangeHistory::ChangeCABDelete'}        = 'CAB gelöscht %s';
     $Lang->{'ChangeHistory::ChangeAttachmentAdd'}    = 'Neuer Anhang: %s';
     $Lang->{'ChangeHistory::ChangeAttachmentDelete'} = 'Anhang gelöscht: %s';
@@ -144,7 +144,7 @@ sub Data {
 
     # workorder history
     $Lang->{'WorkOrderHistory::WorkOrderAdd'}              = 'Neue Workorder (ID=%s)';
-    $Lang->{'WorkOrderHistory::WorkOrderUpdate'}           = '%s: Neu: %s -> Alt: %s';
+    $Lang->{'WorkOrderHistory::WorkOrderUpdate'}           = '%s: Neu: %s <- Alt: %s';
     $Lang->{'WorkOrderHistory::WorkOrderLinkAdd'}          = 'Link zu %s (ID=%s) hinzugefügt';
     $Lang->{'WorkOrderHistory::WorkOrderLinkDelete'}       = 'Link to %s (ID=%s) gelöscht';
     $Lang->{'WorkOrderHistory::WorkOrderDelete'}           = 'Workorder (ID=%s) gelöscht';
@@ -154,7 +154,7 @@ sub Data {
 
     # long workorder history
     $Lang->{'WorkOrderHistory::WorkOrderAddWithWorkOrderID'}              = 'Neue Workorder (ID=%s)';
-    $Lang->{'WorkOrderHistory::WorkOrderUpdateWithWorkOrderID'}           = '(ID=%s) %s: Neu: %s -> Alt: %s';
+    $Lang->{'WorkOrderHistory::WorkOrderUpdateWithWorkOrderID'}           = '(ID=%s) %s: Neu: %s <- Alt: %s';
     $Lang->{'WorkOrderHistory::WorkOrderLinkAddWithWorkOrderID'}          = '(ID=%s) Link zu %s (ID=%s) hinzugefügt';
     $Lang->{'WorkOrderHistory::WorkOrderLinkDeleteWithWorkOrderID'}       = '(ID=%s) Link to %s (ID=%s) gelöscht';
     $Lang->{'WorkOrderHistory::WorkOrderDeleteWithWorkOrderID'}           = 'Workorder (ID=%s) gelöscht';
@@ -165,21 +165,21 @@ sub Data {
     # condition history
     $Lang->{'ChangeHistory::ConditionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ConditionAddID'}     = 'Neue Bedingung (ID=%s)';
-    $Lang->{'ChangeHistory::ConditionUpdate'}    = '%s (Bedingung ID=%s): Neu: %s -> Alt: %s';
+    $Lang->{'ChangeHistory::ConditionUpdate'}    = '%s (Bedingung ID=%s): Neu: %s <- Alt: %s';
     $Lang->{'ChangeHistory::ConditionDelete'}    = 'Bedingung (ID=%s) gelöscht';
     $Lang->{'ChangeHistory::ConditionDeleteAll'} = 'Alle Bedingungen von Change (ID=%s) gelöscht';
 
     # expression history
     $Lang->{'ChangeHistory::ExpressionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ExpressionAddID'}     = 'Neue Expression (ID=%s)';
-    $Lang->{'ChangeHistory::ExpressionUpdate'}    = '%s (Expression ID=%s): Neu: %s -> Alt: %s';
+    $Lang->{'ChangeHistory::ExpressionUpdate'}    = '%s (Expression ID=%s): Neu: %s <- Alt: %s';
     $Lang->{'ChangeHistory::ExpressionDelete'}    = 'Expression (ID=%s) gelöscht';
     $Lang->{'ChangeHistory::ExpressionDeleteAll'} = 'Alle logischen Ausdrücke von Bedingung (ID=%s) gelöscht';
 
     # action history
     $Lang->{'ChangeHistory::ActionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ActionAddID'}     = 'Neue Action (ID=%s)';
-    $Lang->{'ChangeHistory::ActionUpdate'}    = '%s (Action ID=%s): Neu: %s -> Alt: %s';
+    $Lang->{'ChangeHistory::ActionUpdate'}    = '%s (Action ID=%s): Neu: %s <- Alt: %s';
     $Lang->{'ChangeHistory::ActionDelete'}    = 'Action (ID=%s) gelöscht';
     $Lang->{'ChangeHistory::ActionDeleteAll'} = 'Alle Aktionen von Bedingung (ID=%s) gelöscht';
     $Lang->{'ChangeHistory::ActionExecute'}   = 'Aktion (ID=%s) ausgeführt: %s';

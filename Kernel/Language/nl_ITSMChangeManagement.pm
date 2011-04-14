@@ -1,8 +1,8 @@
 # --
 # Kernel/Language/nl_ITSMChangeManagement.pm - the Dutch translation of ITSMChangeManagement
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: nl_ITSMChangeManagement.pm,v 1.1.2.2 2010-12-09 15:55:35 mb Exp $
+# $Id: nl_ITSMChangeManagement.pm,v 1.1.2.3 2011-04-14 16:52:12 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -15,7 +15,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.1.2.2 $) [1];
+$VERSION = qw($Revision: 1.1.2.3 $) [1];
 
 sub Data {
     my $Self = shift;
@@ -132,10 +132,10 @@ sub Data {
 
     # Change history
     $Lang->{'ChangeHistory::ChangeAdd'}              = 'Nieuwe Change (ID=%s)';
-    $Lang->{'ChangeHistory::ChangeUpdate'}           = '%s: nieuw: %s -> oud: %s';
+    $Lang->{'ChangeHistory::ChangeUpdate'}           = '%s: nieuw: %s <- oud: %s';
     $Lang->{'ChangeHistory::ChangeLinkAdd'}          = 'Link naar %s (ID=%s) toegevoegd';
     $Lang->{'ChangeHistory::ChangeLinkDelete'}       = 'Link naar %s (ID=%s) verwijderd';
-    $Lang->{'ChangeHistory::ChangeCABUpdate'}        = '%s: nieuw: %s -> oud: %s';
+    $Lang->{'ChangeHistory::ChangeCABUpdate'}        = '%s: nieuw: %s <- oud: %s';
     $Lang->{'ChangeHistory::ChangeCABDelete'}        = 'CAB verwijderd %s';
     $Lang->{'ChangeHistory::ChangeAttachmentAdd'}    = 'Nieuwe bijlage: %s';
     $Lang->{'ChangeHistory::ChangeAttachmentDelete'} = 'Bijlage verwijderd: %s';
@@ -143,7 +143,7 @@ sub Data {
 
     # workorder history
     $Lang->{'WorkOrderHistory::WorkOrderAdd'}              = 'nieuwe Workorder (ID=%s)';
-    $Lang->{'WorkOrderHistory::WorkOrderUpdate'}           = '%s: nieuw: %s -> oud: %s';
+    $Lang->{'WorkOrderHistory::WorkOrderUpdate'}           = '%s: nieuw: %s <- oud: %s';
     $Lang->{'WorkOrderHistory::WorkOrderLinkAdd'}          = 'Link naar %s (ID=%s) toegevoegd';
     $Lang->{'WorkOrderHistory::WorkOrderLinkDelete'}       = 'Link naar %s (ID=%s) verwijderd';
     $Lang->{'WorkOrderHistory::WorkOrderDelete'}           = 'Work Order (ID=%s) verwijderd';
@@ -153,7 +153,7 @@ sub Data {
 
     # long workorder history
     $Lang->{'WorkOrderHistory::WorkOrderAddWithWorkOrderID'}              = 'Nieuw Work Order (ID=%s)';
-    $Lang->{'WorkOrderHistory::WorkOrderUpdateWithWorkOrderID'}           = '(ID=%s) %s: nieuw: %s -> oud: %s';
+    $Lang->{'WorkOrderHistory::WorkOrderUpdateWithWorkOrderID'}           = '(ID=%s) %s: nieuw: %s <- oud: %s';
     $Lang->{'WorkOrderHistory::WorkOrderLinkAddWithWorkOrderID'}          = '(ID=%s) Link naar %s (ID=%s) toegevoegd';
     $Lang->{'WorkOrderHistory::WorkOrderLinkDeleteWithWorkOrderID'}       = '(ID=%s) Link naar %s (ID=%s) verwijderd';
     $Lang->{'WorkOrderHistory::WorkOrderDeleteWithWorkOrderID'}           = 'Workorder (ID=%s) verwijderd';
@@ -164,21 +164,21 @@ sub Data {
     # condition history
     $Lang->{'ChangeHistory::ConditionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ConditionAddID'}     = 'Nieuwe conditie (ID=%s)';
-    $Lang->{'ChangeHistory::ConditionUpdate'}    = '%s (conditie ID=%s): nieuw: %s -> oud: %s';
+    $Lang->{'ChangeHistory::ConditionUpdate'}    = '%s (conditie ID=%s): nieuw: %s <- oud: %s';
     $Lang->{'ChangeHistory::ConditionDelete'}    = 'Conditie (ID=%s) verwijderd';
     $Lang->{'ChangeHistory::ConditionDeleteAll'} = 'Alle condities voor change (ID=%s) verwijderd.';
 
     # expression history
     $Lang->{'ChangeHistory::ExpressionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ExpressionAddID'}     = 'Nieuwe expressie (ID=%s)';
-    $Lang->{'ChangeHistory::ExpressionUpdate'}    = '%s (expressie-ID=%s): nieuw: %s -> oud: %s';
+    $Lang->{'ChangeHistory::ExpressionUpdate'}    = '%s (expressie-ID=%s): nieuw: %s <- oud: %s';
     $Lang->{'ChangeHistory::ExpressionDelete'}    = 'Expressie (ID=%s) verwijderd';
     $Lang->{'ChangeHistory::ExpressionDeleteAll'} = 'Alle expressies voor change (ID=%s) verwijderd';
 
     # action history
     $Lang->{'ChangeHistory::ActionAdd'}       = '%s: %s';
     $Lang->{'ChangeHistory::ActionAddID'}     = 'Nieuwe actie (ID=%s)';
-    $Lang->{'ChangeHistory::ActionUpdate'}    = '%s (Actie-ID=%s): nieuw: %s -> Old: %s';
+    $Lang->{'ChangeHistory::ActionUpdate'}    = '%s (Actie-ID=%s): nieuw: %s <- Old: %s';
     $Lang->{'ChangeHistory::ActionDelete'}    = 'Actie (ID=%s) verwijderd';
     $Lang->{'ChangeHistory::ActionDeleteAll'} = 'Alle akties (ID=%s) verwijderd';
     $Lang->{'ChangeHistory::ActionExecute'}   = 'Actie (ID=%s) uitgevoerd: %s';

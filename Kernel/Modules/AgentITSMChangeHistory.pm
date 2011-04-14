@@ -1,8 +1,8 @@
 # --
 # Kernel/Modules/AgentITSMChangeHistory.pm - the OTRS::ITSM::ChangeManagement change history module
-# Copyright (C) 2003-2010 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: AgentITSMChangeHistory.pm,v 1.46 2010-04-27 20:33:50 ub Exp $
+# $Id: AgentITSMChangeHistory.pm,v 1.46.4.1 2011-04-14 15:53:16 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -22,7 +22,7 @@ use Kernel::System::HTMLUtils;
 use Kernel::System::Valid;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.46 $) [1];
+$VERSION = qw($Revision: 1.46.4.1 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -64,7 +64,7 @@ sub Run {
         # error page
         return $Self->{LayoutObject}->ErrorScreen(
             Message => "Can't show history, as no ChangeID is given!",
-            Comment => 'Please contact the admin.',
+            Comment => 'Please contact the administrator.',
         );
     }
 
@@ -92,8 +92,8 @@ sub Run {
     # check error
     if ( !$Change ) {
         return $Self->{LayoutObject}->ErrorScreen(
-            Message => "Change '$ChangeID' not found in database!",
-            Comment => 'Please contact the admin.',
+            Message => "Change '$ChangeID' not found in the data base!",
+            Comment => 'Please contact the administrator.',
         );
     }
 
@@ -121,8 +121,15 @@ sub Run {
 
     # create table
     my $Counter = 1;
+    HISTORYENTRY:
     for my $HistoryEntry (@HistoryLines) {
         $Counter++;
+
+        # set fieldname to empty string if there is no fieldname
+        $HistoryEntry->{Fieldname} ||= '';
+
+        # do not show internal entries from workorder number recalculation
+        next HISTORYENTRY if $HistoryEntry->{Fieldname} eq 'NoNumberCalc';
 
         # data for a single row, will be passed to the dtl
         my %Data = %{$HistoryEntry};
@@ -148,8 +155,6 @@ sub Run {
                     $HistoryEntry->{$ContentNewOrOld} = '-';
                 }
                 else {
-
-                    $HistoryEntry->{Fieldname} ||= '';
 
                     # for the ID fields, we replace ID with its textual value
                     if (
@@ -210,23 +215,54 @@ sub Run {
                                 );
                             }
                             elsif ( $Type eq 'Valid' ) {
+
+                    # get the UpdateID (ConditionID or ExpressionID or ActionID) and the AttributeID
+                                if ( $HistoryEntry->{$ContentNewOrOld} =~ m{ %% }xms ) {
+                                    ( $HistoryEntry->{UpdateID}, $HistoryEntry->{$ContentNewOrOld} )
+                                        = split m/%%/, $HistoryEntry->{$ContentNewOrOld};
+                                }
+
                                 $Value = $Self->{ValidObject}->ValidLookup(
                                     ValidID => $HistoryEntry->{$ContentNewOrOld},
                                 );
                             }
                             elsif ( $Type eq 'Object' ) {
+
+                    # get the UpdateID (ConditionID or ExpressionID or ActionID) and the AttributeID
+                                if ( $HistoryEntry->{$ContentNewOrOld} =~ m{ %% }xms ) {
+                                    ( $HistoryEntry->{UpdateID}, $HistoryEntry->{$ContentNewOrOld} )
+                                        = split m/%%/, $HistoryEntry->{$ContentNewOrOld};
+                                }
+
+                                # lookup the object name
                                 $Value = $Self->{ConditionObject}->ObjectLookup(
                                     ObjectID => $HistoryEntry->{$ContentNewOrOld},
                                     UserID   => $Self->{UserID},
                                 );
                             }
                             elsif ( $Type eq 'Attribute' ) {
+
+                    # get the UpdateID (ConditionID or ExpressionID or ActionID) and the AttributeID
+                                if ( $HistoryEntry->{$ContentNewOrOld} =~ m{ %% }xms ) {
+                                    ( $HistoryEntry->{UpdateID}, $HistoryEntry->{$ContentNewOrOld} )
+                                        = split m/%%/, $HistoryEntry->{$ContentNewOrOld};
+                                }
+
+                                # lookup the attribute name
                                 $Value = $Self->{ConditionObject}->AttributeLookup(
                                     AttributeID => $HistoryEntry->{$ContentNewOrOld},
                                     UserID      => $Self->{UserID},
                                 );
                             }
                             elsif ( $Type eq 'Operator' ) {
+
+                    # get the UpdateID (ConditionID or ExpressionID or ActionID) and the AttributeID
+                                if ( $HistoryEntry->{$ContentNewOrOld} =~ m{ %% }xms ) {
+                                    ( $HistoryEntry->{UpdateID}, $HistoryEntry->{$ContentNewOrOld} )
+                                        = split m/%%/, $HistoryEntry->{$ContentNewOrOld};
+                                }
+
+                                # lookup the operator name
                                 $Value = $Self->{ConditionObject}->OperatorLookup(
                                     OperatorID => $HistoryEntry->{$ContentNewOrOld},
                                     UserID     => $Self->{UserID},
@@ -235,7 +271,7 @@ sub Run {
                             else {
                                 return $Self->{LayoutObject}->ErrorScreen(
                                     Message => "Unknown type '$Type' encountered!",
-                                    Comment => 'Please contact the admin.',
+                                    Comment => 'Please contact the administrator.',
                                 );
                             }
 
@@ -272,6 +308,22 @@ sub Run {
                             = map { $Self->{UserObject}->UserLookup( UserID => $_ ) } @UserIDs;
                         $HistoryEntry->{$ContentNewOrOld} = join ',', @UserLogins;
                     }
+                    elsif (
+                        $HistoryEntry->{Fieldname}    eq 'ExpressionConjunction'
+                        || $HistoryEntry->{Fieldname} eq 'Name'
+                        || $HistoryEntry->{Fieldname} eq 'Comment'
+                        || $HistoryEntry->{Fieldname} eq 'Selector'
+                        || $HistoryEntry->{Fieldname} eq 'ActionValue'
+                        || $HistoryEntry->{Fieldname} eq 'CompareValue'
+                        )
+                    {
+
+                    # get the UpdateID (ConditionID or ExpressionID or ActionID) and the AttributeID
+                        if ( $HistoryEntry->{$ContentNewOrOld} =~ m{ %% }xms ) {
+                            ( $HistoryEntry->{UpdateID}, $HistoryEntry->{$ContentNewOrOld} )
+                                = split m/%%/, $HistoryEntry->{$ContentNewOrOld};
+                        }
+                    }
 
                     # replace HTML breaks with single space
                     $HistoryEntry->{$ContentNewOrOld} =~ s{ < br \s* /? > }{ }xmsg;
@@ -298,8 +350,23 @@ sub Run {
                 }
             }
 
+            # build description array
+            my @Description = ( $DisplayedFieldname || '' );
+
+            # add the ID of the Condition, Expression or Action that was updated
+            if (
+                $HistoryType    eq 'ConditionUpdate'
+                || $HistoryType eq 'ExpressionUpdate'
+                || $HistoryType eq 'ActionUpdate'
+                )
+            {
+                if ( $HistoryEntry->{UpdateID} ) {
+                    push @Description, $HistoryEntry->{UpdateID};
+                }
+            }
+
             # set description
-            $Data{Content} = join '%%', $DisplayedFieldname || '', $ContentNew, $ContentOld;
+            $Data{Content} = join '%%', @Description, $ContentNew, $ContentOld;
         }
         else {
             $Data{Content} = $HistoryEntry->{ContentNew};
@@ -312,7 +379,7 @@ sub Run {
             $Data{Content} =~ s{ \A %% }{}xmsg;
 
             # split the content by %%
-            my @Values = split( /%%/, $Data{Content} );
+            my @Values = split m/%%/, $Data{Content};
 
             $Data{Content} = '';
 
@@ -362,7 +429,7 @@ sub Run {
             if ( $HistoryEntryType eq 'ActionExecute' ) {
 
                 # get content elements
-                my @ActionExecuteData = split /,/, $Data{Content};
+                my @ActionExecuteData = split m/,/, $Data{Content};
 
                 # extract result
                 my $ActionExecuteResult
@@ -377,9 +444,13 @@ sub Run {
                 $Data{Content} = join ',', @ActionExecuteData;
             }
 
+            # useful for debugging, can be added to dtl to see the untranslated output
+            $Data{ContentUntranslated} = $Data{Content};
+
             # show 'nice' output with variable substitution
             # sample input:
             # ChangeHistory::ChangeLinkAdd", "Ticket", "1
+            # YES, this looks strange, but this is the correct way!!!
             $Data{Content} = $Self->{LayoutObject}->{LanguageObject}->Get(
                 $HistoryItemType . 'History::' . $HistoryEntryType . '", ' . $Data{Content},
             );
@@ -398,8 +469,14 @@ sub Run {
 
         # show a 'more info' link
         if (
-            ( $HistoryEntry->{ContentNew} && length( $HistoryEntry->{ContentNew} ) > $MaxLength )
-            || ( $HistoryEntry->{ContentOld} && length( $HistoryEntry->{ContentOld} ) > $MaxLength )
+            (
+                $HistoryEntry->{ContentNew}
+                && length( $HistoryEntry->{ContentNew} ) > $MaxLength
+            )
+            || (
+                $HistoryEntry->{ContentOld}
+                && length( $HistoryEntry->{ContentOld} ) > $MaxLength
+            )
             )
         {
 
@@ -428,7 +505,10 @@ sub Run {
         }
 
         # show link to workorder for WorkOrderAdd event - if the workorder still exists
-        if ( $HistoryEntry->{HistoryType} =~ m{ \A WorkOrder }xms && $HistoryEntry->{WorkOrderID} )
+        if (
+            $HistoryEntry->{HistoryType} =~ m{ \A WorkOrder }xms
+            && $HistoryEntry->{WorkOrderID}
+            )
         {
             my $WorkOrder = $Self->{WorkOrderObject}->WorkOrderGet(
                 WorkOrderID => $HistoryEntry->{WorkOrderID},

@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/Event/HistoryAdd.pm - HistoryAdd event module for ITSMChange
 # Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: HistoryAdd.pm,v 1.46.4.1 2011-04-14 15:53:16 ub Exp $
+# $Id: HistoryAdd.pm,v 1.46.4.2 2011-04-21 15:07:27 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -18,7 +18,7 @@ use Kernel::System::ITSMChange::ITSMWorkOrder;
 use Kernel::System::ITSMChange::History;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.46.4.1 $) [1];
+$VERSION = qw($Revision: 1.46.4.2 $) [1];
 
 =head1 NAME
 
@@ -188,7 +188,7 @@ sub Run {
         my $ChangeID = $OldData->{ChangeID};               # works for change and workorder events
 
         FIELD:
-        for my $Field ( keys %{ $Param{Data} } ) {
+        for my $Field ( sort keys %{ $Param{Data} } ) {
 
             # do not track special fields 'OldChangeData' or 'OldWorkOrderData'
             next FIELD if $Field eq "Old${Type}Data";
@@ -784,6 +784,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.46.4.1 $ $Date: 2011-04-14 15:53:16 $
+$Revision: 1.46.4.2 $ $Date: 2011-04-21 15:07:27 $
 
 =cut

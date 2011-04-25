@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/Notification.pm - lib for notifications in change management
 # Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: Notification.pm,v 1.41.4.1 2011-02-11 17:04:55 ub Exp $
+# $Id: Notification.pm,v 1.41.4.2 2011-04-25 10:20:52 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -25,7 +25,7 @@ use Kernel::System::User;
 use Kernel::System::Valid;
 
 use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.41.4.1 $) [1];
+$VERSION = qw($Revision: 1.41.4.2 $) [1];
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -287,6 +287,10 @@ sub NotificationSend {
         };
     }
 
+    # get the valid ids
+    my @ValidIDs = $Self->{ValidObject}->ValidIDsGet();
+    my %ValidIDLookup = map { $_ => 1 } @ValidIDs;
+
     my %AgentsSent;
 
     AGENTID:
@@ -299,6 +303,12 @@ sub NotificationSend {
         my %User = $Self->{UserObject}->GetUserData(
             UserID => $AgentID,
         );
+
+        # do not send emails to invalid agents
+        if ( exists $User{ValidID} && !$ValidIDLookup{ $User{ValidID} } ) {
+            next AGENTID;
+        }
+
         my $PreferredLanguage
             = $User{UserLanguage} || $Self->{ConfigObject}->Get('DefaultLanguage') || 'en';
 
@@ -397,6 +407,12 @@ sub NotificationSend {
         my %CustomerUser = $Self->{CustomerUserObject}->CustomerUserDataGet(
             User => $CustomerID,
         );
+
+        # do not send emails to invalid customers
+        if ( exists $CustomerUser{ValidID} && !$ValidIDLookup{ $CustomerUser{ValidID} } ) {
+            next CUSTOMERID;
+        }
+
         my $PreferredLanguage
             = $CustomerUser{UserLanguage} || $Self->{ConfigObject}->Get('DefaultLanguage') || 'en';
 
@@ -1391,6 +1407,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.41.4.1 $ $Date: 2011-02-11 17:04:55 $
+$Revision: 1.41.4.2 $ $Date: 2011-04-25 10:20:52 $
 
 =cut

@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange.pm - all change functions
 # Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMChange.pm,v 1.259.2.3 2011-02-11 17:04:55 ub Exp $
+# $Id: ITSMChange.pm,v 1.259.2.4 2011-04-27 15:18:00 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -29,7 +29,7 @@ use Kernel::System::VirtualFS;
 use Kernel::System::Cache;
 
 use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.259.2.3 $) [1];
+$VERSION = qw($Revision: 1.259.2.4 $) [1];
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -1280,7 +1280,7 @@ sub ChangeList {
 
     if ($Cache) {
 
-        # get chnge is from cache
+        # get change ids from cache
         @ChangeIDs = @{$Cache};
     }
 
@@ -2059,6 +2059,32 @@ sub ChangeSearch {
         )
     {
         $SQL .= 'GROUP BY c.id ';
+
+        # add the orderby columns also to the group by clause, as this is correct SQL
+        # and some DBs like PostgreSQL are more strict than others
+        # this is the bugfix for bug# 5825 http://bugs.otrs.org/show_bug.cgi?id=5825
+        if (@SQLOrderBy) {
+
+            ORDERBY:
+            for my $OrderBy (@SQLOrderBy) {
+
+                # get the column from a string that looks like: c.change_number ASC
+                if ( $OrderBy =~ m{ \A (\S+) }xms ) {
+
+                    # get the column part of the string
+                    my $Column = $1;
+
+                    # do not include the c.id column again, as this is already done before
+                    next ORDERBY if $Column eq 'c.id';
+
+                    # do not include aliases of aggregate functions (min/max)
+                    next ORDERBY if $Column =~ m{ \A alias_ }xms;
+
+                    # add the column to the group by clause
+                    $SQL .= ", $Column ";
+                }
+            }
+        }
     }
 
     # add the HAVING clause
@@ -3702,6 +3728,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.259.2.3 $ $Date: 2011-02-11 17:04:55 $
+$Revision: 1.259.2.4 $ $Date: 2011-04-27 15:18:00 $
 
 =cut

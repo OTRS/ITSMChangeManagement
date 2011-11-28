@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange.pm - all change functions
 # Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMChange.pm,v 1.268.2.1 2011-11-28 17:53:22 ub Exp $
+# $Id: ITSMChange.pm,v 1.268.2.2 2011-11-28 18:27:57 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -27,7 +27,7 @@ use Kernel::System::VirtualFS;
 use Kernel::System::Cache;
 
 use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.268.2.1 $) [1];
+$VERSION = qw($Revision: 1.268.2.2 $) [1];
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -848,7 +848,7 @@ sub ChangeCABUpdate {
         if ( $Param{$Attribute} && ref $Param{$Attribute} ne 'ARRAY' ) {
             $Self->{LogObject}->Log(
                 Priority => 'error',
-                Message  => "The parameter $Attribute is not an arrray reference!",
+                Message  => "The parameter $Attribute is not an array reference!",
             );
             return;
         }
@@ -3714,6 +3714,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.268.2.1 $ $Date: 2011-11-28 17:53:22 $
+$Revision: 1.268.2.2 $ $Date: 2011-11-28 18:27:57 $
 
 =cut

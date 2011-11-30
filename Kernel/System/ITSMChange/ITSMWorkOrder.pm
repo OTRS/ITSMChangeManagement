@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
 # Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.123.2.2 2011-11-30 15:01:42 ub Exp $
+# $Id: ITSMWorkOrder.pm,v 1.123.2.3 2011-11-30 16:55:48 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -24,7 +24,7 @@ use Kernel::System::HTMLUtils;
 use Kernel::System::Cache;
 
 use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.123.2.2 $) [1];
+$VERSION = qw($Revision: 1.123.2.3 $) [1];
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -649,6 +649,7 @@ sub WorkOrderUpdate {
     # delete cache
     for my $Key (
         'WorkOrderGet::ID::' . $Param{WorkOrderID},
+        'WorkOrderList::ChangeID::' . $WorkOrderData->{ChangeID},
         'WorkOrderChangeEffortsGet::ChangeID::' . $WorkOrderData->{ChangeID},
         'WorkOrderChangeTimeGet::ChangeID::' . $WorkOrderData->{ChangeID},
         'ChangeGet::ID::' . $WorkOrderData->{ChangeID},
@@ -935,17 +936,13 @@ sub WorkOrderList {
             push @WorkOrderIDs, $ID;
         }
 
-        # set cache only if workorder ids exists
-        if (@WorkOrderIDs) {
-
-            # set cache
-            $Self->{CacheObject}->Set(
-                Type  => 'ITSMChangeManagement',
-                Key   => $CacheKey,
-                Value => \@WorkOrderIDs,
-                TTL   => $Self->{CacheTTL},
-            );
-        }
+        # set cache
+        $Self->{CacheObject}->Set(
+            Type  => 'ITSMChangeManagement',
+            Key   => $CacheKey,
+            Value => \@WorkOrderIDs,
+            TTL   => $Self->{CacheTTL},
+        );
     }
 
     return \@WorkOrderIDs;
@@ -3419,6 +3416,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.123.2.2 $ $Date: 2011-11-30 15:01:42 $
+$Revision: 1.123.2.3 $ $Date: 2011-11-30 16:55:48 $
 
 =cut

@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
-# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.123.2.3 2011-11-30 16:55:48 ub Exp $
+# $Id: ITSMWorkOrder.pm,v 1.123.2.4 2012-10-23 13:16:57 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -24,7 +24,7 @@ use Kernel::System::HTMLUtils;
 use Kernel::System::Cache;
 
 use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.123.2.3 $) [1];
+$VERSION = qw($Revision: 1.123.2.4 $) [1];
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -2833,10 +2833,10 @@ These string parameters have length constraints:
     Parameter        | max. length
     -----------------+-----------------
     WorkOrderTitle      |  250 characters
-    Instruction         | 3800 characters
-    InstructionPlain    | 3800 characters
-    Report              | 3800 characters
-    ReportPlain         | 3800 characters
+    Instruction         | 1800000 characters
+    InstructionPlain    | 1800000 characters
+    Report              | 1800000 characters
+    ReportPlain         | 1800000 characters
     WorkOrderFreeKeyXX  |  250 characters
     WorkOrderFreeTextXX |  250 characters
 
@@ -2905,10 +2905,10 @@ sub _CheckWorkOrderParams {
             || $Argument eq 'ReportPlain'
             )
         {
-            if ( length( $Param{$Argument} ) > 3800 ) {
+            if ( length( $Param{$Argument} ) > 1800000 ) {
                 $Self->{LogObject}->Log(
                     Priority => 'error',
-                    Message  => "The parameter '$Argument' must be shorter than 3800 characters!",
+                    Message => "The parameter '$Argument' must be shorter than 1800000 characters!",
                 );
                 return;
             }
@@ -3416,6 +3416,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.123.2.3 $ $Date: 2011-11-30 16:55:48 $
+$Revision: 1.123.2.4 $ $Date: 2012-10-23 13:16:57 $
 
 =cut

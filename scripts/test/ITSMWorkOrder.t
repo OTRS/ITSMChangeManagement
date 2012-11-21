@@ -2,7 +2,7 @@
 # ITSMWorkOrder.t - workorder tests
 # Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.t,v 1.132 2012-11-14 14:50:24 ub Exp $
+# $Id: ITSMWorkOrder.t,v 1.132.2.1 2012-11-21 17:58:05 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -1061,17 +1061,17 @@ push @WorkOrderTests, (
             WorkOrderUpdate => {
                 UserID         => 1,
                 WorkOrderTitle => 'T' x 250,
-                Instruction    => 'I' x 1799999,
-                Report         => 'R' x 1799999,
+                Instruction    => 'I' x 3799,
+                Report         => 'R' x 3799,
             },
         },
         ReferenceData => {
             WorkOrderGet => {
                 WorkOrderTitle   => 'T' x 250,
-                Instruction      => 'I' x 1799999,
-                InstructionPlain => 'I' x 1799999 . "\n",
-                Report           => 'R' x 1799999,
-                ReportPlain      => 'R' x 1799999 . "\n",
+                Instruction      => 'I' x 3799,
+                InstructionPlain => 'I' x 3799 . "\n",
+                Report           => 'R' x 3799,
+                ReportPlain      => 'R' x 3799 . "\n",
                 CreateBy         => $UserIDs[0],
                 ChangeBy         => 1,
             },
@@ -1090,8 +1090,8 @@ push @WorkOrderTests, (
             WorkOrderUpdate => {
                 UserID         => 1,
                 WorkOrderTitle => 'T' x 251,
-                Instruction    => 'I' x 1800000,
-                Report         => 'R' x 1800000,
+                Instruction    => 'I' x 3800,
+                Report         => 'R' x 3800,
             },
         },
         ReferenceData => {
@@ -1117,8 +1117,8 @@ push @WorkOrderTests, (
             WorkOrderUpdate => {
                 UserID         => 1,
                 WorkOrderTitle => 'T' x 252,
-                Instruction    => 'I' x 1800000,
-                Report         => 'R' x 1800000,
+                Instruction    => 'I' x 3800,
+                Report         => 'R' x 3800,
             },
         },
         ReferenceData => {
@@ -1221,7 +1221,7 @@ push @WorkOrderTests, (
             WorkOrderUpdate => {
                 UserID         => 1,
                 WorkOrderTitle => 'T',
-                Instruction    => 'I' x 1800000,
+                Instruction    => 'I' x 3800,
                 Report         => 'R',
             },
         },
@@ -1247,7 +1247,7 @@ push @WorkOrderTests, (
                 UserID         => 1,
                 WorkOrderTitle => 'T',
                 Instruction    => 'I',
-                Report         => 'R' x 1800000,
+                Report         => 'R' x 3800,
             },
         },
         ReferenceData => {

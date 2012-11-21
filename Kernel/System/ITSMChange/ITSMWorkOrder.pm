@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
 # Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.132 2012-11-14 15:32:47 ub Exp $
+# $Id: ITSMWorkOrder.pm,v 1.132.2.1 2012-11-21 17:58:05 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -24,7 +24,7 @@ use Kernel::System::HTMLUtils;
 use Kernel::System::Cache;
 
 use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.132 $) [1];
+$VERSION = qw($Revision: 1.132.2.1 $) [1];
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -145,10 +145,6 @@ sub new {
             %{$Self},
         },
     );
-
-    # get database type
-    $Self->{DBType} = $Self->{DBObject}->{'DB::Type'} || '';
-    $Self->{DBType} = lc $Self->{DBType};
 
     return $Self;
 }
@@ -1339,24 +1335,8 @@ sub WorkOrderSearch {
         # quote
         $Param{$StringParam} = $DBObject->Quote( $Param{$StringParam} );
 
-        # check if a CLOB field is used in oracle
-        # Fix/Workaround for ORA-00932: inconsistent datatypes: expected - got CLOB
-        my $UsingWildcardsForSpecialFields;
-        if (
-            $Self->{DBType} eq 'oracle'
-            && (
-                $StringParam    eq 'Instruction'
-                || $StringParam eq 'Report'
-                || $StringParam eq 'ChangeDescription'
-                || $StringParam eq 'ChangeJustification'
-            )
-            )
-        {
-            my $UsingWildcardsForSpecialFields = 1;
-        }
-
         # wildcards are used
-        if ( $Param{UsingWildcards} || $UsingWildcardsForSpecialFields ) {
+        if ( $Param{UsingWildcards} ) {
 
             # get like escape string needed for some databases (e.g. oracle)
             my $LikeEscapeString = $DBObject->GetDatabaseFunction('LikeEscapeString');
@@ -2913,10 +2893,10 @@ These string parameters have length constraints:
     Parameter        | max. length
     -----------------+-----------------
     WorkOrderTitle      |  250 characters
-    Instruction         | 1800000 characters
-    InstructionPlain    | 1800000 characters
-    Report              | 1800000 characters
-    ReportPlain         | 1800000 characters
+    Instruction         | 3800 characters
+    InstructionPlain    | 3800 characters
+    Report              | 3800 characters
+    ReportPlain         | 3800 characters
     WorkOrderFreeKeyXX  |  250 characters
     WorkOrderFreeTextXX |  250 characters
 
@@ -2985,10 +2965,10 @@ sub _CheckWorkOrderParams {
             || $Argument eq 'ReportPlain'
             )
         {
-            if ( length( $Param{$Argument} ) > 1800000 ) {
+            if ( length( $Param{$Argument} ) > 3800 ) {
                 $Self->{LogObject}->Log(
                     Priority => 'error',
-                    Message => "The parameter '$Argument' must be shorter than 1800000 characters!",
+                    Message  => "The parameter '$Argument' must be shorter than 3800 characters!",
                 );
                 return;
             }
@@ -3496,6 +3476,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.132 $ $Date: 2012-11-14 15:32:47 $
+$Revision: 1.132.2.1 $ $Date: 2012-11-21 17:58:05 $
 
 =cut

@@ -2,7 +2,7 @@
 # ITSMChange.t - change tests
 # Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMChange.t,v 1.195 2012-11-14 14:07:29 ub Exp $
+# $Id: ITSMChange.t,v 1.195.2.1 2012-11-21 17:58:05 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -895,24 +895,24 @@ my @ChangeTests = (
     },
 
     # test on max long params  (required attributes)
-    # The max plain string is only 1799999, because ToAscii() adds a newline
+    # The max plain string is only 3799, because ToAscii() adds a newline
     {
         Description => 'Test for max string length for ChangeAdd.',
         SourceData  => {
             ChangeAdd => {
                 UserID        => $UserIDs[0],
                 ChangeTitle   => 'T' x 250,
-                Description   => 'D' x 1799999,
-                Justification => 'J' x 1799999,
+                Description   => 'D' x 3799,
+                Justification => 'J' x 3799,
             },
         },
         ReferenceData => {
             ChangeGet => {
                 ChangeTitle        => 'T' x 250,
-                Description        => 'D' x 1799999,
-                DescriptionPlain   => 'D' x 1799999 . "\n",
-                Justification      => 'J' x 1799999,
-                JustificationPlain => 'J' x 1799999 . "\n",
+                Description        => 'D' x 3799,
+                DescriptionPlain   => 'D' x 3799 . "\n",
+                Justification      => 'J' x 3799,
+                JustificationPlain => 'J' x 3799 . "\n",
                 ChangeManagerID    => undef,
                 ChangeBuilderID    => $UserIDs[0],
                 WorkOrderIDs       => [],
@@ -934,8 +934,8 @@ my @ChangeTests = (
             ChangeAdd => {
                 UserID        => $UserIDs[0],
                 ChangeTitle   => 'T' x 251,
-                Description   => 'D' x 1800000,
-                Justification => 'J' x 1800000,
+                Description   => 'D' x 3800,
+                Justification => 'J' x 3800,
             },
         },
         ReferenceData => {
@@ -951,8 +951,8 @@ my @ChangeTests = (
             ChangeAdd => {
                 UserID        => $UserIDs[0],
                 ChangeTitle   => 'T' x 252,
-                Description   => 'D' x 1800001,
-                Justification => 'J' x 1800001,
+                Description   => 'D' x 3801,
+                Justification => 'J' x 3801,
             },
         },
         ReferenceData => {
@@ -985,7 +985,7 @@ my @ChangeTests = (
             ChangeAdd => {
                 UserID        => $UserIDs[0],
                 ChangeTitle   => 'T',
-                Description   => 'D' x 1800000,
+                Description   => 'D' x 3800,
                 Justification => 'J',
             },
         },
@@ -1003,7 +1003,7 @@ my @ChangeTests = (
                 UserID        => $UserIDs[0],
                 ChangeTitle   => 'T',
                 Description   => 'D',
-                Justification => 'J' x 1800000,
+                Justification => 'J' x 3800,
             },
         },
         ReferenceData => {
@@ -1461,17 +1461,17 @@ my @ChangeTests = (
             ChangeUpdate => {
                 UserID        => 1,
                 ChangeTitle   => 'T' x 250,
-                Description   => 'D' x 1799999,
-                Justification => 'J' x 1799999,
+                Description   => 'D' x 3799,
+                Justification => 'J' x 3799,
             },
         },
         ReferenceData => {
             ChangeGet => {
                 ChangeTitle        => 'T' x 250,
-                Description        => 'D' x 1799999,
-                DescriptionPlain   => 'D' x 1799999 . "\n",
-                Justification      => 'J' x 1799999,
-                JustificationPlain => 'J' x 1799999 . "\n",
+                Description        => 'D' x 3799,
+                DescriptionPlain   => 'D' x 3799 . "\n",
+                Justification      => 'J' x 3799,
+                JustificationPlain => 'J' x 3799 . "\n",
                 ChangeManagerID    => undef,
                 ChangeBuilderID    => $UserIDs[0],
                 WorkOrderIDs       => [],
@@ -1496,8 +1496,8 @@ my @ChangeTests = (
             ChangeUpdate => {
                 UserID        => 1,
                 ChangeTitle   => 'T' x 251,
-                Description   => 'D' x 1800000,
-                Justification => 'J' x 1800000,
+                Description   => 'D' x 3800,
+                Justification => 'J' x 3800,
             },
         },
         ReferenceData => {
@@ -1542,7 +1542,7 @@ my @ChangeTests = (
             ChangeUpdate => {
                 UserID        => 1,
                 ChangeTitle   => 'T',
-                Description   => 'D' x 1800000,
+                Description   => 'D' x 3800,
                 Justification => 'J',
             },
         },
@@ -1565,7 +1565,7 @@ my @ChangeTests = (
                 UserID        => 1,
                 ChangeTitle   => 'T',
                 Description   => 'D',
-                Justification => 'J' x 1800000,
+                Justification => 'J' x 3800,
             },
         },
         ReferenceData => {

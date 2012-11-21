@@ -2,7 +2,7 @@
 # Kernel/System/ITSMChange.pm - all change functions
 # Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMChange.pm,v 1.281 2012-11-14 15:31:22 ub Exp $
+# $Id: ITSMChange.pm,v 1.281.2.1 2012-11-21 17:58:05 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -27,7 +27,7 @@ use Kernel::System::VirtualFS;
 use Kernel::System::Cache;
 
 use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.281 $) [1];
+$VERSION = qw($Revision: 1.281.2.1 $) [1];
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -144,10 +144,6 @@ sub new {
             %{$Self},
         },
     );
-
-    # get database type
-    $Self->{DBType} = $Self->{DBObject}->{'DB::Type'} || '';
-    $Self->{DBType} = lc $Self->{DBType};
 
     return $Self;
 }
@@ -1784,19 +1780,8 @@ sub ChangeSearch {
         # quote
         $Param{$StringParam} = $DBObject->Quote( $Param{$StringParam} );
 
-        # check if a CLOB field is used in oracle
-        # Fix/Workaround for ORA-00932: inconsistent datatypes: expected - got CLOB
-        my $UsingWildcardsForSpecialFields;
-        if (
-            $Self->{DBType} eq 'oracle'
-            && ( $StringParam eq 'Description' || $StringParam eq 'Justification' )
-            )
-        {
-            $UsingWildcardsForSpecialFields = 1;
-        }
-
         # wildcards are used
-        if ( $Param{UsingWildcards} || $UsingWildcardsForSpecialFields ) {
+        if ( $Param{UsingWildcards} ) {
 
             # get like escape string needed for some databases (e.g. oracle)
             my $LikeEscapeString = $DBObject->GetDatabaseFunction('LikeEscapeString');
@@ -3299,10 +3284,10 @@ These string parameters have length constraints:
     Parameter           | max. length
     --------------------+-----------------
     ChangeTitle         |  250 characters
-    Description         | 1800000 characters
-    DescriptionPlain    | 1800000 characters
-    Justification       | 1800000 characters
-    JustificationPlain  | 1800000 characters
+    Description         | 3800 characters
+    DescriptionPlain    | 3800 characters
+    Justification       | 3800 characters
+    JustificationPlain  | 3800 characters
     ChangeFreeKeyXX     |  250 characters
     ChangeFreeTextXX    |  250 characters
 
@@ -3365,10 +3350,10 @@ sub _CheckChangeParams {
             || $Argument eq 'JustificationPlain'
             )
         {
-            if ( length( $Param{$Argument} ) > 1800000 ) {
+            if ( length( $Param{$Argument} ) > 3800 ) {
                 $Self->{LogObject}->Log(
                     Priority => 'error',
-                    Message => "The parameter '$Argument' must be shorter than 1800000 characters!",
+                    Message  => "The parameter '$Argument' must be shorter than 3800 characters!",
                 );
                 return;
             }
@@ -3816,6 +3801,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.281 $ $Date: 2012-11-14 15:31:22 $
+$Revision: 1.281.2.1 $ $Date: 2012-11-21 17:58:05 $
 
 =cut

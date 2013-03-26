@@ -1,8 +1,8 @@
 # --
 # Kernel/Modules/AgentITSMChangeZoom.pm - the OTRS::ITSM::ChangeManagement change zoom module
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
 # --
-# $Id: AgentITSMChangeZoom.pm,v 1.59 2010-12-21 13:06:15 ub Exp $
+# $Id: AgentITSMChangeZoom.pm,v 1.59.2.1 2013-03-26 11:52:09 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -14,13 +14,14 @@ package Kernel::Modules::AgentITSMChangeZoom;
 use strict;
 use warnings;
 
+use Kernel::System::HTMLUtils;
 use Kernel::System::LinkObject;
 use Kernel::System::CustomerUser;
 use Kernel::System::ITSMChange;
 use Kernel::System::ITSMChange::ITSMWorkOrder;
 
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.59 $) [1];
+$VERSION = qw($Revision: 1.59.2.1 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -40,6 +41,7 @@ sub new {
     }
 
     # create needed objects
+    $Self->{HTMLUtilsObject}    = Kernel::System::HTMLUtils->new(%Param);
     $Self->{LinkObject}         = Kernel::System::LinkObject->new(%Param);
     $Self->{CustomerUserObject} = Kernel::System::CustomerUser->new(%Param);
     $Self->{ChangeObject}       = Kernel::System::ITSMChange->new(%Param);
@@ -92,6 +94,29 @@ sub Run {
             Message => "Change '$ChangeID' not found in database!",
             Comment => 'Please contact the admin.',
         );
+    }
+
+    # clean the richt text fields from active HTML content
+    ATTRIBUTE:
+    for my $Attribute (qw(Description Justification)) {
+
+        next ATTRIBUTE if !$Change->{$Attribute};
+
+        # remove active html content (scripts, applets, etc...)
+        my %SafeContent = $Self->{HTMLUtilsObject}->Safety(
+            String       => $Change->{$Attribute},
+            NoApplet     => 1,
+            NoObject     => 1,
+            NoEmbed      => 1,
+            NoIntSrcLoad => 0,
+            NoExtSrcLoad => 0,
+            NoJavaScript => 1,
+        );
+
+        # take the safe content if neccessary
+        if ( $SafeContent{Replace} ) {
+            $Change->{$Attribute} = $SafeContent{String};
+        }
     }
 
     # handle DownloadAttachment
@@ -555,6 +580,10 @@ sub Run {
                 Name => 'ChangeInitiator',
                 Data => {%User},
             );
+
+            $User{UserLogin}     ||= '';
+            $User{UserFirstname} ||= '';
+            $User{UserLastname}  ||= '';
 
             $ChangeInitiators .= sprintf "%s (%s %s)",
                 $User{UserLogin},

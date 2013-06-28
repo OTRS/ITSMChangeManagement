@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.132.2.1 2012-11-21 17:58:05 ub Exp $
+# $Id: ITSMWorkOrder.pm,v 1.132.2.2 2013-06-28 13:04:22 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -24,7 +24,7 @@ use Kernel::System::HTMLUtils;
 use Kernel::System::Cache;
 
 use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.132.2.1 $) [1];
+$VERSION = qw($Revision: 1.132.2.2 $) [1];
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -1397,9 +1397,9 @@ sub WorkOrderSearch {
         # ignore empty lists
         next ARRAYPARAM if !@{ $Param{$ArrayParam} };
 
-        # quote
+        # quote as integer
         for my $OneParam ( @{ $Param{$ArrayParam} } ) {
-            $OneParam = $DBObject->Quote($OneParam);
+            $OneParam = $DBObject->Quote( $OneParam, 'Integer' );
         }
 
         # create string
@@ -3476,6 +3476,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.132.2.1 $ $Date: 2012-11-21 17:58:05 $
+$Revision: 1.132.2.2 $ $Date: 2013-06-28 13:04:22 $
 
 =cut

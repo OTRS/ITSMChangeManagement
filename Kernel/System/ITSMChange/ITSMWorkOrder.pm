@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMWorkOrder.pm,v 1.123.2.4 2012-10-23 13:16:57 ub Exp $
+# $Id: ITSMWorkOrder.pm,v 1.123.2.5 2013-06-28 13:03:00 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -24,7 +24,7 @@ use Kernel::System::HTMLUtils;
 use Kernel::System::Cache;
 
 use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.123.2.4 $) [1];
+$VERSION = qw($Revision: 1.123.2.5 $) [1];
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -1338,9 +1338,9 @@ sub WorkOrderSearch {
         # ignore empty lists
         next ARRAYPARAM if !@{ $Param{$ArrayParam} };
 
-        # quote
+        # quote as integer
         for my $OneParam ( @{ $Param{$ArrayParam} } ) {
-            $OneParam = $Self->{DBObject}->Quote($OneParam);
+            $OneParam = $Self->{DBObject}->Quote( $OneParam, 'Integer' );
         }
 
         # create string
@@ -1800,7 +1800,7 @@ sub WorkOrderStateLookup {
         $Self->{GeneralCatalogObject}->ItemList(
             Class => 'ITSM::ChangeManagement::WorkOrder::State',
             )
-        };
+    };
 
     # check the state hash
     if ( !%StateID2Name ) {
@@ -1982,7 +1982,7 @@ sub WorkOrderTypeLookup {
         $Self->{GeneralCatalogObject}->ItemList(
             Class => 'ITSM::ChangeManagement::WorkOrder::Type',
             )
-        };
+    };
 
     # check the workorder types hash
     if ( !%WorkOrderType ) {
@@ -3416,6 +3416,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.123.2.4 $ $Date: 2012-10-23 13:16:57 $
+$Revision: 1.123.2.5 $ $Date: 2013-06-28 13:03:00 $
 
 =cut

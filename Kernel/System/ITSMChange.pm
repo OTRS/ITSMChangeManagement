@@ -1,8 +1,8 @@
 # --
 # Kernel/System/ITSMChange.pm - all change functions
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMChange.pm,v 1.268.2.7 2012-10-23 13:16:56 ub Exp $
+# $Id: ITSMChange.pm,v 1.268.2.8 2013-06-28 13:03:00 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -27,7 +27,7 @@ use Kernel::System::VirtualFS;
 use Kernel::System::Cache;
 
 use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.268.2.7 $) [1];
+$VERSION = qw($Revision: 1.268.2.8 $) [1];
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -1879,9 +1879,9 @@ sub ChangeSearch {
 
         next WORKORDERPARAM if !@{ $Param{$WorkOrderParam} };
 
-        # quote
+        # quote as integer
         for my $OneParam ( @{ $Param{$WorkOrderParam} } ) {
-            $OneParam = $Self->{DBObject}->Quote($OneParam);
+            $OneParam = $Self->{DBObject}->Quote( $OneParam, 'Integer' );
         }
 
         # create string
@@ -2319,7 +2319,7 @@ sub ChangeStateLookup {
         $Self->{GeneralCatalogObject}->ItemList(
             Class => 'ITSM::ChangeManagement::Change::State',
             )
-        };
+    };
 
     # check the state hash
     if ( !%StateID2Name ) {
@@ -2580,7 +2580,7 @@ sub ChangeCIPLookup {
         $Self->{GeneralCatalogObject}->ItemList(
             Class => 'ITSM::ChangeManagement::' . $Param{Type},
             ) || {}
-        };
+    };
 
     if ( $Param{ID} ) {
         return $ChangeCIP{ $Param{ID} };
@@ -3712,6 +3712,6 @@ did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =head1 VERSION
 
-$Revision: 1.268.2.7 $ $Date: 2012-10-23 13:16:56 $
+$Revision: 1.268.2.8 $ $Date: 2013-06-28 13:03:00 $
 
 =cut

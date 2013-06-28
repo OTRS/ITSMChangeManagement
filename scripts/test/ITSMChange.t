@@ -2,7 +2,7 @@
 # ITSMChange.t - change tests
 # Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
 # --
-# $Id: ITSMChange.t,v 1.195.4.1 2013-06-28 13:03:52 ub Exp $
+# $Id: ITSMChange.t,v 1.195.4.2 2013-06-28 14:39:52 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -40,11 +40,14 @@ $Self->{GroupObject}          = Kernel::System::Group->new( %{$Self} );
 $Self->{CustomerUserObject}   = Kernel::System::CustomerUser->new( %{$Self} );
 $Self->{ValidObject}          = Kernel::System::Valid->new( %{$Self} );
 $Self->{GeneralCatalogObject} = Kernel::System::GeneralCatalog->new( %{$Self} );
+$Self->{CIPAllocateObject}    = Kernel::System::ITSMChange::ITSMChangeCIPAllocate->new( %{$Self} );
+$Self->{HistoryObject}        = Kernel::System::ITSMChange::History->new( %{$Self} );
+$Self->{CacheObject}          = Kernel::System::Cache->new( %{$Self} );
+
+# create change and workorder objects as local variables to prevent error messages
+# about missing LogObject during event transaction mode in object destruction.
 my $WorkOrderObject = Kernel::System::ITSMChange::ITSMWorkOrder->new( %{$Self} );
 my $ChangeObject    = Kernel::System::ITSMChange->new( %{$Self} );
-$Self->{CIPAllocateObject} = Kernel::System::ITSMChange::ITSMChangeCIPAllocate->new( %{$Self} );
-$Self->{HistoryObject}     = Kernel::System::ITSMChange::History->new( %{$Self} );
-$Self->{CacheObject}       = Kernel::System::Cache->new( %{$Self} );
 
 # test if change object was created successfully
 $Self->True(

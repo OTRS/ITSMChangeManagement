@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMWorkOrder/Permission/ChangeBuilderCheck.pm - change builder based permission check
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
-# --
-# $Id: ChangeBuilderCheck.pm,v 1.16 2010-11-21 12:16:55 bes Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -15,9 +13,6 @@ use strict;
 use warnings;
 
 use Kernel::System::ITSMChange;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.16 $) [1];
 
 =head1 NAME
 

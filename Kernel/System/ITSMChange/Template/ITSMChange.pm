@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/Template/ITSMChange.pm - all template functions for changes
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: ITSMChange.pm,v 1.11 2013-04-22 20:31:34 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -20,10 +18,9 @@ use Kernel::System::ITSMChange::Template::ITSMCondition;
 use Kernel::System::ITSMChange::ITSMStateMachine;
 use Kernel::System::LinkObject;
 use Kernel::System::Valid;
-use Data::Dumper;
 
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.11 $) [1];
+## nofilter(TidyAll::Plugin::OTRS::Perl::Dumper)
+use Data::Dumper;
 
 =head1 NAME
 
@@ -205,7 +202,7 @@ sub Serialize {
 
     # add change freekey and freetext fields to list of wanted attributes
     ATTRIBUTE:
-    for my $Attribute ( keys %{$Change} ) {
+    for my $Attribute ( sort keys %{$Change} ) {
 
         # find the change freekey and freetext attributes
         if ( $Attribute =~ m{ \A ( ChangeFreeKey | ChangeFreeText ) }xms ) {
@@ -270,10 +267,13 @@ sub Serialize {
         UserID => $Param{UserID},
     );
 
-    for my $TargetObject ( keys %{$LinkListWithData} ) {
-        for my $Type ( keys %{ $LinkListWithData->{$TargetObject} } ) {
-            for my $Key ( keys %{ $LinkListWithData->{$TargetObject}->{$Type} } ) {
-                for my $TargetID ( keys %{ $LinkListWithData->{$TargetObject}->{$Type}->{$Key} } ) {
+    for my $TargetObject ( sort keys %{$LinkListWithData} ) {
+        for my $Type ( sort keys %{ $LinkListWithData->{$TargetObject} } ) {
+            for my $Key ( sort keys %{ $LinkListWithData->{$TargetObject}->{$Type} } ) {
+                for my $TargetID (
+                    sort keys %{ $LinkListWithData->{$TargetObject}->{$Type}->{$Key} }
+                    )
+                {
                     my $LinkInfo = {
                         SourceObject => 'ITSMChange',
                         SourceKey    => $Change->{ChangeID},
@@ -418,7 +418,7 @@ sub _ChangeAdd {
 
     # delete all parameters whose values are 'undef'
     # _CheckChangeParams throws an error otherwise
-    for my $Parameter ( keys %Data ) {
+    for my $Parameter ( sort keys %Data ) {
         delete $Data{$Parameter} if !defined $Data{$Parameter};
     }
 
@@ -606,11 +606,5 @@ This software is part of the OTRS project (L<http://otrs.org/>).
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
-
-=cut
-
-=head1 VERSION
-
-$Revision: 1.11 $ $Date: 2013-04-22 20:31:34 $
 
 =cut

@@ -1,8 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMTemplateOverview.pm - the template overview module
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: AgentITSMTemplateOverview.pm,v 1.19 2013-02-05 20:23:10 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -16,9 +14,6 @@ use warnings;
 
 use Kernel::System::ITSMChange;
 use Kernel::System::ITSMChange::Template;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.19 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -186,7 +181,7 @@ sub Run {
 
     # display all navbar filters
     my %NavBarFilter;
-    for my $Filter ( keys %Filters ) {
+    for my $Filter ( sort keys %Filters ) {
 
         # count the number of items for each filter
         my $Count = $Self->{TemplateObject}->TemplateSearch(

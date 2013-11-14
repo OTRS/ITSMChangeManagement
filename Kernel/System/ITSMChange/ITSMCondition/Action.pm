@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMCondition/Action.pm - all condition action functions
-# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
-# --
-# $Id: Action.pm,v 1.14 2011-11-30 16:59:13 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -13,9 +11,6 @@ package Kernel::System::ITSMChange::ITSMCondition::Action;
 
 use strict;
 use warnings;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.14 $) [1];
 
 =head1 NAME
 
@@ -231,7 +226,7 @@ sub ActionUpdate {
     my @Bind;
 
     ATTRIBUTE:
-    for my $Attribute ( keys %Attribute ) {
+    for my $Attribute ( sort keys %Attribute ) {
 
         # preserve the old value, when the column isn't in function parameters
         next ATTRIBUTE if !exists $Param{$Attribute};
@@ -858,7 +853,7 @@ sub _CreateNewActionNumber {
 
     # fetch the result, default to 0 when there are no actions yet
     my $ActionNumber;
-    while ( my @Row = $Self->{DBObject}->FetchrowArray ) {
+    while ( my @Row = $Self->{DBObject}->FetchrowArray() ) {
         $ActionNumber = $Row[0];
     }
     $ActionNumber ||= 0;
@@ -880,11 +875,5 @@ This software is part of the OTRS project (http://otrs.org/).
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
-
-=cut
-
-=head1 VERSION
-
-$Revision: 1.14 $ $Date: 2011-11-30 16:59:13 $
 
 =cut

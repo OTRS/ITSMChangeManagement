@@ -1,8 +1,6 @@
 # --
 # Kernel/Output/HTML/LayoutITSMChange.pm - provides generic HTML output for ITSMChange
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
-# --
-# $Id: LayoutITSMChange.pm,v 1.62 2012-02-16 15:34:58 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -15,9 +13,6 @@ use strict;
 use warnings;
 
 use Kernel::Output::HTML::Layout;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.62 $) [1];
 
 =over 4
 
@@ -191,7 +186,7 @@ sub ITSMChangeBuildWorkOrderGraph {
 
     # check validity of graph settings
     my $WorkOrderGraphConfig = $ChangeZoomConfig->{WorkOrderGraph};
-    for my $GraphSetting ( keys %WorkOrderGraphCheck ) {
+    for my $GraphSetting ( sort keys %WorkOrderGraphCheck ) {
 
         # check existense of config setting
         if ( !$WorkOrderGraphConfig->{$GraphSetting} ) {
@@ -534,7 +529,7 @@ sub ITSMChangeListShow {
     }
 
     # loop over configured backends
-    for my $Backend ( keys %{$Backends} ) {
+    for my $Backend ( sort keys %{$Backends} ) {
 
         # build navbar view mode
         $Env->{LayoutObject}->Block(

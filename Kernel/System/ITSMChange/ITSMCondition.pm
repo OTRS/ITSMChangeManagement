@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMCondition.pm - all condition functions
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: ITSMCondition.pm,v 1.61 2013-06-03 08:55:24 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -24,8 +22,7 @@ use Kernel::System::ITSMChange::ITSMCondition::Operator;
 use Kernel::System::ITSMChange::ITSMCondition::Expression;
 use Kernel::System::ITSMChange::ITSMCondition::Action;
 
-use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.61 $) [1];
+use vars qw(@ISA);
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -318,7 +315,7 @@ sub ConditionUpdate {
     my @Bind;
 
     ATTRIBUTE:
-    for my $Attribute ( keys %Attribute ) {
+    for my $Attribute ( sort keys %Attribute ) {
 
         # preserve the old value, when the column isn't in function parameters
         next ATTRIBUTE if !exists $Param{$Attribute};
@@ -1218,7 +1215,7 @@ sub ConditionListByObjectType {
     # get only affected unique condition id
     my @AffectedConditionIDs;
     CONDITIONID:
-    for my $ConditionID ( keys %ConditionExpression ) {
+    for my $ConditionID ( sort keys %ConditionExpression ) {
 
         # check expression for this workorder
         EXPRESSIONID:
@@ -1252,7 +1249,7 @@ sub ConditionListByObjectType {
     }
 
     CONDITIONID:
-    for my $ConditionID ( keys %ConditionAction ) {
+    for my $ConditionID ( sort keys %ConditionAction ) {
 
         # check action for this workorder
         ACTIONID:
@@ -1491,11 +1488,5 @@ This software is part of the OTRS project (L<http://otrs.org/>).
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
-
-=cut
-
-=head1 VERSION
-
-$Revision: 1.61 $ $Date: 2013-06-03 08:55:24 $
 
 =cut

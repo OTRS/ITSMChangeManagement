@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: ITSMWorkOrder.pm,v 1.136.2.1 2013-06-28 13:03:52 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -23,8 +21,7 @@ use Kernel::System::VirtualFS;
 use Kernel::System::HTMLUtils;
 use Kernel::System::Cache;
 
-use vars qw(@ISA $VERSION);
-$VERSION = qw($Revision: 1.136.2.1 $) [1];
+use vars qw(@ISA);
 
 @ISA = (
     'Kernel::System::EventHandler',
@@ -607,7 +604,7 @@ sub WorkOrderUpdate {
     my $DefaultTimeStamp = '9999-01-01 00:00:00';
 
     ATTRIBUTE:
-    for my $Attribute ( keys %Attribute ) {
+    for my $Attribute ( sort keys %Attribute ) {
 
         # preserve the old value, when the column isn't in function parameters
         next ATTRIBUTE if !exists $Param{$Attribute};
@@ -1329,7 +1326,7 @@ sub WorkOrderSearch {
 
     # add string params to sql-where-array
     STRINGPARAM:
-    for my $StringParam ( keys %StringParams ) {
+    for my $StringParam ( sort keys %StringParams ) {
 
         # check string params for useful values, the string '0' is allowed
         next STRINGPARAM if !exists $Param{$StringParam};
@@ -1345,7 +1342,7 @@ sub WorkOrderSearch {
         if (
             $Self->{DBType} eq 'oracle'
             && (
-                $StringParam    eq 'Instruction'
+                $StringParam eq 'Instruction'
                 || $StringParam eq 'Report'
                 || $StringParam eq 'ChangeDescription'
                 || $StringParam eq 'ChangeJustification'
@@ -1412,7 +1409,7 @@ sub WorkOrderSearch {
 
     # add array params to sql-where-array
     ARRAYPARAM:
-    for my $ArrayParam ( keys %ArrayParams ) {
+    for my $ArrayParam ( sort keys %ArrayParams ) {
 
         # ignore empty lists
         next ARRAYPARAM if !@{ $Param{$ArrayParam} };
@@ -1444,7 +1441,7 @@ sub WorkOrderSearch {
         ActualEndTimeOlderDate    => 'wo.actual_end_time <=',
     );
     TIMEPARAM:
-    for my $TimeParam ( keys %TimeParams ) {
+    for my $TimeParam ( sort keys %TimeParams ) {
 
         next TIMEPARAM if !$Param{$TimeParam};
 
@@ -1636,7 +1633,7 @@ sub WorkOrderDelete {
         UserID => 1,
     );
 
-    # get the list of attachments and delete them
+    # get the list of workorder attachments and delete them
     my @Attachments = $Self->WorkOrderAttachmentList(
         WorkOrderID => $Param{WorkOrderID},
     );
@@ -1785,7 +1782,7 @@ sub WorkOrderChangeTimeGet {
         }
 
         TIMEFIELD:
-        for my $Time ( keys %TimeReturn ) {
+        for my $Time ( sort keys %TimeReturn ) {
 
             next TIMEFIELD if !$TimeReturn{$Time};
 
@@ -1876,11 +1873,15 @@ sub WorkOrderStateLookup {
     }
 
     # get the workorder states from the general catalog
-    my %StateID2Name = %{
-        $Self->{GeneralCatalogObject}->ItemList(
-            Class => 'ITSM::ChangeManagement::WorkOrder::State',
-            )
-    };
+    my $StateList = $Self->{GeneralCatalogObject}->ItemList(
+        Class => 'ITSM::ChangeManagement::WorkOrder::State',
+    );
+
+    # convert state list into a lookup hash
+    my %StateID2Name;
+    if ( $StateList && ref $StateList eq 'HASH' && %{$StateList} ) {
+        %StateID2Name = %{$StateList};
+    }
 
     # check the state hash
     if ( !%StateID2Name ) {
@@ -2891,7 +2892,7 @@ sub _GetWorkOrderNumber {
 
     # fetch the result, default to 0 when there are no workorders yet
     my $WorkOrderNumber;
-    while ( my @Row = $Self->{DBObject}->FetchrowArray ) {
+    while ( my @Row = $Self->{DBObject}->FetchrowArray() ) {
         $WorkOrderNumber = $Row[0];
     }
     $WorkOrderNumber ||= 0;
@@ -2999,7 +3000,7 @@ sub _CheckWorkOrderParams {
 
         # check the maximum length of description and justification
         if (
-            $Argument    eq 'Instruction'
+            $Argument eq 'Instruction'
             || $Argument eq 'InstructionPlain'
             || $Argument eq 'Report'
             || $Argument eq 'ReportPlain'
@@ -3220,7 +3221,7 @@ sub _CheckTimestamps {
 
             # remove all non-digit characters
             $StartTime =~ s{ \D }{}xmsg;
-            $EndTime   =~ s{ \D }{}xmsg;
+            $EndTime =~ s{ \D }{}xmsg;
 
             # start time must be smaller than end time
             if ( $StartTime >= $EndTime ) {
@@ -3511,11 +3512,5 @@ This software is part of the OTRS project (L<http://otrs.org/>).
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
-
-=cut
-
-=head1 VERSION
-
-$Revision: 1.136.2.1 $ $Date: 2013-06-28 13:03:52 $
 
 =cut

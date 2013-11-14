@@ -1,8 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMChange.pm - the OTRS ITSM ChangeManagement change overview module
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: AgentITSMChange.pm,v 1.34 2013-03-26 14:35:31 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -15,9 +13,6 @@ use strict;
 use warnings;
 
 use Kernel::System::ITSMChange;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.34 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -185,7 +180,7 @@ sub Run {
 
     # display all navbar filters
     my %NavBarFilter;
-    for my $Filter ( keys %Filters ) {
+    for my $Filter ( sort keys %Filters ) {
 
         # count the number of items for each filter
         my $Count = $Self->{ChangeObject}->ChangeSearch(

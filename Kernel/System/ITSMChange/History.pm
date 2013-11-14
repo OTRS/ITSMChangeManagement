@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/History.pm - all change and workorder history functions
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
-# --
-# $Id: History.pm,v 1.33 2012-10-24 11:27:59 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -15,9 +13,6 @@ use strict;
 use warnings;
 
 use Kernel::System::CacheInternal;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.33 $) [1];
 
 =head1 NAME
 
@@ -879,7 +874,7 @@ sub HistorySearch {
 
     # add string params to sql-where-array
     STRINGPARAM:
-    for my $StringParam ( keys %StringParams ) {
+    for my $StringParam ( sort keys %StringParams ) {
 
         # check string params for useful values, the string '0' is allowed
         next STRINGPARAM if !exists $Param{$StringParam};
@@ -924,7 +919,7 @@ sub HistorySearch {
 
     # add array params to sql-where-array
     ARRAYPARAM:
-    for my $ArrayParam ( keys %ArrayParams ) {
+    for my $ArrayParam ( sort keys %ArrayParams ) {
 
         # ignore empty lists
         next ARRAYPARAM if !@{ $Param{$ArrayParam} };
@@ -955,7 +950,7 @@ sub HistorySearch {
 
     # check and add time params to WHERE
     TIMEPARAM:
-    for my $TimeParam ( keys %TimeParams ) {
+    for my $TimeParam ( sort keys %TimeParams ) {
 
         next TIMEPARAM if !$Param{$TimeParam};
 
@@ -1144,16 +1139,10 @@ sub HistoryTypeList {
 
 =head1 TERMS AND CONDITIONS
 
-This software is part of the OTRS project (http://otrs.org/).
+This software is part of the OTRS project (http://otrs.com/).
 
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
-
-=cut
-
-=head1 VERSION
-
-$Revision: 1.33 $ $Date: 2012-10-24 11:27:59 $
 
 =cut

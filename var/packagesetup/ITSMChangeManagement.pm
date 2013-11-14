@@ -1,15 +1,13 @@
 # --
 # ITSMChangeManagement.pm - code to excecute during package installation
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
-# --
-# $Id: ITSMChangeManagement.pm,v 1.76 2012-11-02 09:21:27 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
 # did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 # --
 
-package var::packagesetup::ITSMChangeManagement;
+package var::packagesetup::ITSMChangeManagement;    ## no critic
 
 use strict;
 use warnings;
@@ -34,9 +32,6 @@ use Kernel::System::Stats;
 use Kernel::System::Type;
 use Kernel::System::User;
 use Kernel::System::Valid;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.76 $) [1];
 
 =head1 NAME
 
@@ -644,7 +639,7 @@ sub _CIPDefaultMatrixSet {
     # create the allocation matrix
     my %AllocationMatrix;
     IMPACT:
-    for my $Impact ( keys %Allocation ) {
+    for my $Impact ( sort keys %Allocation ) {
 
         next IMPACT if !$ImpactListReverse{$Impact};
 
@@ -652,7 +647,7 @@ sub _CIPDefaultMatrixSet {
         my $ImpactID = $ImpactListReverse{$Impact};
 
         CATEGORY:
-        for my $Category ( keys %{ $Allocation{$Impact} } ) {
+        for my $Category ( sort keys %{ $Allocation{$Impact} } ) {
 
             next CATEGORY if !$CategoryListReverse{$Category};
 
@@ -694,14 +689,14 @@ sub _StateMachineDefaultSet {
         $Self->{GeneralCatalogObject}->ItemList(
             Class => 'ITSM::ChangeManagement::Change::State',
             )
-        };
+    };
 
     # get the workorder states from the general catalog
     my %Name2WorkOrderStateID = reverse %{
         $Self->{GeneralCatalogObject}->ItemList(
             Class => 'ITSM::ChangeManagement::WorkOrder::State',
             )
-        };
+    };
 
     # define ChangeState transitions
     my %ChangeStateTransitions = (
@@ -1371,6 +1366,7 @@ sub _AddSystemNotifications {
         . "\n"
         . "Your OTRS Notification Master\n";
 
+    # Workorder info for agents (en)
     my $WorkOrderInfoAgentEn = "\n"
         . "\n"
         . "Change title: <OTRS_CHANGE_ChangeTitle>\n"
@@ -2636,7 +2632,7 @@ Adds the new notifications to systems notification table that were added in vers
 
 =cut
 
-sub _AddSystemNotificationsNewIn_2_0_3 {
+sub _AddSystemNotificationsNewIn_2_0_3 {    ## no critic
     my ($Self) = @_;
 
     # define agent notifications
@@ -2735,7 +2731,7 @@ sub _DeleteTemplates {
     );
 
     # delete all templates
-    for my $TemplateID ( keys %{$Templates} ) {
+    for my $TemplateID ( sort keys %{$Templates} ) {
 
         my $Success = $Self->{TemplateObject}->TemplateDelete(
             TemplateID => $TemplateID,
@@ -2783,11 +2779,5 @@ This software is part of the OTRS project (L<http://otrs.org/>).
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
-
-=cut
-
-=head1 VERSION
-
-$Revision: 1.76 $ $Date: 2012-11-02 09:21:27 $
 
 =cut

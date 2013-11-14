@@ -1,8 +1,6 @@
 # --
 # Kernel/System/Stats/Dynamic/ITSMChangeManagementChangesIncidents.pm
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
-# --
-# $Id: ITSMChangeManagementChangesIncidents.pm,v 1.8 2010-10-28 12:31:07 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -17,9 +15,6 @@ use warnings;
 use Kernel::System::ITSMChange;
 use Kernel::System::Ticket;
 use Kernel::System::Type;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.8 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -183,7 +178,7 @@ sub ImportWrapper {
                 for my $ID ( @{$Values} ) {
                     next ID if !$ID;
 
-                    for my $Key ( keys %Objects ) {
+                    for my $Key ( sort keys %Objects ) {
                         $ID->{Content} = $Key if $Objects{$Key} eq $ID->{Content};
                     }
                 }

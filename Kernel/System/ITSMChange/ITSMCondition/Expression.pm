@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMCondition/Expression.pm - all condition expression functions
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
-# --
-# $Id: Expression.pm,v 1.31 2012-04-20 10:24:53 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -13,9 +11,6 @@ package Kernel::System::ITSMChange::ITSMCondition::Expression;
 
 use strict;
 use warnings;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.31 $) [1];
 
 =head1 NAME
 
@@ -218,7 +213,7 @@ sub ExpressionUpdate {
     my @Bind;
 
     ATTRIBUTE:
-    for my $Attribute ( keys %Attribute ) {
+    for my $Attribute ( sort keys %Attribute ) {
 
         # preserve the old value, when the column isn't in function parameters
         next ATTRIBUTE if !exists $Param{$Attribute};
@@ -809,9 +804,5 @@ the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =cut
-
-=head1 VERSION
-
-$Revision: 1.31 $ $Date: 2012-04-20 10:24:53 $
 
 =cut

@@ -1,8 +1,6 @@
 # --
 # Kernel/Output/HTML/LayoutITSMTemplate.pm - provides generic HTML output for templates
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
-# --
-# $Id: LayoutITSMTemplate.pm,v 1.4 2010-10-27 22:35:00 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -17,9 +15,6 @@ use warnings;
 use POSIX qw(ceil);
 
 use Kernel::Output::HTML::Layout;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.4 $) [1];
 
 =over 4
 
@@ -167,7 +162,7 @@ sub ITSMTemplateListShow {
     }
 
     # loop over configured backends, when there is more than a single backend
-    for my $Backend ( keys %{$Backends} ) {
+    for my $Backend ( sort keys %{$Backends} ) {
 
         # build navbar view mode
         $Env->{LayoutObject}->Block(

@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMCondition/Attribute.pm - all condition attribute functions
-# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
-# --
-# $Id: Attribute.pm,v 1.13 2011-11-30 16:59:14 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -14,8 +12,11 @@ package Kernel::System::ITSMChange::ITSMCondition::Attribute;
 use strict;
 use warnings;
 
+# IMPORTANT!
+# Do not delete this line! This prevents the "Frontend/Basic" UnitTest from failing
+# on opensuse 11.3 and 11.4 (64bit) if mod_perl is used!
+## nofilter(TidyAll::Plugin::OTRS::Common::RemoveCVSIDs)
 use vars qw($VERSION);
-$VERSION = qw($Revision: 1.13 $) [1];
 
 =head1 NAME
 
@@ -461,11 +462,5 @@ This software is part of the OTRS project (http://otrs.org/).
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
 the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
-
-=cut
-
-=head1 VERSION
-
-$Revision: 1.13 $ $Date: 2011-11-30 16:59:14 $
 
 =cut

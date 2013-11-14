@@ -1,8 +1,6 @@
 # --
 # Kernel/Output/HTML/ITSMTemplateOverviewSmall.pm.pm
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
-# --
-# $Id: ITSMTemplateOverviewSmall.pm,v 1.10 2010-12-06 12:37:43 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -13,9 +11,6 @@ package Kernel::Output::HTML::ITSMTemplateOverviewSmall;
 
 use strict;
 use warnings;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.10 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;

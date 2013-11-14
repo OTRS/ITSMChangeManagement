@@ -1,8 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMChangeConditionEdit.pm - the OTRS ITSM ChangeManagement condition edit module
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: AgentITSMChangeConditionEdit.pm,v 1.49 2013-03-26 14:35:31 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -17,9 +15,6 @@ use warnings;
 use Kernel::System::ITSMChange;
 use Kernel::System::ITSMChange::ITSMCondition;
 use Kernel::System::Valid;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.49 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -1494,7 +1489,7 @@ sub _GetAttributeSelection {
 
         # get the valid attributes for the given object
         ATTRIBUTEID:
-        for my $AttributeID ( keys %{$AllAttributes} ) {
+        for my $AttributeID ( sort keys %{$AllAttributes} ) {
 
             # check if attribute is in the mapping
             if ( $ObjectAttributeMapping->{ $AllAttributes->{$AttributeID} } ) {
@@ -1608,7 +1603,7 @@ sub _GetOperatorSelection {
 
         # get allowed operators for the given attribute
         OPERATORID:
-        for my $OperatorID ( keys %{$AllOperators} ) {
+        for my $OperatorID ( sort keys %{$AllOperators} ) {
 
             # get operator name
             my $OperatorName = $AllOperators->{$OperatorID};

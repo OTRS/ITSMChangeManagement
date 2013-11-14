@@ -1,8 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMChangeZoom.pm - the OTRS ITSM ChangeManagement change zoom module
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: AgentITSMChangeZoom.pm,v 1.63 2013-03-26 14:35:31 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -19,9 +17,6 @@ use Kernel::System::LinkObject;
 use Kernel::System::CustomerUser;
 use Kernel::System::ITSMChange;
 use Kernel::System::ITSMChange::ITSMWorkOrder;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.63 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -328,7 +323,7 @@ sub Run {
     # get all change freekey and freetext numbers from change
     my %ChangeFreeTextFields;
     ATTRIBUTE:
-    for my $Attribute ( keys %{$Change} ) {
+    for my $Attribute ( sort keys %{$Change} ) {
 
         # get the freetext number, only look at the freetext field,
         # as we do not want to show empty fields in the zoom view
@@ -531,10 +526,10 @@ sub Run {
     # get change initiators (customer users of linked tickets)
     my $TicketsRef = $LinkListWithData->{Ticket} || {};
     my %ChangeInitiatorsID;
-    for my $LinkType ( keys %{$TicketsRef} ) {
+    for my $LinkType ( sort keys %{$TicketsRef} ) {
 
         my $TicketRef = $TicketsRef->{$LinkType}->{Source};
-        for my $TicketID ( keys %{$TicketRef} ) {
+        for my $TicketID ( sort keys %{$TicketRef} ) {
 
             # get id of customer user
             my $CustomerUserID = $TicketRef->{$TicketID}->{CustomerUserID};
@@ -558,7 +553,7 @@ sub Run {
     }
 
     my $ChangeInitiators = '';
-    for my $UserID ( keys %ChangeInitiatorsID ) {
+    for my $UserID ( sort keys %ChangeInitiatorsID ) {
         my %User;
 
         # get customer user info if CI is a customer user
@@ -616,7 +611,7 @@ sub Run {
         );
 
         OBJECT:
-        for my $Object ( keys %{$LinkListWithDataWorkOrder} ) {
+        for my $Object ( sort keys %{$LinkListWithDataWorkOrder} ) {
 
             # only show linked services and config items of workorder
             if ( $Object ne 'Service' && $Object ne 'ITSMConfigItem' ) {
@@ -624,13 +619,17 @@ sub Run {
             }
 
             LINKTYPE:
-            for my $LinkType ( keys %{ $LinkListWithDataWorkOrder->{$Object} } ) {
+            for my $LinkType ( sort keys %{ $LinkListWithDataWorkOrder->{$Object} } ) {
 
                 DIRECTION:
-                for my $Direction ( keys %{ $LinkListWithDataWorkOrder->{$Object}->{$LinkType} } ) {
+                for my $Direction (
+                    sort keys %{ $LinkListWithDataWorkOrder->{$Object}->{$LinkType} }
+                    )
+                {
 
                     ID:
                     for my $ID (
+                        sort
                         keys %{ $LinkListWithDataWorkOrder->{$Object}->{$LinkType}->{$Direction} }
                         )
                     {

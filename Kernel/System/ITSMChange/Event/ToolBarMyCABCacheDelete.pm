@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/Event/ToolBarMyCABCacheDelete.pm - ToolBarMyCABCacheDelete event module for ITSMChange
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
-# --
-# $Id: ToolBarMyCABCacheDelete.pm,v 1.2 2012-05-14 15:04:10 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -15,9 +13,6 @@ use strict;
 use warnings;
 
 use Kernel::System::Cache;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.2 $) [1];
 
 =head1 NAME
 
@@ -159,7 +154,7 @@ sub Run {
 
      # find the CABAgents which have been changed, which are only agents with a count of exactly one
         my @ChangedCABAgents;
-        for my $CABAgent ( keys %ChangedCABAgentsLookup ) {
+        for my $CABAgent ( sort keys %ChangedCABAgentsLookup ) {
             if ( $ChangedCABAgentsLookup{$CABAgent} == 1 ) {
                 push @ChangedCABAgents, $CABAgent;
             }
@@ -224,9 +219,5 @@ the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =cut
-
-=head1 VERSION
-
-$Revision: 1.2 $ $Date: 2012-05-14 15:04:10 $
 
 =cut

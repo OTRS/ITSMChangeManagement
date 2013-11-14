@@ -1,9 +1,7 @@
 # --
 # Kernel/Modules/AdminITSMChangeNotification.pm - to add/update/delete
 # notification rules for ITSM change management
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
-# --
-# $Id: AdminITSMChangeNotification.pm,v 1.15 2010-10-28 12:56:32 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -18,9 +16,6 @@ use warnings;
 use Kernel::System::ITSMChange::History;
 use Kernel::System::ITSMChange::Notification;
 use Kernel::System::Valid;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.15 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;

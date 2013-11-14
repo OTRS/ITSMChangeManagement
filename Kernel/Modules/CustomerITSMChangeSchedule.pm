@@ -1,8 +1,6 @@
 # --
 # Kernel/Modules/CustomerITSMChangeSchedule.pm - the OTRS ITSM ChangeManagement customer change schedule overview module
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: CustomerITSMChangeSchedule.pm,v 1.10 2013-03-26 14:35:31 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -18,9 +16,6 @@ use Kernel::System::ITSMChange;
 use Kernel::System::LinkObject;
 use Kernel::System::Service;
 use Kernel::System::User;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.10 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -121,7 +116,7 @@ sub Run {
 
         # get the column names that should be shown
         COLUMNNAME:
-        for my $Name ( keys %PossibleColumn ) {
+        for my $Name ( sort keys %PossibleColumn ) {
             next COLUMNNAME if !$PossibleColumn{$Name};
             push @ShowColumns, $Name;
         }
@@ -249,7 +244,7 @@ sub Run {
                 next WORKORDERID if !%LinkKeyList;
 
                 SERVICEID:
-                for my $ServiceID ( keys %LinkKeyList ) {
+                for my $ServiceID ( sort keys %LinkKeyList ) {
 
                     # only use services where the customer is allowed to use the service
                     next SERVICEID if !$CustomerUserServices{$ServiceID};
@@ -483,7 +478,7 @@ sub Run {
                     );
 
                     OBJECT:
-                    for my $Object ( keys %{$LinkListWithDataWorkOrder} ) {
+                    for my $Object ( sort keys %{$LinkListWithDataWorkOrder} ) {
 
                         # only show linked services of workorder
                         if ( $Object ne 'Service' ) {
@@ -491,17 +486,17 @@ sub Run {
                         }
 
                         LINKTYPE:
-                        for my $LinkType ( keys %{ $LinkListWithDataWorkOrder->{$Object} } ) {
+                        for my $LinkType ( sort keys %{ $LinkListWithDataWorkOrder->{$Object} } ) {
 
                             DIRECTION:
                             for my $Direction (
-                                keys %{ $LinkListWithDataWorkOrder->{$Object}->{$LinkType} }
+                                sort keys %{ $LinkListWithDataWorkOrder->{$Object}->{$LinkType} }
                                 )
                             {
 
                                 ID:
                                 for my $ID (
-                                    keys %{
+                                    sort keys %{
                                         $LinkListWithDataWorkOrder->{$Object}->{$LinkType}
                                             ->{$Direction}
                                     }
@@ -521,18 +516,18 @@ sub Run {
                 # get unique service ids
                 my %UniqueServiceIDs;
                 my $ServicesRef = $LinkListWithData->{Service} || {};
-                for my $LinkType ( keys %{$ServicesRef} ) {
+                for my $LinkType ( sort keys %{$ServicesRef} ) {
 
                     # extract link type List
                     my $LinkTypeList = $ServicesRef->{$LinkType};
 
-                    for my $Direction ( keys %{$LinkTypeList} ) {
+                    for my $Direction ( sort keys %{$LinkTypeList} ) {
 
                         # extract direction list
                         my $DirectionList = $ServicesRef->{$LinkType}->{$Direction};
 
                         # collect unique service ids
-                        for my $ServiceID ( keys %{$DirectionList} ) {
+                        for my $ServiceID ( sort keys %{$DirectionList} ) {
                             $UniqueServiceIDs{$ServiceID}++;
                         }
                     }
@@ -541,7 +536,7 @@ sub Run {
                 # get the data for each service
                 my @ServicesData;
                 SERVICEID:
-                for my $ServiceID ( keys %UniqueServiceIDs ) {
+                for my $ServiceID ( sort keys %UniqueServiceIDs ) {
 
                     if ( $Self->{Config}->{ShowOnlyChangesWithAllowedServices} ) {
 

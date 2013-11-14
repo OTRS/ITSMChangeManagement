@@ -1,9 +1,7 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 # --
 # bin/otrs.ITSMChangeDelete.pl - to delete changes
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: otrs.ITSMChangeDelete.pl,v 1.4.4.1 2013-06-27 21:25:29 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU AFFERO General Public License as published by
@@ -28,9 +26,6 @@ use warnings;
 use File::Basename;
 use FindBin qw($RealBin);
 use lib dirname($RealBin);
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.4.4.1 $) [1];
 
 use Getopt::Long;
 use Kernel::Config;
@@ -59,9 +54,9 @@ $CommonObject{UserObject}   = Kernel::System::User->new(%CommonObject);
 $CommonObject{GroupObject}  = Kernel::System::Group->new(%CommonObject);
 $CommonObject{ChangeObject} = Kernel::System::ITSMChange->new(%CommonObject);
 
-print "otrs.ITSMChangeDelete.pl <Revision $VERSION> - ";
+print "otrs.ITSMChangeDelete.pl - ";
 print "delete changes (all or by number).\n";
-print "Copyright (C) 2001-2013 OTRS AG, http://otrs.org/\n";
+print "Copyright (C) 2001-2013 OTRS AG, http://otrs.com/\n";
 
 my $Help          = '';
 my $All           = '';

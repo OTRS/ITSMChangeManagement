@@ -1,8 +1,6 @@
 # --
 # Kernel/Output/HTML/LinkObjectITSMChange.pm - layout backend module
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
-# --
-# $Id: LinkObjectITSMChange.pm,v 1.12 2010-12-09 02:30:22 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -16,9 +14,6 @@ use warnings;
 
 use Kernel::Output::HTML::Layout;
 use Kernel::System::GeneralCatalog;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.12 $) [1];
 
 =head1 NAME
 
@@ -181,17 +176,17 @@ sub TableCreateComplex {
 
     # convert the list
     my %LinkList;
-    for my $LinkType ( keys %{ $Param{ObjectLinkListWithData} } ) {
+    for my $LinkType ( sort keys %{ $Param{ObjectLinkListWithData} } ) {
 
         # extract link type List
         my $LinkTypeList = $Param{ObjectLinkListWithData}->{$LinkType};
 
-        for my $Direction ( keys %{$LinkTypeList} ) {
+        for my $Direction ( sort keys %{$LinkTypeList} ) {
 
             # extract direction list
             my $DirectionList = $Param{ObjectLinkListWithData}->{$LinkType}->{$Direction};
 
-            for my $ChangeID ( keys %{$DirectionList} ) {
+            for my $ChangeID ( sort keys %{$DirectionList} ) {
 
                 $LinkList{$ChangeID}->{Data} = $DirectionList->{$ChangeID};
             }
@@ -327,12 +322,12 @@ sub TableCreateSimple {
     }
 
     my %LinkOutputData;
-    for my $LinkType ( keys %{ $Param{ObjectLinkListWithData} } ) {
+    for my $LinkType ( sort keys %{ $Param{ObjectLinkListWithData} } ) {
 
         # extract link type List
         my $LinkTypeList = $Param{ObjectLinkListWithData}->{$LinkType};
 
-        for my $Direction ( keys %{$LinkTypeList} ) {
+        for my $Direction ( sort keys %{$LinkTypeList} ) {
 
             # extract direction list
             my $DirectionList = $Param{ObjectLinkListWithData}->{$LinkType}->{$Direction};
@@ -551,9 +546,5 @@ the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =cut
-
-=head1 VERSION
-
-$Revision: 1.12 $ $Date: 2010-12-09 02:30:22 $
 
 =cut

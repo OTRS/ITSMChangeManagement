@@ -1,8 +1,7 @@
 # --
 # Kernel/Modules/AdminITSMChangeCIPAllocate.pm - admin frontend of criticality, impact and priority
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
-# $Id: AdminITSMChangeCIPAllocate.pm,v 1.9 2010-12-22 08:48:57 ub Exp $
 # $OldId: AdminITSMCIPAllocate.pm,v 1.13 2010/12/22 08:41:45 ub Exp $
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
@@ -29,9 +28,6 @@ use Kernel::System::GeneralCatalog;
 use Kernel::System::ITSMChange::ITSMChangeCIPAllocate;
 # ---
 use Kernel::System::Valid;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.9 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -100,7 +96,7 @@ sub Run {
 
         # get all PriorityIDs of the matrix
         my $AllocateData;
-        for my $ImpactID ( keys %{ $ObjectOption{ImpactList} } ) {
+        for my $ImpactID ( sort keys %{ $ObjectOption{ImpactList} } ) {
 
 # ---
 # ITSM
@@ -118,7 +114,7 @@ sub Run {
 #                $AllocateData->{$ImpactID}->{$CriticalityID} = $PriorityID;
 #            }
             CATEGORYID:
-            for my $CategoryID ( keys %{ $ObjectOption{CategoryList} } ) {
+            for my $CategoryID ( sort keys %{ $ObjectOption{CategoryList} } ) {
 
                 # get form param
                 my $PriorityID = $Self->{ParamObject}->GetParam(

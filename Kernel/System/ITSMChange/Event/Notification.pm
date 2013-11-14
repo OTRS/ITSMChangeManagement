@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/Event/Notification.pm - a event module to send notifications
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
-# --
-# $Id: Notification.pm,v 1.32 2012-12-19 13:25:34 mh Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -19,9 +17,6 @@ use Kernel::System::ITSMChange::ITSMWorkOrder;
 use Kernel::System::ITSMChange::Notification;
 use Kernel::System::ITSMChange::History;
 use Kernel::System::LinkObject;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.32 $) [1];
 
 =head1 NAME
 
@@ -318,7 +313,7 @@ sub _HasFieldChanged {
         return 1 if scalar keys %{ $Param{New} } != scalar keys %{ $Param{Old} };
 
         # check the values for each key
-        for my $Key ( keys %{ $Param{New} } ) {
+        for my $Key ( sort keys %{ $Param{New} } ) {
             return 1 if $Param{New}->{$Key} ne $Param{Old}->{$Key};
         }
     }
@@ -482,7 +477,7 @@ sub _AgentAndCustomerIDsGet {
             # get change initiators (customer users of linked tickets)
             # This should be the same list a displayed in ChangeZoom.
             my $LinkList = $LinkListWithData->{Ticket} || {};
-            for my $LinkType ( keys %{$LinkList} ) {
+            for my $LinkType ( sort keys %{$LinkList} ) {
 
                 # the linked tickets are always the 'Source'.
                 for my $TicketData ( values %{ $LinkList->{$LinkType}->{Source} } ) {
@@ -558,9 +553,5 @@ the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =cut
-
-=head1 VERSION
-
-$Revision: 1.32 $ $Date: 2012-12-19 13:25:34 $
 
 =cut

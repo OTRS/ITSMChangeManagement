@@ -1,9 +1,7 @@
 # --
 # Kernel/System/ITSMChange/ITSMWorkOrder/Event/WorkOrderNumberCalc.pm - WorkOrderNumberCalc
 # event module for ITSMWorkOrder
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
-# --
-# $Id: WorkOrderNumberCalc.pm,v 1.17 2012-11-22 08:47:47 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -14,9 +12,6 @@ package Kernel::System::ITSMChange::ITSMWorkOrder::Event::WorkOrderNumberCalc;
 
 use strict;
 use warnings;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.17 $) [1];
 
 =head1 NAME
 
@@ -255,7 +250,7 @@ sub _WorkOrderNumberCalc {
     }
 
     # update the workorders that need a new WorkOrderNumber
-    for my $WorkOrderID ( keys %NewWorkOrderNumber ) {
+    for my $WorkOrderID ( sort keys %NewWorkOrderNumber ) {
 
         # update each workorder, prevent recalculation of the WorkOrderNumber again
         my $CouldUpdateWorkOrder = $Self->{WorkOrderObject}->WorkOrderUpdate(
@@ -284,9 +279,5 @@ the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =cut
-
-=head1 VERSION
-
-$Revision: 1.17 $ $Date: 2012-11-22 08:47:47 $
 
 =cut

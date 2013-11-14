@@ -1,8 +1,6 @@
 # --
 # AgentITSMChangeAdd.dtl - provides HTML form for AgentITSMChangeAdd
-# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
-# --
-# $Id: AgentITSMChangeAdd.dtl,v 1.60 2011-01-26 14:40:58 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you

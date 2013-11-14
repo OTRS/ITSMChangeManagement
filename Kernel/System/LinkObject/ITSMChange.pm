@@ -1,8 +1,6 @@
 # --
 # Kernel/System/LinkObject/ITSMChange.pm - to link change objects
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: ITSMChange.pm,v 1.11 2013-03-25 18:55:17 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -17,9 +15,6 @@ use warnings;
 use Kernel::System::User;
 use Kernel::System::Group;
 use Kernel::System::ITSMChange;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.11 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -78,12 +73,12 @@ sub LinkListWithData {
         return;
     }
 
-    for my $LinkType ( keys %{ $Param{LinkList} } ) {
+    for my $LinkType ( sort keys %{ $Param{LinkList} } ) {
 
-        for my $Direction ( keys %{ $Param{LinkList}->{$LinkType} } ) {
+        for my $Direction ( sort keys %{ $Param{LinkList}->{$LinkType} } ) {
 
             CHANGEID:
-            for my $ChangeID ( keys %{ $Param{LinkList}->{$LinkType}->{$Direction} } ) {
+            for my $ChangeID ( sort keys %{ $Param{LinkList}->{$LinkType}->{$Direction} } ) {
 
                 # get change data
                 my $ChangeData = $Self->{ChangeObject}->ChangeGet(

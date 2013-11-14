@@ -1,8 +1,6 @@
 # --
 # Kernel/System/LinkObject/ITSMWorkOrder.pm - to link workorder objects
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: ITSMWorkOrder.pm,v 1.18 2013-03-25 18:59:23 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -18,9 +16,6 @@ use Kernel::System::User;
 use Kernel::System::Group;
 use Kernel::System::ITSMChange;
 use Kernel::System::ITSMChange::ITSMWorkOrder;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.18 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -80,12 +75,12 @@ sub LinkListWithData {
         return;
     }
 
-    for my $LinkType ( keys %{ $Param{LinkList} } ) {
+    for my $LinkType ( sort keys %{ $Param{LinkList} } ) {
 
-        for my $Direction ( keys %{ $Param{LinkList}->{$LinkType} } ) {
+        for my $Direction ( sort keys %{ $Param{LinkList}->{$LinkType} } ) {
 
             WORKORDERID:
-            for my $WorkOrderID ( keys %{ $Param{LinkList}->{$LinkType}->{$Direction} } ) {
+            for my $WorkOrderID ( sort keys %{ $Param{LinkList}->{$LinkType}->{$Direction} } ) {
 
                 # get workorder data
                 my $WorkOrderData = $Self->{WorkOrderObject}->WorkOrderGet(

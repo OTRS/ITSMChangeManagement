@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMCondition/Operator.pm - all condition operator functions
-# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
-# --
-# $Id: Operator.pm,v 1.32 2011-11-30 16:59:13 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -13,9 +11,6 @@ package Kernel::System::ITSMChange::ITSMCondition::Operator;
 
 use strict;
 use warnings;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.32 $) [1];
 
 =head1 NAME
 
@@ -1242,7 +1237,7 @@ sub _OperatorSet {
 
         # check objects
         return 1 if !$ActionObjects;
-        return if ref $ActionObjects ne 'ARRAY';
+        return   if ref $ActionObjects ne 'ARRAY';
 
         # execute actions for all objects
         $Result = $BackendObject->$Sub(
@@ -1336,9 +1331,5 @@ the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =cut
-
-=head1 VERSION
-
-$Revision: 1.32 $ $Date: 2011-11-30 16:59:13 $
 
 =cut

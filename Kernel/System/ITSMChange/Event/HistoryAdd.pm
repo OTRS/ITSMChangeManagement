@@ -1,8 +1,6 @@
 # --
 # Kernel/System/ITSMChange/Event/HistoryAdd.pm - HistoryAdd event module for ITSMChange
-# Copyright (C) 2001-2011 OTRS AG, http://otrs.org/
-# --
-# $Id: HistoryAdd.pm,v 1.52 2011-12-08 11:40:34 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -16,9 +14,6 @@ use warnings;
 
 use Kernel::System::ITSMChange::ITSMWorkOrder;
 use Kernel::System::ITSMChange::History;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.52 $) [1];
 
 =head1 NAME
 
@@ -211,8 +206,8 @@ sub Run {
 
             # The history of CAB updates is not tracked here,
             # but in the handler for ChangeCABUpdate.
-            next FIELD if $Field eq 'CABAgents';             # change
-            next FIELD if $Field eq 'CABCustomers';          # change
+            next FIELD if $Field eq 'CABAgents';       # change
+            next FIELD if $Field eq 'CABCustomers';    # change
 
             # special handling for accounted time
             if ( $Type eq 'WorkOrder' && $Field eq 'AccountedTime' ) {
@@ -332,7 +327,7 @@ sub Run {
 
     # handle link events
     elsif (
-        $Event    eq 'ChangeLinkAdd'
+        $Event eq 'ChangeLinkAdd'
         || $Event eq 'ChangeLinkDelete'
         || $Event eq 'WorkOrderLinkAdd'
         || $Event eq 'WorkOrderLinkDelete'
@@ -365,7 +360,7 @@ sub Run {
 
     # handle attachment events
     elsif (
-        $Event    eq 'ChangeAttachmentAdd'
+        $Event eq 'ChangeAttachmentAdd'
         || $Event eq 'ChangeAttachmentDelete'
         || $Event eq 'WorkOrderAttachmentAdd'
         || $Event eq 'WorkOrderAttachmentDelete'
@@ -426,7 +421,7 @@ sub Run {
         # create history for all condition fields
         my @ConditionStatic = qw(ConditionID UserID ChangeID);
         CONDITIONFIELD:
-        for my $ConditionField ( keys %{ $Param{Data} } ) {
+        for my $ConditionField ( sort keys %{ $Param{Data} } ) {
 
             # check for static fields
             next CONDITIONFIELD if grep { $_ eq $ConditionField } @ConditionStatic;
@@ -453,7 +448,7 @@ sub Run {
         # create history for all condition fields
         my @ConditionStatic = qw(ConditionID UserID ChangeID OldConditionData);
         CONDITIONFIELD:
-        for my $ConditionField ( keys %{ $Param{Data} } ) {
+        for my $ConditionField ( sort keys %{ $Param{Data} } ) {
 
             # check for static fields
             next CONDITIONFIELD if grep { $_ eq $ConditionField } @ConditionStatic;
@@ -520,7 +515,7 @@ sub Run {
         # create history for all expression fields
         my @ExpressionStatic = qw( ExpressionID UserID ChangeID);
         EXPRESSIONFIELD:
-        for my $ExpressionField ( keys %{ $Param{Data} } ) {
+        for my $ExpressionField ( sort keys %{ $Param{Data} } ) {
 
             # check for static fields
             next EXPRESSIONFIELD if grep { $_ eq $ExpressionField } @ExpressionStatic;
@@ -547,7 +542,7 @@ sub Run {
         # create history for all expression fields
         my @ExpressionStatic = qw( ExpressionID UserID ChangeID OldExpressionData );
         EXPRESSIONFIELD:
-        for my $ExpressionField ( keys %{ $Param{Data} } ) {
+        for my $ExpressionField ( sort keys %{ $Param{Data} } ) {
 
             # check for static fields
             next EXPRESSIONFIELD if grep { $_ eq $ExpressionField } @ExpressionStatic;
@@ -612,7 +607,7 @@ sub Run {
         # create history for all action fields
         my @ActionStatic = qw( ActionID UserID ChangeID);
         ACTIONFIELD:
-        for my $ActionField ( keys %{ $Param{Data} } ) {
+        for my $ActionField ( sort keys %{ $Param{Data} } ) {
 
             # check for static fields
             next ACTIONFIELD if grep { $_ eq $ActionField } @ActionStatic;
@@ -639,7 +634,7 @@ sub Run {
         # create history for all expression fields
         my @ActionStatic = qw( ActionID UserID ChangeID OldActionData );
         ACTIONFIELD:
-        for my $ActionField ( keys %{ $Param{Data} } ) {
+        for my $ActionField ( sort keys %{ $Param{Data} } ) {
 
             # check for static fields
             next ACTIONFIELD if grep { $_ eq $ActionField } @ActionStatic;
@@ -771,7 +766,7 @@ sub _HasFieldChanged {
         return 1 if scalar keys %{ $Param{New} } != scalar keys %{ $Param{Old} };
 
         # check the values for each key
-        for my $Key ( keys %{ $Param{New} } ) {
+        for my $Key ( sort keys %{ $Param{New} } ) {
             return 1 if $Param{New}->{$Key} ne $Param{Old}->{$Key};
         }
     }
@@ -807,9 +802,5 @@ the enclosed file COPYING for license information (AGPL). If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 
 =cut
-
-=head1 VERSION
-
-$Revision: 1.52 $ $Date: 2011-12-08 11:40:34 $
 
 =cut

@@ -1,8 +1,6 @@
 # --
 # Kernel/System/Stats/Dynamic/ITSMChangeManagementChangesPerCIClasses.pm - all advice functions
-# Copyright (C) 2001-2010 OTRS AG, http://otrs.org/
-# --
-# $Id: ITSMChangeManagementChangesPerCIClasses.pm,v 1.12 2010-10-28 12:31:07 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -17,9 +15,6 @@ use warnings;
 use Kernel::System::ITSMChange;
 use Kernel::System::GeneralCatalog;
 use Kernel::System::LinkObject;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.12 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -315,7 +310,7 @@ sub ImportWrapper {
                     next ID if !$ID;
 
                     KEY:
-                    for my $Key ( keys %{$InciStateList} ) {
+                    for my $Key ( sort keys %{$InciStateList} ) {
                         if ( $ID->{Content} eq $InciStateList->{$Key} ) {
                             $ID->{Content} = $Key;
                             last KEY;
@@ -328,7 +323,7 @@ sub ImportWrapper {
                 for my $ID ( @{$Values} ) {
                     next ID if !$ID;
 
-                    for my $Key ( keys %{$ClassList} ) {
+                    for my $Key ( sort keys %{$ClassList} ) {
                         if ( $ID->{Content} eq $ClassList->{$Key} ) {
                             $ID->{Content} = $Key;
                         }

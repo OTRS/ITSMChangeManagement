@@ -1,8 +1,6 @@
 # --
 # Kernel/Language/de_ITSMChangeManagement.pm - translation file
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
-# --
-# $Id: de_ITSMChangeManagement.pm,v 1.95 2012-02-16 15:26:32 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -12,6 +10,7 @@
 package Kernel::Language::de_ITSMChangeManagement;
 
 use strict;
+use warnings;
 
 sub Data {
     my $Self = shift;

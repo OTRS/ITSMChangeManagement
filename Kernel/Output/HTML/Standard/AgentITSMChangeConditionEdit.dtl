@@ -1,8 +1,6 @@
 # --
 # AgentITSMChangeConditionEdit.dtl - provides HTML form for AgentITSMChangeConditionEdit
-# Copyright (C) 2001-2012 OTRS AG, http://otrs.org/
-# --
-# $Id: AgentITSMChangeConditionEdit.dtl,v 1.41 2012-12-05 10:33:20 mab Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -23,7 +21,7 @@
                 $Text{"Edit"} $Text{"Condition"}: $Config{"ITSMChange::Hook"}: $QData{"ChangeNumber"} $QData{"ChangeTitle","70"}
             </h1>
             <p>
-                <a href="$Env{"Baselink"}Action=AgentITSMChangeCondition;ChangeID=$QData{"ChangeID"}">$Text{"Back"}</a>
+                <a href="$Env{"Baselink"}Action=AgentITSMChangeCondition;ChangeID=$LQData{"ChangeID"}">$Text{"Back"}</a>
                 $Text{"or"}
                 <a class="CancelClosePopup" href="#">$Text{"Cancel & close window"}</a>
             </p>

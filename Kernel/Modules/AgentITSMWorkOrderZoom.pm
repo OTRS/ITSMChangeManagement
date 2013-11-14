@@ -1,8 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMWorkOrderZoom.pm - the OTRS ITSM ChangeManagement workorder zoom module
-# Copyright (C) 2001-2013 OTRS AG, http://otrs.org/
-# --
-# $Id: AgentITSMWorkOrderZoom.pm,v 1.54 2013-03-26 14:35:31 ub Exp $
+# Copyright (C) 2001-2013 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -18,9 +16,6 @@ use Kernel::System::HTMLUtils;
 use Kernel::System::ITSMChange;
 use Kernel::System::ITSMChange::ITSMWorkOrder;
 use Kernel::System::LinkObject;
-
-use vars qw($VERSION);
-$VERSION = qw($Revision: 1.54 $) [1];
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -320,7 +315,7 @@ sub Run {
     # get all workorder freekey and freetext numbers from workorder
     my %WorkOrderFreeTextFields;
     ATTRIBUTE:
-    for my $Attribute ( keys %{$WorkOrder} ) {
+    for my $Attribute ( sort keys %{$WorkOrder} ) {
 
         # get the freetext number, only look at the freetext field,
         # as we do not want to show empty fields in the zoom view

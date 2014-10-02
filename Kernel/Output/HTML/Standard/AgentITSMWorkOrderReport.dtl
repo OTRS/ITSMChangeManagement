@@ -118,13 +118,13 @@ $Include{"RichTextEditor"}
 
 
 <!-- dtl:block:AttachmentUpload -->
-                    <label>$Text{"Attachment"}:</label>
-                    <div class="Field">
-                        <ul>
+                <label>$Text{"Attachment"}:</label>
+                <div class="Field">
+                    <ul>
 <!-- dtl:block:Attachment -->
-                            <li>
-                                $QData{"Filename"} ($QData{"Filesize"})
-                                <button type="submit" id="AttachmentDelete$QData{"FileID"}" name="AttachmentDelete$QData{"FileID"}" value="$Text{"Delete"}">$Text{"Delete"}</button>
+                        <li>
+                            $QData{"Filename"} ($QData{"Filesize"})
+                            <button type="submit" id="AttachmentDelete$QData{"FileID"}" name="AttachmentDelete$QData{"FileID"}" value="$Text{"Delete"}">$Text{"Delete"}</button>
 <!--dtl:js_on_document_complete-->
 <script type="text/javascript">//<![CDATA[
     $('#AttachmentDelete$QData{"FileID"}').bind('click', function () {
@@ -132,15 +132,15 @@ $Include{"RichTextEditor"}
     });
 //]]></script>
 <!--dtl:js_on_document_complete-->
-                            </li>
+                        </li>
 <!-- dtl:block:Attachment -->
-                            <li>
-                                <input name="FileUpload" id="FileUpload" type="file" size="40"/>
-                                <input type="hidden" id="AttachmentUpload" name="AttachmentUpload" value="0" />
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="Clear"></div>
+                        <li>
+                            <input name="FileUpload" id="FileUpload" type="file" size="40"/>
+                            <input type="hidden" id="AttachmentUpload" name="AttachmentUpload" value="0" />
+                        </li>
+                    </ul>
+                </div>
+                <div class="Clear"></div>
 
 <!--dtl:js_on_document_complete-->
 <script type="text/javascript">//<![CDATA[

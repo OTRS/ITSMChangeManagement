@@ -316,7 +316,6 @@ sub Run {
                     $NewAttachment{$Key} = $Attachment;
                 }
 
-
                 # get all report attachments meta data
                 my @ExistingAttachments = $Self->{WorkOrderObject}->WorkOrderReportAttachmentList(
                     WorkOrderID => $WorkOrderID,

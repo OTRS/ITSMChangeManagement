@@ -118,6 +118,10 @@ sub new {
     # get the cache TTL (in seconds)
     $Self->{CacheTTL} = $Self->{ConfigObject}->Get('ITSMChange::CacheTTL') * 60;
 
+    # get the database type
+    $Self->{DBType} = $Self->{DBObject}->{'DB::Type'} || '';
+    $Self->{DBType} = lc $Self->{DBType};
+
     # init of event handler
     $Self->EventHandlerInit(
         Config     => 'ITSMCondition::EventModule',

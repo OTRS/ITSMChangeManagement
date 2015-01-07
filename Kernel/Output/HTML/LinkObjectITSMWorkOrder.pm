@@ -1,6 +1,6 @@
 # --
 # Kernel/Output/HTML/LinkObjectITSMWorkOrder.pm - layout backend module
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -232,7 +232,7 @@ sub TableCreateComplex {
                 Type    => 'Link',
                 Content => $WorkOrder->{ChangeData}->{ChangeNumber}
                     . '-' . $WorkOrder->{WorkOrderNumber},
-                Link => '$Env{"Baselink"}Action=AgentITSMWorkOrderZoom;WorkOrderID=' . $WorkOrderID,
+                Link  => '$Env{"Baselink"}Action=AgentITSMWorkOrderZoom;WorkOrderID=' . $WorkOrderID,
                 Title => $Self->{ChangeHook} . $WorkOrder->{ChangeData}->{ChangeNumber} . '-'
                     . $Self->{WorkOrderHook}
                     . $WorkOrder->{WorkOrderNumber} . ': '
@@ -432,7 +432,7 @@ sub ContentStringCreate {
             . '<span class="$QData{"WorkOrderStateSignal"}"></span> </div>',
         Data => {
             WorkOrderStateSignal => $Content->{Content},
-            WorkOrderState => $Content->{WorkOrderState} || '',
+            WorkOrderState       => $Content->{WorkOrderState} || '',
         },
     );
 
@@ -558,7 +558,7 @@ sub SearchOptionList {
         $Self->{LayoutObject}->Block(
             Name => 'InputText',
             Data => {
-                Key => $Row->{FormKey},
+                Key   => $Row->{FormKey},
                 Value => $Row->{FormData} || '',
             },
         );

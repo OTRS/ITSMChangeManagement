@@ -1,6 +1,6 @@
 # --
 # Kernel/Output/HTML/LayoutITSMChange.pm - provides generic HTML output for ITSMChange
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -102,16 +102,14 @@ sub ITSMChangeBuildWorkOrderGraph {
 
     # get smallest start time
     if ( !$Time{StartTime} ) {
-        $Time{StartTime}
-            = ( $Time{PlannedStartTime} lt $Time{ActualStartTime} )
+        $Time{StartTime} = ( $Time{PlannedStartTime} lt $Time{ActualStartTime} )
             ? $Time{PlannedStartTime}
             : $Time{ActualStartTime};
     }
 
     # get highest end time
     if ( !$Time{EndTime} ) {
-        $Time{EndTime}
-            = ( $Time{PlannedEndTime} gt $Time{ActualEndTime} )
+        $Time{EndTime} = ( $Time{PlannedEndTime} gt $Time{ActualEndTime} )
             ? $Time{PlannedEndTime}
             : $Time{ActualEndTime};
     }
@@ -260,8 +258,7 @@ sub ITSMChangeBuildWorkOrderGraph {
         for my $WorkOrderColor (qw( _planned _actual )) {
 
             # get configured or fallback planned color for workorder
-            my $WorkOrderTypeColor
-                = $WorkOrderGraphConfig->{"${WorkOrderTypeName}${WorkOrderColor}_color"};
+            my $WorkOrderTypeColor = $WorkOrderGraphConfig->{"${WorkOrderTypeName}${WorkOrderColor}_color"};
 
             # set default color if no color is found
             $WorkOrderTypeColor ||= $WorkOrderGraphConfig->{"undefined${WorkOrderColor}_color"};
@@ -785,8 +782,7 @@ sub BuildFreeTextHTML {
 
                     # take first element...
                     if ( $InputData{ $Type . 'FreeKey' . $Number }->[0] ) {
-                        $InputData{ $Type . 'FreeKey' . $Number }
-                            = $InputData{ $Type . 'FreeKey' . $Number }->[0];
+                        $InputData{ $Type . 'FreeKey' . $Number } = $InputData{ $Type . 'FreeKey' . $Number }->[0];
                     }
 
                     # ...or nothing
@@ -796,8 +792,7 @@ sub BuildFreeTextHTML {
                 }
 
                 # build input field with freekey data
-                $Data{ $Type . 'FreeKeyField' . $Number }
-                    = '<input type="text" id="'
+                $Data{ $Type . 'FreeKeyField' . $Number } = '<input type="text" id="'
                     . $Type . 'FreeKey' . $Number
                     . '" name="'
                     . $Type . 'FreeKey' . $Number
@@ -810,8 +805,7 @@ sub BuildFreeTextHTML {
             else {
 
                 # build empty input field
-                $Data{ $Type . 'FreeKeyField' . $Number }
-                    = '<input type="text" id="'
+                $Data{ $Type . 'FreeKeyField' . $Number } = '<input type="text" id="'
                     . $Type . 'FreeKey' . $Number
                     . '" name="'
                     . $Type . 'FreeKey' . $Number
@@ -844,8 +838,7 @@ sub BuildFreeTextHTML {
         }
 
         # build freekey string
-        $Data{ $Type . 'FreeKeyField' . $Number }
-            = '<label id="Label' . $Type . 'FreeText' . $Number . '" '
+        $Data{ $Type . 'FreeKeyField' . $Number } = '<label id="Label' . $Type . 'FreeText' . $Number . '" '
             . 'for="' . $Type . 'FreeText' . $Number . '" '
             . $MandatoryClass
             . '>'
@@ -895,8 +888,7 @@ sub BuildFreeTextHTML {
 
                     # take first element...
                     if ( $InputData{ $Type . 'FreeText' . $Number }->[0] ) {
-                        $InputData{ $Type . 'FreeText' . $Number }
-                            = $InputData{ $Type . 'FreeText' . $Number }->[0];
+                        $InputData{ $Type . 'FreeText' . $Number } = $InputData{ $Type . 'FreeText' . $Number }->[0];
                     }
 
                     # ...or nothing
@@ -906,8 +898,7 @@ sub BuildFreeTextHTML {
                 }
 
                 # build input field with freetext data
-                $Data{ $Type . 'FreeTextField' . $Number }
-                    = '<input type="text" class="W75pc '
+                $Data{ $Type . 'FreeTextField' . $Number } = '<input type="text" class="W75pc '
                     . $ValidationClass
                     . '" id="'
                     . $Type . 'FreeText' . $Number
@@ -925,8 +916,7 @@ sub BuildFreeTextHTML {
             else {
 
                 # build empty input field
-                $Data{ $Type . 'FreeTextField' . $Number }
-                    = '<input type="text" class="W75pc '
+                $Data{ $Type . 'FreeTextField' . $Number } = '<input type="text" class="W75pc '
                     . $ValidationClass
                     . '" id="'
                     . $Type . 'FreeText' . $Number
@@ -1053,12 +1043,10 @@ sub _ITSMChangeGetWorkOrderGraph {
     my %WorkOrderInformation = %{$WorkOrder};
 
     # translate workorder type
-    $WorkOrder->{TranslatedWorkOrderType}
-        = $Self->{LanguageObject}->Get( $WorkOrder->{WorkOrderType} );
+    $WorkOrder->{TranslatedWorkOrderType} = $Self->{LanguageObject}->Get( $WorkOrder->{WorkOrderType} );
 
     # build label for link in graph
-    $WorkOrder->{WorkOrderLabel}
-        = "Title: $WorkOrder->{WorkOrderTitle} | Type: $WorkOrder->{TranslatedWorkOrderType}";
+    $WorkOrder->{WorkOrderLabel} = "Title: $WorkOrder->{WorkOrderTitle} | Type: $WorkOrder->{TranslatedWorkOrderType}";
 
     # create workorder item
     $Self->Block(
@@ -1138,15 +1126,13 @@ sub _ITSMChangeGetWorkOrderGraph {
         $TickValue{"${TimeType}Padding"} = $StartPadding;
 
         # get values for trailing span
-        my $EndTrailing
-            = sprintf( "%.1f", ( $Param{EndTime} - $Time{"${TimeType}EndTime"} ) / $Param{Ticks} );
+        my $EndTrailing = sprintf( "%.1f", ( $Param{EndTime} - $Time{"${TimeType}EndTime"} ) / $Param{Ticks} );
         $EndTrailing = ( $EndTrailing <= 0 )   ? 0    : $EndTrailing;
         $EndTrailing = ( $EndTrailing >= 100 ) ? 99.9 : $EndTrailing;
         $TickValue{"${TimeType}Trailing"} = $EndTrailing;
 
         # get values for display span
-        my $TimeTicks
-            = 100 - ( $TickValue{"${TimeType}Padding"} + $TickValue{"${TimeType}Trailing"} );
+        my $TimeTicks = 100 - ( $TickValue{"${TimeType}Padding"} + $TickValue{"${TimeType}Trailing"} );
         $TimeTicks = ( $TimeTicks <= 0 )   ? 0.1  : $TimeTicks;
         $TimeTicks = ( $TimeTicks >= 100 ) ? 99.9 : $TimeTicks;
         $TickValue{"${TimeType}Ticks"} = sprintf( "%.1f", $TimeTicks );

@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMChangeCIPAllocate.pm - all criticality, impact and priority allocation functions
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -236,7 +236,7 @@ sub PriorityAllocationGet {
     return if !$Self->{DBObject}->Prepare(
         SQL => 'SELECT priority_id FROM change_cip_allocate '
             . 'WHERE category_id = ? AND impact_id = ?',
-        Bind => [ \$Param{CategoryID}, \$Param{ImpactID} ],
+        Bind  => [ \$Param{CategoryID}, \$Param{ImpactID} ],
         Limit => 1,
     );
 

@@ -1,6 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMWorkOrderReport.pm - the OTRS ITSM ChangeManagement workorder report module
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -103,8 +103,7 @@ sub Run {
     }
 
     # get configured workorder freetext field numbers
-    my @ConfiguredWorkOrderFreeTextFields
-        = $Self->{WorkOrderObject}->WorkOrderGetConfiguredFreeTextFields();
+    my @ConfiguredWorkOrderFreeTextFields = $Self->{WorkOrderObject}->WorkOrderGetConfiguredFreeTextFields();
 
     # get workorder freetext params
     my %WorkOrderFreeTextParam;
@@ -402,8 +401,7 @@ sub Run {
                         . "ContentID=$Attachment->{ContentID}";
 
                     # picture url in workorder report attachment
-                    my $Replace
-                        = "Action=AgentITSMWorkOrderZoom;Subaction=DownloadAttachment;"
+                    my $Replace = "Action=AgentITSMWorkOrderZoom;Subaction=DownloadAttachment;"
                         . "Filename=$Attachment->{Filename};WorkOrderID=$WorkOrderID;Type=WorkOrderReport";
 
                     # replace url

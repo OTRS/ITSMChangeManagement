@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/Template/ITSMWorkOrder.pm - all template functions for workorders
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -380,10 +380,9 @@ sub _WorkOrderAdd {
                     if ( $Param{MoveTimeType} eq 'PlannedEndTime' ) {
 
                         # calculate the old planned start time into epoch seconds
-                        my $OldPlannedStartTimeInSeconds
-                            = $Self->{TimeObject}->TimeStamp2SystemTime(
+                        my $OldPlannedStartTimeInSeconds = $Self->{TimeObject}->TimeStamp2SystemTime(
                             String => $Data{PlannedStartTime},
-                            );
+                        );
 
                         # calculate the old planned end time into epoch seconds
                         my $OldPlannedEndTimeInSeconds = $Self->{TimeObject}->TimeStamp2SystemTime(
@@ -391,8 +390,7 @@ sub _WorkOrderAdd {
                         );
 
                         # the time length of the workorder in seconds
-                        $WorkOrderLengthInSeconds
-                            = $OldPlannedEndTimeInSeconds - $OldPlannedStartTimeInSeconds;
+                        $WorkOrderLengthInSeconds = $OldPlannedEndTimeInSeconds - $OldPlannedStartTimeInSeconds;
                     }
 
                     # calculate the time difference

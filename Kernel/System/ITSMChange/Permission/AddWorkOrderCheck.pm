@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/Permission/AddWorkOrderCheck.pm - WorkOrderAdd and WorkOrderAddFromTemplate permission check
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -160,8 +160,7 @@ sub Run {
     }
 
     # get config for the relevant action
-    my $FrontendConfig
-        = $Self->{ConfigObject}->Get("ITSMChange::Frontend::$Param{Action}");
+    my $FrontendConfig = $Self->{ConfigObject}->Get("ITSMChange::Frontend::$Param{Action}");
 
     # get the required privilege, 'ro' or 'rw'
     my $RequiredPriv;
@@ -194,7 +193,7 @@ sub Run {
         Result => 'HASH',
     );
 
-# access is passed to other permission modules if the agent has the appropriate type in the appropriate group
+    # access is passed to other permission modules if the agent has the appropriate type in the appropriate group
     return 1 if $Groups{$GroupID};
 
     # deny access otherwise

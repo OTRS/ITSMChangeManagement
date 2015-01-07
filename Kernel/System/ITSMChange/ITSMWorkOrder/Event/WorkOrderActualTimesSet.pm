@@ -1,7 +1,7 @@
 # --
 # Kernel/System/ITSMChange/ITSMWorkOrder/Event/WorkOrderActualTimesSet.pm - to set actual workorder times
 # event module for ITSMWorkOrder
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -160,8 +160,7 @@ sub Run {
         my $ActualStartTime = $WorkOrder->{ActualStartTime};
 
         # get configured workorder states when to set actual start time
-        my $ConfiguredWorkOrderStartStates
-            = $Self->{ConfigObject}->Get('ITSMWorkOrder::ActualStartTimeSet::States');
+        my $ConfiguredWorkOrderStartStates = $Self->{ConfigObject}->Get('ITSMWorkOrder::ActualStartTimeSet::States');
 
         # convert into hash for easier lookup
         my %ActualStartTimeSetStates = map { $_ => 1 } @{$ConfiguredWorkOrderStartStates};

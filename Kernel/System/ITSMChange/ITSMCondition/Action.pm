@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMCondition/Action.pm - all condition action functions
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -362,7 +362,7 @@ sub ActionGet {
         $ActionData{Selector}     = $Row[6];
 
         # this is important for oracle for which an empty string and NULL is the same!
-        $ActionData{ActionValue}  = $Row[7] // '';
+        $ActionData{ActionValue} = $Row[7] // '';
     }
 
     # check error

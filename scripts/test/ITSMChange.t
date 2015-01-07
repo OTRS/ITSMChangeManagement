@@ -1,6 +1,6 @@
 # --
 # ITSMChange.t - change tests
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -101,7 +101,7 @@ for my $Counter ( 1 .. 3 ) {
             . int( rand 1_000_000 )
             . '@localhost',
         ValidID => $Self->{ValidObject}->ValidLookup( Valid => 'valid' ),
-        UserID => 1,
+        UserID  => 1,
     );
     push @CustomerUserIDs, $CustomerUserID;
 }
@@ -135,7 +135,7 @@ $Self->{UserObject}->UserUpdate(
     $Self->{UserObject}->GetUserData(
         UserID => $UserIDs[2],
     ),
-    ValidID => $Self->{ValidObject}->ValidLookup( Valid => 'invalid' ),
+    ValidID      => $Self->{ValidObject}->ValidLookup( Valid => 'invalid' ),
     ChangeUserID => 1,
 );
 push @InvalidUserIDs, pop @UserIDs;
@@ -1135,7 +1135,7 @@ my @ChangeTests = (
         },
         ReferenceData => {
             ChangeGet => {
-                ChangeTitle => "Title with leading and trailing whitespace - " . $UniqueSignature,
+                ChangeTitle     => "Title with leading and trailing whitespace - " . $UniqueSignature,
                 ChangeBuilderID => $UserIDs[0],
             },
         },
@@ -1445,7 +1445,7 @@ my @ChangeTests = (
     # Update change without required params (required attributes)
     {
         Description => 'Test contains no params for ChangeUpdate().',
-        Fails       => 1,                                              # we expect this test to fail
+        Fails       => 1,                                               # we expect this test to fail
         SourceData  => {
             ChangeUpdate => {},
         },
@@ -2706,9 +2706,8 @@ for my $Test (@ChangeTests) {
 
             # dump the attribute from ChangeGet() and the reference attribute
             ## no critic
-            my $ChangeAttribute = Data::Dumper::Dumper( $ChangeData->{$RequestedAttribute} );
-            my $ReferenceAttribute
-                = Data::Dumper::Dumper( $ReferenceData->{ChangeGet}->{$RequestedAttribute} );
+            my $ChangeAttribute    = Data::Dumper::Dumper( $ChangeData->{$RequestedAttribute} );
+            my $ReferenceAttribute = Data::Dumper::Dumper( $ReferenceData->{ChangeGet}->{$RequestedAttribute} );
             ## use critic
 
             $Self->Is(
@@ -2734,9 +2733,8 @@ for my $Test (@ChangeTests) {
 
             # dump the attribute from ChangeGet() and the reference attribute
             ## no critic
-            my $ChangeAttribute = Data::Dumper::Dumper( $CABData->{$RequestedAttribute} );
-            my $ReferenceAttribute
-                = Data::Dumper::Dumper( $ReferenceData->{ChangeCABGet}->{$RequestedAttribute} );
+            my $ChangeAttribute    = Data::Dumper::Dumper( $CABData->{$RequestedAttribute} );
+            my $ReferenceAttribute = Data::Dumper::Dumper( $ReferenceData->{ChangeCABGet}->{$RequestedAttribute} );
             ## use critic
 
             $Self->Is(
@@ -3620,7 +3618,7 @@ my @ChangeSearchTests = (
     {
         Description => 'Search for categories',
         SearchData  => {
-            Categories => [ '1 very low', '2 low', '5 very high' ],
+            Categories  => [ '1 very low', '2 low', '5 very high' ],
             ChangeTitle => 'Test%CIP%' . $UniqueSignature,
         },
         ResultData => {
@@ -3633,7 +3631,7 @@ my @ChangeSearchTests = (
     {
         Description => 'Search for impacts',
         SearchData  => {
-            Impacts => [ '1 very low', '2 low', '5 very high' ],
+            Impacts     => [ '1 very low', '2 low', '5 very high' ],
             ChangeTitle => 'Test%CIP%' . $UniqueSignature,
         },
         ResultData => {
@@ -3646,7 +3644,7 @@ my @ChangeSearchTests = (
     {
         Description => 'Search for priorities',
         SearchData  => {
-            Priorities => [ '1 very low', '2 low', '5 very high' ],
+            Priorities  => [ '1 very low', '2 low', '5 very high' ],
             ChangeTitle => 'Test%CIP%' . $UniqueSignature,
         },
         ResultData => {
@@ -3749,9 +3747,9 @@ my @ChangeSearchTests = (
     {
         Description => 'Search for all CIP columns',
         SearchData  => {
-            Categories => [ '1 very low', '2 low' ],
-            Impacts    => ['3 normal'],
-            Priorities => ['3 normal'],
+            Categories  => [ '1 very low', '2 low' ],
+            Impacts     => ['3 normal'],
+            Priorities  => ['3 normal'],
             ChangeTitle => 'Test%CIP%' . $UniqueSignature,
         },
         ResultData => {
@@ -4002,7 +4000,7 @@ if ($SearchTestChangeID) {
             Description => 'ChangeNumber, two creators',
             SearchData  => {
                 ChangeNumber => $SearchTestChange->{ChangeNumber},
-                CreateBy => [ $SearchTestChange->{CreateBy}, $SearchTestChange->{CreateBy} + 1 ],
+                CreateBy     => [ $SearchTestChange->{CreateBy}, $SearchTestChange->{CreateBy} + 1 ],
             },
             ResultData => {
                 TestCount => 1,
@@ -4023,8 +4021,8 @@ if ($SearchTestChangeID) {
             Description => 'ChangeTitle, ChangeNumber, two creators',
             SearchData  => {
                 ChangeNumber => $SearchTestChange->{ChangeNumber},
-                CreateBy => [ $SearchTestChange->{CreateBy}, $SearchTestChange->{CreateBy} + 1 ],
-                ChangeTitle => substr( $SearchTestChange->{ChangeTitle}, 0, 1 ) . '%',
+                CreateBy     => [ $SearchTestChange->{CreateBy}, $SearchTestChange->{CreateBy} + 1 ],
+                ChangeTitle  => substr( $SearchTestChange->{ChangeTitle}, 0, 1 ) . '%',
             },
             ResultData => {
                 TestCount => 1,
@@ -4284,18 +4282,16 @@ for my $OrderByColumn (@OrderByColumns) {
 
     my @SortedChangesDown;
     if ( $OrderByColumn =~ m{ \A ( ChangeTitle | .+ Time ) \z }xms ) {
-        @SortedChangesDown
-            = sort {
+        @SortedChangesDown = sort {
             $b->{$OrderByColumn} cmp $a->{$OrderByColumn}
                 || $b->{ChangeID} <=> $a->{ChangeID}
-            } @OrderBySearchTestChanges;
+        } @OrderBySearchTestChanges;
     }
     else {
-        @SortedChangesDown
-            = sort {
+        @SortedChangesDown = sort {
             $b->{$OrderByColumn} <=> $a->{$OrderByColumn}
                 || $b->{ChangeID} <=> $a->{ChangeID}
-            } @OrderBySearchTestChanges;
+        } @OrderBySearchTestChanges;
     }
     my @SortedIDsDown = map { $_->{ChangeID} } @SortedChangesDown;
 
@@ -4971,11 +4967,10 @@ for my $CIPColumn (@OrderByCIPColumns) {
     local $Data::Dumper::Indent = 0;
     local $Data::Dumper::Useqq  = 1;
 
-    my @SortedChanges
-        = sort {
+    my @SortedChanges = sort {
         $a->{$CIPColumn} <=> $b->{$CIPColumn}
             || $b->{ChangeID} <=> $a->{ChangeID}
-        } @OrderByCIPChanges;
+    } @OrderByCIPChanges;
 
     my @SortedIDs = map { $_->{ChangeID} } @SortedChanges;
 
@@ -4998,11 +4993,10 @@ for my $CIPColumn (@OrderByCIPColumns) {
         'Test ' . $TestCount++ . ": ChangeSearch() OrderBy $CIPColumn (Up)."
     );
 
-    my @SortedChangesDown
-        = sort {
+    my @SortedChangesDown = sort {
         $b->{$CIPColumn} <=> $a->{$CIPColumn}
             || $b->{ChangeID} <=> $a->{ChangeID}
-        } @OrderByCIPChanges;
+    } @OrderByCIPChanges;
 
     my @SortedIDsDown = map { $_->{ChangeID} } @SortedChangesDown;
 
@@ -5142,7 +5136,7 @@ my @WOStringAndAgentSearchTests = (
         Description => 'Search for existing and non-existing WorkOrderAgentID',
         SourceData  => {
             ChangeSearch => {
-                UserID => 1,
+                UserID            => 1,
                 WorkOrderAgentIDs => [ @UserIDs[ 0, 1 ] ],
             },
         },
@@ -5289,13 +5283,13 @@ my @WOStateTests = (
                 UserID => 1,
             },
             WorkOrderAdd => {
-                UserID         => 1,
-                WorkOrderTitle => 'WorkOrderStateID in ChangeSearch - Title - ' . $UniqueSignature,
+                UserID           => 1,
+                WorkOrderTitle   => 'WorkOrderStateID in ChangeSearch - Title - ' . $UniqueSignature,
                 WorkOrderStateID => $WorkOrderStateName2ID{ready},
             },
             ChangeSearch => {
-                UserID         => 1,
-                WorkOrderTitle => 'WorkOrderStateID in ChangeSearch - Title - ' . $UniqueSignature,
+                UserID            => 1,
+                WorkOrderTitle    => 'WorkOrderStateID in ChangeSearch - Title - ' . $UniqueSignature,
                 WorkOrderStateIDs => [ $WorkOrderStateName2ID{ready} ],
             },
         },
@@ -5309,13 +5303,13 @@ my @WOStateTests = (
                 UserID => 1,
             },
             WorkOrderAdd => {
-                UserID         => 1,
-                WorkOrderTitle => 'WorkOrderStateID in ChangeSearch - Title - ' . $UniqueSignature,
+                UserID           => 1,
+                WorkOrderTitle   => 'WorkOrderStateID in ChangeSearch - Title - ' . $UniqueSignature,
                 WorkOrderStateID => $WorkOrderStateName2ID{canceled},
             },
             ChangeSearch => {
-                UserID         => 1,
-                WorkOrderTitle => 'WorkOrderStateID in ChangeSearch - Title - ' . $UniqueSignature,
+                UserID            => 1,
+                WorkOrderTitle    => 'WorkOrderStateID in ChangeSearch - Title - ' . $UniqueSignature,
                 WorkOrderStateIDs => [ $WorkOrderStateName2ID{canceled} ],
             },
         },
@@ -5329,8 +5323,8 @@ my @WOStateTests = (
                 UserID => 1,
             },
             WorkOrderAdd => {
-                UserID         => 1,
-                WorkOrderTitle => 'WorkOrderStateID in ChangeSearch - Title - ' . $UniqueSignature,
+                UserID           => 1,
+                WorkOrderTitle   => 'WorkOrderStateID in ChangeSearch - Title - ' . $UniqueSignature,
                 WorkOrderStateID => $WorkOrderStateName2ID{closed},
             },
             ChangeSearch => {
@@ -5457,8 +5451,14 @@ my @PermissionTests = (
         },
         ReferenceData => {
             Permissions => {
-                0 => { ro => 0, rw => 0 },
-                1 => { ro => 0, rw => 0 },
+                0 => {
+                    ro => 0,
+                    rw => 0
+                },
+                1 => {
+                    ro => 0,
+                    rw => 0
+                },
             },
         },
     },
@@ -5471,14 +5471,23 @@ my @PermissionTests = (
                 {
                     GID        => $GroupName2ID{'itsm-change'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 1, rw => 0, },
+                    Permission => {
+                        ro => 1,
+                        rw => 0,
+                    },
                 },
             ],
         },
         ReferenceData => {
             Permissions => {
-                0 => { ro => 1, rw => 0, },
-                1 => { ro => 0, rw => 0, },
+                0 => {
+                    ro => 1,
+                    rw => 0,
+                },
+                1 => {
+                    ro => 0,
+                    rw => 0,
+                },
             },
         },
     },
@@ -5496,14 +5505,23 @@ my @PermissionTests = (
                 {
                     GID        => $GroupName2ID{'itsm-change'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 1, },
+                    Permission => {
+                        ro => 0,
+                        rw => 1,
+                    },
                 },
             ],
         },
         ReferenceData => {
             Permissions => {
-                0 => { ro => 1, rw => 0, },
-                1 => { ro => 0, rw => 0, },
+                0 => {
+                    ro => 1,
+                    rw => 0,
+                },
+                1 => {
+                    ro => 0,
+                    rw => 0,
+                },
             },
         },
     },
@@ -5516,19 +5534,31 @@ my @PermissionTests = (
                 {
                     GID        => $GroupName2ID{'itsm-change'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-manager'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 1, rw => 0, },
+                    Permission => {
+                        ro => 1,
+                        rw => 0,
+                    },
                 },
             ],
         },
         ReferenceData => {
             Permissions => {
-                0 => { ro => 1, rw => 0, },
-                1 => { ro => 0, rw => 0, },
+                0 => {
+                    ro => 1,
+                    rw => 0,
+                },
+                1 => {
+                    ro => 0,
+                    rw => 0,
+                },
             },
         },
     },
@@ -5541,19 +5571,31 @@ my @PermissionTests = (
                 {
                     GID        => $GroupName2ID{'itsm-change'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-manager'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 1, rw => 1, },
+                    Permission => {
+                        ro => 1,
+                        rw => 1,
+                    },
                 },
             ],
         },
         ReferenceData => {
             Permissions => {
-                0 => { ro => 1, rw => 1, },
-                1 => { ro => 0, rw => 0, },
+                0 => {
+                    ro => 1,
+                    rw => 1,
+                },
+                1 => {
+                    ro => 0,
+                    rw => 0,
+                },
             },
         },
     },
@@ -5566,24 +5608,39 @@ my @PermissionTests = (
                 {
                     GID        => $GroupName2ID{'itsm-change'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-manager'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-builder'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 1, rw => 0, },
+                    Permission => {
+                        ro => 1,
+                        rw => 0,
+                    },
                 },
             ],
         },
         ReferenceData => {
             Permissions => {
-                0 => { ro => 1, rw => 0, },
-                1 => { ro => 0, rw => 0, },
+                0 => {
+                    ro => 1,
+                    rw => 0,
+                },
+                1 => {
+                    ro => 0,
+                    rw => 0,
+                },
             },
         },
     },
@@ -5596,24 +5653,39 @@ my @PermissionTests = (
                 {
                     GID        => $GroupName2ID{'itsm-change'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-manager'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-builder'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 1, },
+                    Permission => {
+                        ro => 0,
+                        rw => 1,
+                    },
                 },
             ],
         },
         ReferenceData => {
             Permissions => {
-                0 => { ro => 1, rw => 1, },
-                1 => { ro => 0, rw => 0, },
+                0 => {
+                    ro => 1,
+                    rw => 1,
+                },
+                1 => {
+                    ro => 0,
+                    rw => 0,
+                },
             },
         },
     },
@@ -5626,29 +5698,47 @@ my @PermissionTests = (
                 {
                     GID        => $GroupName2ID{'itsm-change'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-manager'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-builder'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-builder'},
                     UID        => $UserIDs[1],
-                    Permission => { ro => 1, rw => 0, },
+                    Permission => {
+                        ro => 1,
+                        rw => 0,
+                    },
                 },
             ],
         },
         ReferenceData => {
             Permissions => {
-                0 => { ro => 0, rw => 0, },
-                1 => { ro => 0, rw => 0, },
+                0 => {
+                    ro => 0,
+                    rw => 0,
+                },
+                1 => {
+                    ro => 0,
+                    rw => 0,
+                },
             },
         },
     },
@@ -5661,29 +5751,47 @@ my @PermissionTests = (
                 {
                     GID        => $GroupName2ID{'itsm-change'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-manager'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-builder'},
                     UID        => $UserIDs[0],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
                 {
                     GID        => $GroupName2ID{'itsm-change-builder'},
                     UID        => $UserIDs[1],
-                    Permission => { ro => 0, rw => 0, },
+                    Permission => {
+                        ro => 0,
+                        rw => 0,
+                    },
                 },
             ],
         },
         ReferenceData => {
             Permissions => {
-                0 => { ro => 0, rw => 0, },
-                1 => { ro => 0, rw => 0, },
+                0 => {
+                    ro => 0,
+                    rw => 0,
+                },
+                1 => {
+                    ro => 0,
+                    rw => 0,
+                },
             },
         },
     },
@@ -5761,8 +5869,7 @@ my $PossibleStates = $ChangeObject->ChangePossibleStatesGet(
 # do the checks
 my @PossibleStateIDsReference = @SortedChangeStateIDs;
 for my $PossibleStateID (@PossibleStateIDsReference) {
-    my ( $FirstHashRef, $SecondHashRef )
-        = grep { $_->{Key} == $PossibleStateID } @{$PossibleStates};
+    my ( $FirstHashRef, $SecondHashRef ) = grep { $_->{Key} == $PossibleStateID } @{$PossibleStates};
 
     # a match is expected
     $Self->True(
@@ -6349,7 +6456,7 @@ for my $UnittestUserID (@UserIDs) {
     # update user
     $Self->{UserObject}->UserUpdate(
         %User,
-        ValidID => $Self->{ValidObject}->ValidLookup( Valid => 'invalid' ),
+        ValidID      => $Self->{ValidObject}->ValidLookup( Valid => 'invalid' ),
         ChangeUserID => 1,
     );
 }
@@ -6513,8 +6620,7 @@ sub _TestPossibleStates {
     );
 
     for my $PossibleStateHash ( @{$PossibleStates} ) {
-        my ( $FirstHashRef, $SecondHashRef )
-            = grep { $_ eq $PossibleStateHash->{Value} } @PossibleDefaultStates;
+        my ( $FirstHashRef, $SecondHashRef ) = grep { $_ eq $PossibleStateHash->{Value} } @PossibleDefaultStates;
 
         # Check if the state names are correct...
         $Self->Is(

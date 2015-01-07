@@ -1,6 +1,6 @@
 # --
 # Kernel/System/LinkObject/ITSMWorkOrder.pm - to link workorder objects
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -272,9 +272,8 @@ sub ObjectDescriptionGet {
     return if !%{$ChangeData};
 
     # define description text
-    my $WorkOrderHook = $Self->{ConfigObject}->Get('ITSMWorkOrder::Hook');
-    my $DescriptionText
-        = "$WorkOrderHook $ChangeData->{ChangeNumber}-$WorkOrderData->{WorkOrderNumber}";
+    my $WorkOrderHook   = $Self->{ConfigObject}->Get('ITSMWorkOrder::Hook');
+    my $DescriptionText = "$WorkOrderHook $ChangeData->{ChangeNumber}-$WorkOrderData->{WorkOrderNumber}";
 
     # create description
     %Description = (

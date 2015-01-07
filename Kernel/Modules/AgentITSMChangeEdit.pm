@@ -1,6 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMChangeEdit.pm - the OTRS ITSM ChangeManagement change edit module
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -416,8 +416,7 @@ sub Run {
                         . "ContentID=$Attachment->{ContentID}";
 
                     # picture url in change atttachment
-                    my $Replace
-                        = "Action=AgentITSMChangeZoom;Subaction=DownloadAttachment;"
+                    my $Replace = "Action=AgentITSMChangeZoom;Subaction=DownloadAttachment;"
                         . "Filename=$Attachment->{Filename};ChangeID=$ChangeID";
 
                     # replace urls

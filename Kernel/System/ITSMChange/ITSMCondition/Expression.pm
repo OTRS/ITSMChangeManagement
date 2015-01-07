@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMCondition/Expression.pm - all condition expression functions
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -97,7 +97,6 @@ sub ExpressionAdd {
     # prepare SQL statement
     my $ExpressionID;
 
-
     # this is important for oracle for which an empty string and NULL is the same!
     if ( $Self->{DBType} eq 'oracle' && $Param{CompareValue} eq '' ) {
 
@@ -107,7 +106,7 @@ sub ExpressionAdd {
                 . 'AND operator_id = ? AND selector = ? AND compare_value IS NULL',
             Bind => [
                 \$Param{ConditionID}, \$Param{ObjectID}, \$Param{AttributeID},
-                \$Param{OperatorID},  \$Param{Selector},
+                \$Param{OperatorID}, \$Param{Selector},
             ],
             Limit => 1,
         );

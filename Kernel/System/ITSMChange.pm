@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange.pm - all change functions
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -889,7 +889,7 @@ sub ChangeCABUpdate {
         # add user to cab table
         for my $UserID ( sort keys %UniqueUsers ) {
             return if !$Self->{DBObject}->Do(
-                SQL => 'INSERT INTO change_cab ( change_id, user_id ) VALUES ( ?, ? )',
+                SQL  => 'INSERT INTO change_cab ( change_id, user_id ) VALUES ( ?, ? )',
                 Bind => [ \$Param{ChangeID}, \$UserID ],
             );
         }
@@ -912,7 +912,7 @@ sub ChangeCABUpdate {
         # add user to cab table
         for my $CustomerUserID ( sort keys %UniqueCustomerUsers ) {
             return if !$Self->{DBObject}->Do(
-                SQL => 'INSERT INTO change_cab ( change_id, customer_user_id ) VALUES ( ?, ? )',
+                SQL  => 'INSERT INTO change_cab ( change_id, customer_user_id ) VALUES ( ?, ? )',
                 Bind => [ \$Param{ChangeID}, \$CustomerUserID ],
             );
         }
@@ -2542,8 +2542,7 @@ sub ChangePossibleStatesGet {
         my @NextStateIDs = ( $Change->{ChangeStateID} );
 
         # check if reachable change end states should be allowed for locked change states
-        my $ChangeEndStatesAllowed
-            = $Self->{ConfigObject}->Get('ITSMChange::StateLock::AllowEndStates');
+        my $ChangeEndStatesAllowed = $Self->{ConfigObject}->Get('ITSMChange::StateLock::AllowEndStates');
 
         if ($ChangeEndStatesAllowed) {
 
@@ -3414,7 +3413,7 @@ sub _CheckChangeParams {
             if ( length( $Param{$Argument} ) > 1800000 ) {
                 $Self->{LogObject}->Log(
                     Priority => 'error',
-                    Message => "The parameter '$Argument' must be shorter than 1800000 characters!",
+                    Message  => "The parameter '$Argument' must be shorter than 1800000 characters!",
                 );
                 return;
             }

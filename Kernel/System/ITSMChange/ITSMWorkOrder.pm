@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -1992,8 +1992,7 @@ sub WorkOrderPossibleStatesGet {
         my @NextStateIDs = ( $WorkOrder->{WorkOrderStateID} );
 
         # check if reachable workorder end states should be allowed for locked workorder states
-        my $WorkOrderEndStatesAllowed
-            = $Self->{ConfigObject}->Get('ITSMWorkOrder::StateLock::AllowEndStates');
+        my $WorkOrderEndStatesAllowed = $Self->{ConfigObject}->Get('ITSMWorkOrder::StateLock::AllowEndStates');
 
         if ($WorkOrderEndStatesAllowed) {
 
@@ -3125,7 +3124,7 @@ sub _CheckWorkOrderParams {
             if ( length( $Param{$Argument} ) > 1800000 ) {
                 $Self->{LogObject}->Log(
                     Priority => 'error',
-                    Message => "The parameter '$Argument' must be shorter than 1800000 characters!",
+                    Message  => "The parameter '$Argument' must be shorter than 1800000 characters!",
                 );
                 return;
             }

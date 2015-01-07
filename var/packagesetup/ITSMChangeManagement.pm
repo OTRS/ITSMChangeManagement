@@ -1,6 +1,6 @@
 # --
 # ITSMChangeManagement.pm - code to excecute during package installation
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -142,17 +142,16 @@ sub new {
     }
 
     # create additional objects
-    $Self->{ConfigObject} = Kernel::Config->new();
-    $Self->{CSVObject}    = Kernel::System::CSV->new( %{$Self} );
-    $Self->{GroupObject}  = Kernel::System::Group->new( %{$Self} );
-    $Self->{UserObject}   = Kernel::System::User->new( %{$Self} );
-    $Self->{StateObject}  = Kernel::System::State->new( %{$Self} );
-    $Self->{TypeObject}   = Kernel::System::Type->new( %{$Self} );
-    $Self->{ValidObject}  = Kernel::System::Valid->new( %{$Self} );
-    $Self->{LinkObject}   = Kernel::System::LinkObject->new( %{$Self} );
-    $Self->{ChangeObject} = Kernel::System::ITSMChange->new( %{$Self} );
-    $Self->{CIPAllocateObject}
-        = Kernel::System::ITSMChange::ITSMChangeCIPAllocate->new( %{$Self} );
+    $Self->{ConfigObject}         = Kernel::Config->new();
+    $Self->{CSVObject}            = Kernel::System::CSV->new( %{$Self} );
+    $Self->{GroupObject}          = Kernel::System::Group->new( %{$Self} );
+    $Self->{UserObject}           = Kernel::System::User->new( %{$Self} );
+    $Self->{StateObject}          = Kernel::System::State->new( %{$Self} );
+    $Self->{TypeObject}           = Kernel::System::Type->new( %{$Self} );
+    $Self->{ValidObject}          = Kernel::System::Valid->new( %{$Self} );
+    $Self->{LinkObject}           = Kernel::System::LinkObject->new( %{$Self} );
+    $Self->{ChangeObject}         = Kernel::System::ITSMChange->new( %{$Self} );
+    $Self->{CIPAllocateObject}    = Kernel::System::ITSMChange::ITSMChangeCIPAllocate->new( %{$Self} );
     $Self->{StateMachineObject}   = Kernel::System::ITSMChange::ITSMStateMachine->new( %{$Self} );
     $Self->{GeneralCatalogObject} = Kernel::System::GeneralCatalog->new( %{$Self} );
     $Self->{WorkOrderObject}      = Kernel::System::ITSMChange::ITSMWorkOrder->new( %{$Self} );
@@ -739,17 +738,17 @@ sub _StateMachineDefaultSet {
 
     # define ChangeState transitions
     my %ChangeStateTransitions = (
-        0 => ['requested'],
+        0           => ['requested'],
         'requested' => [ 'rejected', 'retracted', 'pending approval', 'in progress' ],
-        'pending approval' => [ 'rejected', 'retracted', 'approved' ],
-        'approved'    => [ 'retracted',   'in progress' ],
+        'pending approval' => [ 'rejected',  'retracted', 'approved' ],
+        'approved'         => [ 'retracted', 'in progress' ],
         'in progress' => [ 'pending pir', 'retracted', 'failed', 'successful', 'canceled' ],
         'pending pir' => [ 'failed',      'successful' ],
-        'rejected'   => [0],
-        'retracted'  => [0],
-        'failed'     => [0],
-        'successful' => [0],
-        'canceled'   => [0],
+        'rejected'    => [0],
+        'retracted'   => [0],
+        'failed'      => [0],
+        'successful'  => [0],
+        'canceled'    => [0],
     );
 
     # define WorkOrderState transitions
@@ -1349,8 +1348,8 @@ so usually _DeleteSystemNotifications should be called before.
 sub _AddSystemNotifications {
     my ($Self) = @_;
 
-# Set up some standard texts for English, German, and Dutch, Change and WorkOrder, agent and customer
-# The customer texts provide no link.
+    # Set up some standard texts for English, German, and Dutch, Change and WorkOrder, agent and customer
+    # The customer texts provide no link.
 
     # Change info for agents (en)
     my $ChangeInfoAgentEn = "\n"

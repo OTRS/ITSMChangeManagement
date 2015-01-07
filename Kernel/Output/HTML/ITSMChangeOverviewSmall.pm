@@ -1,6 +1,6 @@
 # --
 # Kernel/Output/HTML/ITSMChangeOverviewSmall.pm
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -310,8 +310,7 @@ sub Run {
 
                                         # combine the linked object data from all workorders
                                         $LinkListWithData->{$Object}->{$LinkType}->{$Direction}
-                                            ->{$ID}
-                                            = $LinkListWithDataWorkOrder->{$Object}->{$LinkType}
+                                            ->{$ID} = $LinkListWithDataWorkOrder->{$Object}->{$LinkType}
                                             ->{$Direction}->{$ID};
                                     }
                                 }
@@ -363,8 +362,7 @@ sub Run {
                         );
 
                         # add current incident signal
-                        $ServiceData{CurInciSignal}
-                            = $InciSignals{ $ServiceData{CurInciStateType} };
+                        $ServiceData{CurInciSignal} = $InciSignals{ $ServiceData{CurInciStateType} };
 
                         # store service data
                         push @ServicesData, \%ServiceData;

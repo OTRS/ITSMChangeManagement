@@ -1,6 +1,6 @@
 # --
 # Kernel/Output/HTML/ITSMChangeMenuWorkOrdersNeeded.pm - Menu with check whether there are workorders
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -49,8 +49,7 @@ sub Run {
     return $Param{Counter} if !$Param{Change}->{WorkOrderCount};
 
     # get config for the relevant action
-    my $FrontendConfig
-        = $Self->{ConfigObject}->Get("ITSMChange::Frontend::$Param{Config}->{Action}");
+    my $FrontendConfig = $Self->{ConfigObject}->Get("ITSMChange::Frontend::$Param{Config}->{Action}");
 
     # get the required privilege, 'ro' or 'rw'
     my $RequiredPriv;

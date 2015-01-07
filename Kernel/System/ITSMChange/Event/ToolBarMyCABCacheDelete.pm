@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/Event/ToolBarMyCABCacheDelete.pm - ToolBarMyCABCacheDelete event module for ITSMChange
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -152,7 +152,7 @@ sub Run {
             $ChangedCABAgentsLookup{$CABAgent}++;
         }
 
-     # find the CABAgents which have been changed, which are only agents with a count of exactly one
+        # find the CABAgents which have been changed, which are only agents with a count of exactly one
         my @ChangedCABAgents;
         for my $CABAgent ( sort keys %ChangedCABAgentsLookup ) {
             if ( $ChangedCABAgentsLookup{$CABAgent} == 1 ) {

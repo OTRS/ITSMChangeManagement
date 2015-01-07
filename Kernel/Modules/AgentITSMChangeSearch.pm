@@ -1,6 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMChangeSearch.pm - module for change search
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -86,8 +86,7 @@ sub Run {
     my @ConfiguredChangeFreeTextFields = $Self->{ChangeObject}->ChangeGetConfiguredFreeTextFields();
 
     # get configured workorder freetext field numbers
-    my @ConfiguredWorkOrderFreeTextFields
-        = $Self->{WorkOrderObject}->WorkOrderGetConfiguredFreeTextFields();
+    my @ConfiguredWorkOrderFreeTextFields = $Self->{WorkOrderObject}->WorkOrderGetConfiguredFreeTextFields();
 
     # load parameters from search profile,
     # this happens when the next result page should be shown, or when the results are reordered
@@ -267,8 +266,7 @@ sub Run {
         }
 
         # store last queue screen
-        my $URL
-            = "Action=AgentITSMChangeSearch;Subaction=Search;Profile=$Self->{Profile};SortBy=$Self->{SortBy}"
+        my $URL = "Action=AgentITSMChangeSearch;Subaction=Search;Profile=$Self->{Profile};SortBy=$Self->{SortBy}"
             . ";OrderBy=$Self->{OrderBy};TakeLastSearch=1;StartHit=$Self->{StartHit}";
         $Self->{SessionObject}->UpdateSessionID(
             SessionID => $Self->{SessionID},
@@ -733,30 +731,22 @@ sub Run {
 
                 # create the header
                 my $CellData;
-                $CellData->[0]->[0]->{Content}
-                    = $Self->{ConfigObject}->Get('ITSMChange::Hook');
-                $CellData->[0]->[0]->{Font} = 'ProportionalBold';
-                $CellData->[0]->[1]->{Content}
-                    = $Self->{LayoutObject}->{LanguageObject}->Get('ChangeTitle');
-                $CellData->[0]->[1]->{Font} = 'ProportionalBold';
-                $CellData->[0]->[2]->{Content}
-                    = $Self->{LayoutObject}->{LanguageObject}->Get('ChangeBuilder');
-                $CellData->[0]->[2]->{Font} = 'ProportionalBold';
-                $CellData->[0]->[3]->{Content}
-                    = $Self->{LayoutObject}->{LanguageObject}->Get('WorkOrders');
-                $CellData->[0]->[3]->{Font} = 'ProportionalBold';
-                $CellData->[0]->[4]->{Content}
-                    = $Self->{LayoutObject}->{LanguageObject}->Get('ChangeState');
-                $CellData->[0]->[4]->{Font} = 'ProportionalBold';
-                $CellData->[0]->[5]->{Content}
-                    = $Self->{LayoutObject}->{LanguageObject}->Get('Priority');
-                $CellData->[0]->[5]->{Font} = 'ProportionalBold';
-                $CellData->[0]->[6]->{Content}
-                    = $Self->{LayoutObject}->{LanguageObject}->Get('PlannedStartTime');
-                $CellData->[0]->[6]->{Font} = 'ProportionalBold';
-                $CellData->[0]->[7]->{Content}
-                    = $Self->{LayoutObject}->{LanguageObject}->Get('PlannedEndTime');
-                $CellData->[0]->[7]->{Font} = 'ProportionalBold';
+                $CellData->[0]->[0]->{Content} = $Self->{ConfigObject}->Get('ITSMChange::Hook');
+                $CellData->[0]->[0]->{Font}    = 'ProportionalBold';
+                $CellData->[0]->[1]->{Content} = $Self->{LayoutObject}->{LanguageObject}->Get('ChangeTitle');
+                $CellData->[0]->[1]->{Font}    = 'ProportionalBold';
+                $CellData->[0]->[2]->{Content} = $Self->{LayoutObject}->{LanguageObject}->Get('ChangeBuilder');
+                $CellData->[0]->[2]->{Font}    = 'ProportionalBold';
+                $CellData->[0]->[3]->{Content} = $Self->{LayoutObject}->{LanguageObject}->Get('WorkOrders');
+                $CellData->[0]->[3]->{Font}    = 'ProportionalBold';
+                $CellData->[0]->[4]->{Content} = $Self->{LayoutObject}->{LanguageObject}->Get('ChangeState');
+                $CellData->[0]->[4]->{Font}    = 'ProportionalBold';
+                $CellData->[0]->[5]->{Content} = $Self->{LayoutObject}->{LanguageObject}->Get('Priority');
+                $CellData->[0]->[5]->{Font}    = 'ProportionalBold';
+                $CellData->[0]->[6]->{Content} = $Self->{LayoutObject}->{LanguageObject}->Get('PlannedStartTime');
+                $CellData->[0]->[6]->{Font}    = 'ProportionalBold';
+                $CellData->[0]->[7]->{Content} = $Self->{LayoutObject}->{LanguageObject}->Get('PlannedEndTime');
+                $CellData->[0]->[7]->{Font}    = 'ProportionalBold';
 
                 # create the content array
                 my $CounterRow = 1;
@@ -823,17 +813,17 @@ sub Run {
                     else {
                         $Self->{PDFObject}->PageNew(
                             %PageParam, FooterRight => $Page
-                                . ' ' . $_,
+                                . ' '
+                                . $_,
                         );
                     }
                 }
 
                 # return the pdf document
                 my $Filename = 'change_search';
-                my ( $s, $m, $h, $D, $M, $Y )
-                    = $Self->{TimeObject}->SystemTime2Date(
+                my ( $s, $m, $h, $D, $M, $Y ) = $Self->{TimeObject}->SystemTime2Date(
                     SystemTime => $Self->{TimeObject}->SystemTime(),
-                    );
+                );
                 $M = sprintf( "%02d", $M );
                 $D = sprintf( "%02d", $D );
                 $h = sprintf( "%02d", $h );
@@ -1192,13 +1182,34 @@ sub _MaskForm {
 
     # set time attributes
     my @TimeTypes = (
-        { Prefix => 'Requested',    Title => 'Requested Date', },
-        { Prefix => 'PlannedStart', Title => 'PlannedStartTime', },
-        { Prefix => 'PlannedEnd',   Title => 'PlannedEndTime', },
-        { Prefix => 'ActualStart',  Title => 'ActualStartTime', },
-        { Prefix => 'ActualEnd',    Title => 'ActualEndTime', },
-        { Prefix => 'Create',       Title => 'CreateTime', },
-        { Prefix => 'Change',       Title => 'ChangeTime', },
+        {
+            Prefix => 'Requested',
+            Title  => 'Requested Date',
+        },
+        {
+            Prefix => 'PlannedStart',
+            Title  => 'PlannedStartTime',
+        },
+        {
+            Prefix => 'PlannedEnd',
+            Title  => 'PlannedEndTime',
+        },
+        {
+            Prefix => 'ActualStart',
+            Title  => 'ActualStartTime',
+        },
+        {
+            Prefix => 'ActualEnd',
+            Title  => 'ActualEndTime',
+        },
+        {
+            Prefix => 'Create',
+            Title  => 'CreateTime',
+        },
+        {
+            Prefix => 'Change',
+            Title  => 'ChangeTime',
+        },
     );
 
     TIMETYPE:
@@ -1210,11 +1221,9 @@ sub _MaskForm {
             next TIMETYPE;
         }
 
-        my $Title = $Self->{LayoutObject}->{LanguageObject}->Get( $TimeType->{Title} );
-        my $BeforeAfterTranslatable
-            = $Self->{LayoutObject}->{LanguageObject}->Get('(before/after)');
-        my $BetweenTranslatable
-            = $Self->{LayoutObject}->{LanguageObject}->Get('(between)');
+        my $Title                   = $Self->{LayoutObject}->{LanguageObject}->Get( $TimeType->{Title} );
+        my $BeforeAfterTranslatable = $Self->{LayoutObject}->{LanguageObject}->Get('(before/after)');
+        my $BetweenTranslatable     = $Self->{LayoutObject}->{LanguageObject}->Get('(between)');
         push @Attributes, (
             {
                 Key   => $Prefix . 'TimePointField',
@@ -1367,7 +1376,7 @@ sub _MaskForm {
             Print  => 'Print',
             CSV    => 'CSV',
         },
-        Name => 'ResultForm',
+        Name       => 'ResultForm',
         SelectedID => $Param{ResultForm} || 'Normal',
     );
 
@@ -1428,7 +1437,7 @@ sub _MaskForm {
                 'Last'   => 'last',
                 'Before' => 'before',
             },
-            Name => $Prefix . 'TimePointStart',
+            Name       => $Prefix . 'TimePointStart',
             SelectedID => $Param{ $Prefix . 'TimePointStart' } || 'Last',
         );
 

@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/Notification.pm - lib for notifications in change management
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -319,11 +319,9 @@ sub NotificationSend {
             next AGENTID;
         }
 
-        my $PreferredLanguage
-            = $User{UserLanguage} || $Self->{ConfigObject}->Get('DefaultLanguage') || 'en';
+        my $PreferredLanguage = $User{UserLanguage} || $Self->{ConfigObject}->Get('DefaultLanguage') || 'en';
 
-        my $NotificationKey
-            = $PreferredLanguage . '::Agent::' . $Param{Type} . '::' . $Param{Event};
+        my $NotificationKey = $PreferredLanguage . '::Agent::' . $Param{Type} . '::' . $Param{Event};
 
         # get notification (cache || database)
         my $Notification = $Self->_NotificationGet(
@@ -425,11 +423,9 @@ sub NotificationSend {
             next CUSTOMERID;
         }
 
-        my $PreferredLanguage
-            = $CustomerUser{UserLanguage} || $Self->{ConfigObject}->Get('DefaultLanguage') || 'en';
+        my $PreferredLanguage = $CustomerUser{UserLanguage} || $Self->{ConfigObject}->Get('DefaultLanguage') || 'en';
 
-        my $NotificationKey
-            = $PreferredLanguage . '::Customer::' . $Param{Type} . '::' . $Param{Event};
+        my $NotificationKey = $PreferredLanguage . '::Customer::' . $Param{Type} . '::' . $Param{Event};
 
         # get notification (cache || database)
         my $Notification = $Self->_NotificationGet(
@@ -669,7 +665,7 @@ sub NotificationRuleAdd {
     # insert recipients
     for my $RecipientID ( @{ $Param{RecipientIDs} } ) {
         return if !$Self->{DBObject}->Do(
-            SQL => 'INSERT INTO change_notification_rec (notification_id, group_id) VALUES (?, ?)',
+            SQL  => 'INSERT INTO change_notification_rec (notification_id, group_id) VALUES (?, ?)',
             Bind => [ \$RuleID, \$RecipientID ],
         );
     }
@@ -754,7 +750,7 @@ sub NotificationRuleUpdate {
     # insert recipients
     for my $RecipientID ( @{ $Param{RecipientIDs} } ) {
         return if !$Self->{DBObject}->Do(
-            SQL => 'INSERT INTO change_notification_rec (notification_id, group_id) VALUES (?, ?)',
+            SQL  => 'INSERT INTO change_notification_rec (notification_id, group_id) VALUES (?, ?)',
             Bind => [ \$Param{ID}, \$RecipientID ],
         );
     }

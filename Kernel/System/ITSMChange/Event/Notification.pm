@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/Event/Notification.pm - a event module to send notifications
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -269,7 +269,7 @@ sub Run {
             Event  => $Event,
             UserID => $Param{UserID},
             Data   => {
-                %{ $Param{Data} },   # do not pass as reference, as it would influence later events!
+                %{ $Param{Data} },    # do not pass as reference, as it would influence later events!
             },
         );
     }

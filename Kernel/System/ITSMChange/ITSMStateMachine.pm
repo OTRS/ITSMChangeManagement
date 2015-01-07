@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/ITSMStateMachine.pm - all state machine functions
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -185,7 +185,7 @@ sub StateTransitionAdd {
         SQL => 'SELECT id FROM change_state_machine '
             . 'WHERE state_id = ? '
             . 'AND next_state_id = ?',
-        Bind => [ \$Param{StateID}, \$Param{NextStateID} ],
+        Bind  => [ \$Param{StateID}, \$Param{NextStateID} ],
         Limit => 1,
     );
 
@@ -289,7 +289,7 @@ sub StateTransitionAdd {
         SQL => 'SELECT id FROM change_state_machine '
             . 'WHERE state_id = ? '
             . 'AND next_state_id = ?',
-        Bind => [ \$Param{StateID}, \$Param{NextStateID} ],
+        Bind  => [ \$Param{StateID}, \$Param{NextStateID} ],
         Limit => 1,
     );
 
@@ -549,9 +549,8 @@ sub StateTransitionGetEndStates {
     }
 
     # check the cache
-    my $CacheKey
-        = 'StateTransitionGetEndStates::StateID::' . $Param{StateID} . '::Class::' . $Param{Class};
-    my $Cache = $Self->{CacheInternalObject}->Get(
+    my $CacheKey = 'StateTransitionGetEndStates::StateID::' . $Param{StateID} . '::Class::' . $Param{Class};
+    my $Cache    = $Self->{CacheInternalObject}->Get(
         Key => $CacheKey,
     );
     return $Cache if $Cache;
@@ -798,7 +797,7 @@ sub StateTransitionUpdate {
             . 'ON ( (s.state_id = g.id ) OR (s.next_state_id = g.id) ) '
             . 'WHERE s.state_id = ? AND s.next_state_id = ? '
             . 'AND g.general_catalog_class = ?',
-        Bind => [ \$Param{StateID}, \$Param{NextStateID}, \$Param{Class} ],
+        Bind  => [ \$Param{StateID}, \$Param{NextStateID}, \$Param{Class} ],
         Limit => 1,
     );
 

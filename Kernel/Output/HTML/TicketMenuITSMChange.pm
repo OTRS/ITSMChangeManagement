@@ -1,6 +1,6 @@
 # --
 # Kernel/Output/HTML/TicketMenuITSMChange.pm - ITSMChange specific module for the ticket menu
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -93,8 +93,7 @@ sub Run {
     return if !$Param{Ticket}->{Type};
 
     # get and check the list of relevant ticket types
-    my $AddChangeLinkTicketTypes
-        = $Self->{ConfigObject}->Get('ITSMChange::AddChangeLinkTicketTypes');
+    my $AddChangeLinkTicketTypes = $Self->{ConfigObject}->Get('ITSMChange::AddChangeLinkTicketTypes');
 
     return if !$AddChangeLinkTicketTypes;
     return if ref $AddChangeLinkTicketTypes ne 'ARRAY';
@@ -106,8 +105,7 @@ sub Run {
     return if !$IsRelevant{ $Param{Ticket}->{Type} };
 
     # check permission
-    my $FrontendConfig
-        = $Self->{ConfigObject}->Get("ITSMChange::Frontend::$Param{Config}->{Action}");
+    my $FrontendConfig = $Self->{ConfigObject}->Get("ITSMChange::Frontend::$Param{Config}->{Action}");
 
     if ( $FrontendConfig && $FrontendConfig->{Permission} ) {
 

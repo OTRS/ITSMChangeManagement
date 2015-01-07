@@ -1,6 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMChangeConditionEdit.pm - the OTRS ITSM ChangeManagement condition edit module
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -1505,9 +1505,8 @@ sub _GetAttributeSelection {
         }
 
         # get maximum number of change and workorder freetext fields
-        my $ChangeFreeTextMaxNumber = $Self->{ConfigObject}->Get('ITSMChange::FreeText::MaxNumber');
-        my $WorkOrderFreeTextMaxNumber
-            = $Self->{ConfigObject}->Get('ITSMWorkOrder::FreeText::MaxNumber');
+        my $ChangeFreeTextMaxNumber    = $Self->{ConfigObject}->Get('ITSMChange::FreeText::MaxNumber');
+        my $WorkOrderFreeTextMaxNumber = $Self->{ConfigObject}->Get('ITSMWorkOrder::FreeText::MaxNumber');
 
         # get the valid attributes for the given object
         ATTRIBUTEID:

@@ -1,6 +1,6 @@
 # --
 # Kernel/Output/HTML/ITSMWorkOrderMenuWithPermissionFromChange.pm
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -46,8 +46,7 @@ sub Run {
     }
 
     # get config for the relevant action
-    my $FrontendConfig
-        = $Self->{ConfigObject}->Get("ITSMWorkOrder::Frontend::$Param{Config}->{Action}");
+    my $FrontendConfig = $Self->{ConfigObject}->Get("ITSMWorkOrder::Frontend::$Param{Config}->{Action}");
 
     # get the required privilege, 'ro' or 'rw'
     my $RequiredPriv;

@@ -1,6 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMChangePrint.pm - the OTRS ITSM ChangeManagement change print module
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -276,8 +276,7 @@ sub Run {
 
                             # combine the linked object data from all workorders
                             $LinkListWithDataCombinedWorkOrders->{$Object}->{$LinkType}
-                                ->{$Direction}->{$ID}
-                                = $LinkListWithDataWorkOrder->{$Object}->{$LinkType}->{$Direction}
+                                ->{$Direction}->{$ID} = $LinkListWithDataWorkOrder->{$Object}->{$LinkType}->{$Direction}
                                 ->{$ID};
                         }
                     }
@@ -539,10 +538,9 @@ sub _OutputHeadline {
 
         # page headers and footer
         my $Page = $Self->{Page};
-        $Page->{HeaderRight} = sprintf '%s#%s', $Param{HeaderArea}, $Param{HeaderValue};
-        $Page->{HeadlineLeft} = $Param{Title};
-        $Page->{HeadlineRight}
-            = $PrintedBy . ' '
+        $Page->{HeaderRight}   = sprintf '%s#%s', $Param{HeaderArea}, $Param{HeaderValue};
+        $Page->{HeadlineLeft}  = $Param{Title};
+        $Page->{HeadlineRight} = $PrintedBy . ' '
             . $UserFullName . ' '
             . $Time;
         $Page->{FooterLeft} = '';
@@ -645,7 +643,10 @@ sub _PrepareAndAddInfoRow {
 
     # show row
     push @{ $RowSpec->{Table} },
-        { Key => $Key, Value => $Value, };
+        {
+        Key   => $Key,
+        Value => $Value,
+        };
 
     return;
 }
@@ -880,7 +881,7 @@ sub _OutputChangeInfo {
         # fill @TableLeft and @TableRight
         $Self->_PrepareAndAddInfoRow(
             RowSpec => $RowSpec,
-            Data => { %{$Change}, %ComplicatedValue },
+            Data    => { %{$Change}, %ComplicatedValue },
         );
     }
 
@@ -1122,7 +1123,7 @@ sub _OutputWorkOrderInfo {
         # the workorder data overrides the change data
         $Self->_PrepareAndAddInfoRow(
             RowSpec => $RowSpec,
-            Data => { %{$Change}, %{$WorkOrder}, %ComplicatedValue },
+            Data    => { %{$Change}, %{$WorkOrder}, %ComplicatedValue },
         );
     }
 
@@ -1266,7 +1267,10 @@ sub _OutputWorkOrderOverview {
     # check needed stuff
     for (qw(WorkOrderOverview)) {
         if ( !defined( $Param{$_} ) ) {
-            $Self->{LogObject}->Log( Priority => 'error', Message => "Need $_!" );
+            $Self->{LogObject}->Log(
+                Priority => 'error',
+                Message  => "Need $_!"
+            );
             return;
         }
     }
@@ -1309,9 +1313,18 @@ sub _OutputWorkOrderOverview {
 
             # add table header
             $Table{CellData}[ $Row++ ] = [
-                { Font => 'ProportionalBold', Content => '#', },
-                { Font => 'ProportionalBold', Content => $Translation->Get('Title'), },
-                { Font => 'ProportionalBold', Content => $Translation->Get('State'), },
+                {
+                    Font    => 'ProportionalBold',
+                    Content => '#',
+                },
+                {
+                    Font    => 'ProportionalBold',
+                    Content => $Translation->Get('Title'),
+                },
+                {
+                    Font    => 'ProportionalBold',
+                    Content => $Translation->Get('State'),
+                },
                 {
                     Font    => 'ProportionalBold',
                     Content => $Translation->Get('PlannedStartTime'),
@@ -1391,7 +1404,10 @@ sub _OutputLinkedObjects {
     # check needed stuff
     for (qw(PrintChange PrintWorkOrder LinkData LinkTypeList)) {
         if ( !defined( $Param{$_} ) ) {
-            $Self->{LogObject}->Log( Priority => 'error', Message => "Need $_!" );
+            $Self->{LogObject}->Log(
+                Priority => 'error',
+                Message  => "Need $_!"
+            );
             return;
         }
     }
@@ -1523,7 +1539,10 @@ sub _PDFOutputTable {
     # check needed stuff
     for (qw(Table)) {
         if ( !defined( $Param{$_} ) ) {
-            $Self->{LogObject}->Log( Priority => 'error', Message => "Need $_!" );
+            $Self->{LogObject}->Log(
+                Priority => 'error',
+                Message  => "Need $_!"
+            );
             return;
         }
     }

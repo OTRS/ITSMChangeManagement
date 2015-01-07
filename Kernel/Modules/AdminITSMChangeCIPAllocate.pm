@@ -1,6 +1,6 @@
 # --
 # Kernel/Modules/AdminITSMChangeCIPAllocate.pm - admin frontend of criticality, impact and priority
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -132,10 +132,9 @@ sub Run {
             keys %{ $ObjectOption{CategoryList} }
             )
         {
-            $AllocateMatrix->[0]->[$Counter2]->{ObjectType}  = 'Category';
-            $AllocateMatrix->[0]->[$Counter2]->{CategoryKey} = $Category;
-            $AllocateMatrix->[0]->[$Counter2]->{ObjectOption}
-                = $ObjectOption{CategoryList}{$Category};
+            $AllocateMatrix->[0]->[$Counter2]->{ObjectType}   = 'Category';
+            $AllocateMatrix->[0]->[$Counter2]->{CategoryKey}  = $Category;
+            $AllocateMatrix->[0]->[$Counter2]->{ObjectOption} = $ObjectOption{CategoryList}{$Category};
             $Counter2++;
         }
 

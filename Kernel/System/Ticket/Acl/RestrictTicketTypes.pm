@@ -2,7 +2,7 @@
 # Kernel/System/Ticket/Acl/RestrictTicketTypes.pm - acl module
 # - restrict the usage of the ticket types as defined in
 # - sysconfig option 'ITSMChange::AddChangeLinkTicketTypes' to certain groups -
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -50,8 +50,7 @@ sub Run {
     return 1 if !$Param{UserID};
 
     # get and check the list of relevant ticket types
-    my $AddChangeLinkTicketTypes
-        = $Self->{ConfigObject}->Get('ITSMChange::AddChangeLinkTicketTypes');
+    my $AddChangeLinkTicketTypes = $Self->{ConfigObject}->Get('ITSMChange::AddChangeLinkTicketTypes');
 
     return 1 if !$AddChangeLinkTicketTypes;
     return 1 if ref $AddChangeLinkTicketTypes ne 'ARRAY';
@@ -85,8 +84,7 @@ sub Run {
     );
 
     # get and check the list of groups who are allowed to use the AddChangeLinkTicketTypes
-    my $RestrictTicketTypesGroups
-        = $Self->{ConfigObject}->Get('ITSMChange::RestrictTicketTypes::Groups');
+    my $RestrictTicketTypesGroups = $Self->{ConfigObject}->Get('ITSMChange::RestrictTicketTypes::Groups');
 
     return 1 if !$RestrictTicketTypesGroups;
     return 1 if ref $RestrictTicketTypesGroups ne 'ARRAY';

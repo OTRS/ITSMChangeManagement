@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/Template/ITSMChange.pm - all template functions for changes
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -106,11 +106,9 @@ sub new {
     $Self->{ValidObject}     = Kernel::System::Valid->new( %{$Self} );
     $Self->{ConditionObject} = Kernel::System::ITSMChange::ITSMCondition->new( %{$Self} );
 
-    $Self->{WorkOrderTemplateObject}
-        = Kernel::System::ITSMChange::Template::ITSMWorkOrder->new( %{$Self} );
-    $Self->{ConditionTemplateObject}
-        = Kernel::System::ITSMChange::Template::ITSMCondition->new( %{$Self} );
-    $Self->{StateMachineObject} = Kernel::System::ITSMChange::ITSMStateMachine->new( %{$Self} );
+    $Self->{WorkOrderTemplateObject} = Kernel::System::ITSMChange::Template::ITSMWorkOrder->new( %{$Self} );
+    $Self->{ConditionTemplateObject} = Kernel::System::ITSMChange::Template::ITSMCondition->new( %{$Self} );
+    $Self->{StateMachineObject}      = Kernel::System::ITSMChange::ITSMStateMachine->new( %{$Self} );
 
     return $Self;
 }

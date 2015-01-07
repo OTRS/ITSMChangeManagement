@@ -1,7 +1,7 @@
 # --
 # Kernel/Modules/AdminITSMChangeNotification.pm - to add/update/delete
 # notification rules for ITSM change management
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -203,7 +203,7 @@ sub _Edit {
         Data => $Self->{NotificationObject}->RecipientList( UserID => 1 ) || [],
         Name => 'RecipientIDs',
         Multiple   => 1,
-        Size       => 13,                    # current number of default recipients, avoid scrolling
+        Size       => 13,                     # current number of default recipients, avoid scrolling
         SelectedID => $Param{RecipientIDs},
     );
 

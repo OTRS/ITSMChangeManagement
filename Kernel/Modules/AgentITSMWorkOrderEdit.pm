@@ -1,6 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMWorkOrderEdit.pm - the OTRS ITSM ChangeManagement workorder edit module
-# Copyright (C) 2001-2014 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -104,8 +104,7 @@ sub Run {
     }
 
     # get the checkbox value and store it in %GetParam to make it reloadable
-    $GetParam{MoveFollowingWorkOrders}
-        = $Self->{ParamObject}->GetParam( Param => 'MoveFollowingWorkOrders' );
+    $GetParam{MoveFollowingWorkOrders} = $Self->{ParamObject}->GetParam( Param => 'MoveFollowingWorkOrders' );
 
     # get all workorder ids for this change
     my $WorkOrderIDsRef = $Self->{WorkOrderObject}->WorkOrderList(
@@ -133,8 +132,7 @@ sub Run {
     }
 
     # get configured workorder freetext field numbers
-    my @ConfiguredWorkOrderFreeTextFields
-        = $Self->{WorkOrderObject}->WorkOrderGetConfiguredFreeTextFields();
+    my @ConfiguredWorkOrderFreeTextFields = $Self->{WorkOrderObject}->WorkOrderGetConfiguredFreeTextFields();
 
     # get workorder freetext params
     my %WorkOrderFreeTextParam;
@@ -426,8 +424,7 @@ sub Run {
                         . "ContentID=$Attachment->{ContentID}";
 
                     # picture url in workorder atttachment
-                    my $Replace
-                        = "Action=AgentITSMWorkOrderZoom;Subaction=DownloadAttachment;"
+                    my $Replace = "Action=AgentITSMWorkOrderZoom;Subaction=DownloadAttachment;"
                         . "Filename=$Attachment->{Filename};WorkOrderID=$WorkOrderID";
 
                     # replace url
@@ -450,17 +447,17 @@ sub Run {
                     }
                 }
 
-# if there are any following workorders
-# and if the following workorders should be moved, that means we want to keep the difference
-# between the planned end date of this workorder and the the planned start dates of ALL LATER workorders
+                # if there are any following workorders
+                # and if the following workorders should be moved, that means we want to keep the difference
+                # between the planned end date of this workorder and the the planned start dates of ALL LATER workorders
                 if ( @FollowingWorkOrderIDs && $GetParam{MoveFollowingWorkOrders} ) {
 
-               # convert the OLD planned end time of this workorder into system time (epoch seconds)
+                    # convert the OLD planned end time of this workorder into system time (epoch seconds)
                     my $OldPlannedEndTimeSystemTime = $Self->{TimeObject}->TimeStamp2SystemTime(
                         String => $WorkOrder->{PlannedEndTime},
                     );
 
-               # convert the NEW planned end time of this workorder into system time (epoch seconds)
+                    # convert the NEW planned end time of this workorder into system time (epoch seconds)
                     my $NewPlannedEndTimeSystemTime = $Self->{TimeObject}->TimeStamp2SystemTime(
                         String => $GetParam{PlannedEndTime},
                     );
@@ -482,7 +479,7 @@ sub Run {
                         my %TimeData;
                         for my $TimeType (qw(PlannedStartTime PlannedEndTime)) {
 
-                   # convert the old planned times of the workorder into system time (epoch seconds)
+                            # convert the old planned times of the workorder into system time (epoch seconds)
                             $TimeData{$TimeType} = $Self->{TimeObject}->TimeStamp2SystemTime(
                                 String => $WorkOrder->{$TimeType},
                             );
@@ -543,10 +540,9 @@ sub Run {
                 my $SystemTime = $Self->{TimeObject}->TimeStamp2SystemTime(
                     String => $WorkOrder->{$TimeType},
                 );
-                my ( $Second, $Minute, $Hour, $Day, $Month, $Year )
-                    = $Self->{TimeObject}->SystemTime2Date(
+                my ( $Second, $Minute, $Hour, $Day, $Month, $Year ) = $Self->{TimeObject}->SystemTime2Date(
                     SystemTime => $SystemTime,
-                    );
+                );
 
                 # set the parameter hash for BuildDateSelection()
                 $GetParam{ $TimeType . 'Minute' } = $Minute;

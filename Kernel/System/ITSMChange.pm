@@ -2237,7 +2237,7 @@ sub ChangeSearch {
     {
 
         # return the COUNT(c.id) attribute
-        return $IDs[0];
+        return $IDs[0] || 0;
     }
     elsif ( $Result eq 'COUNT' ) {
 

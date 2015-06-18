@@ -111,7 +111,7 @@ sub Run {
             $Kernel::OM->Get('Kernel::System::Cache')->Set(
                 Type  => $Self->{CacheType},
                 Key   => $CacheKey,
-                Value => $Count,
+                Value => $Count || 0,
                 TTL   => $Self->{CacheTTL},
             );
         }

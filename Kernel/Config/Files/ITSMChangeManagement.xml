@@ -4420,7 +4420,7 @@
         <SubGroup>Frontend::Agent::Preferences</SubGroup>
         <Setting>
             <Hash>
-                <Item Key="Module">Kernel::Output::HTML::PreferencesGeneric</Item>
+                <Item Key="Module">Kernel::Output::HTML::Preferences::Generic</Item>
                 <Item Key="Column">Other Settings</Item>
                 <Item Key="Label" Translatable="1">Screen after creating a workorder</Item>
                 <Item Key="Key" Translatable="1">Show this screen after I created a new workorder</Item>
@@ -4443,7 +4443,7 @@
         <SubGroup>Frontend::Agent::Preferences</SubGroup>
         <Setting>
             <Hash>
-                <Item Key="Module">Kernel::Output::HTML::PreferencesGeneric</Item>
+                <Item Key="Module">Kernel::Output::HTML::Preferences::Generic</Item>
                 <Item Key="Column">Other Settings</Item>
                 <Item Key="Label" Translatable="1">Change Overview "Small" Limit</Item>
                 <Item Key="Key" Translatable="1">Change limit per page for Change Overview "Small"</Item>
@@ -4470,7 +4470,7 @@
         <SubGroup>Frontend::Agent::Preferences</SubGroup>
         <Setting>
             <Hash>
-                <Item Key="Module">Kernel::Output::HTML::PreferencesGeneric</Item>
+                <Item Key="Module">Kernel::Output::HTML::Preferences::Generic</Item>
                 <Item Key="Column">Other Settings</Item>
                 <Item Key="Label" Translatable="1">Change and WorkOrder templates edited by this user.</Item>
                 <Item Key="Key" Translatable="1">Change and WorkOrder templates edited by this user.</Item>

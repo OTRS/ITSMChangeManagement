@@ -177,7 +177,7 @@ $Selenium->RunTest(
         $Handles = $Selenium->get_window_handles();
         $Selenium->switch_to_window( $Handles->[1] );
 
-        # create
+        # check history log to verify change involved persons
         $Self->True(
             index( $Selenium->get_page_source(), "\"CAB Agents\", \"$TestUserCAB\"" ) > -1,
             "Change in agent CAB - success",

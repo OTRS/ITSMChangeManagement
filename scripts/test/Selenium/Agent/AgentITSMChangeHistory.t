@@ -100,13 +100,11 @@ $Selenium->RunTest(
         );
         $Self->True(
             $Success,
-            "$ChangeTitleRandom edit - deleted",
+            "$ChangeTitleRandom - deleted",
         );
 
         # make sure cache is correct
-        $Kernel::OM->Get('Kernel::System::Cache')->CleanUp(
-            Type => 'ITSMChange',
-        );
+        $Kernel::OM->Get('Kernel::System::Cache')->CleanUp( Type => 'ITSMChange*' );
     }
 );
 

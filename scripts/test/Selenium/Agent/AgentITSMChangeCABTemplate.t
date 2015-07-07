@@ -190,11 +190,7 @@ $Selenium->RunTest(
         );
 
         # make sure the cache is correct
-        for my $CacheDelete (qw(ITSMChangeManagement TemplateProvider)) {
-            $Kernel::OM->Get('Kernel::System::Cache')->CleanUp(
-                Type => $CacheDelete
-            );
-        }
+        $Kernel::OM->Get('Kernel::System::Cache')->CleanUp( Type => 'ITSMChange*' );
     }
 
 );

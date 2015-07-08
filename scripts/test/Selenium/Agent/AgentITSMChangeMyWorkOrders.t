@@ -60,8 +60,7 @@ $Selenium->RunTest(
                 Description   => 'Selenium Test Description',
                 Justification => 'Selenium Test Justification',
                 ChangeStateID => $ChangeStateDataRef->{ItemID},
-                ,
-                UserID => $TestUserID,
+                UserID        => $TestUserID,
             );
             $Self->True(
                 $ChangeID,

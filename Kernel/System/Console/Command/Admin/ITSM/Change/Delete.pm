@@ -1,5 +1,4 @@
 # --
-# Kernel/System/Console/Command/Admin/ITSM/Change/Delete.pm - console command
 # Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
@@ -15,7 +14,7 @@ use warnings;
 use base qw(Kernel::System::Console::BaseCommand);
 
 our @ObjectDependencies = (
-     'Kernel::System::ITSMChange',
+    'Kernel::System::ITSMChange',
 );
 
 sub Configure {

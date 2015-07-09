@@ -1,5 +1,4 @@
 # --
-# Admin/ITSM/Change/Check.t - command tests
 # Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
@@ -26,7 +25,7 @@ $Self->Is(
 );
 
 # check command with option --force
-my $ExitCode = $CommandObject->Execute( '--force' );
+$ExitCode = $CommandObject->Execute('--force');
 
 $Self->Is(
     $ExitCode,

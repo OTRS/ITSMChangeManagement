@@ -1,5 +1,4 @@
 # --
-# Kernel/System/Console/Command/Admin/ITSM/Change/Check.pm - console command
 # Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
@@ -65,7 +64,7 @@ sub PreRun {
     $PIDObject->PIDCreate(
         Name  => $Self->{PIDLockName},
         Force => 1,
-        TTL   => 60 * 60 * 2,    # 2 hours
+        TTL   => 60 * 60 * 2,            # 2 hours
     );
 
     # get time object

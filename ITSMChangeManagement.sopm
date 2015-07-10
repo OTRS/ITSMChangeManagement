@@ -12,8 +12,6 @@
     <Description Lang="de">Das OTRS::ITSM Change Management Paket.</Description>
     <Description Lang="es">El paquete OTRS::ITSM Change Management.</Description>
     <Filelist>
-        <File Permission="755" Location="bin/otrs.ITSMChangesCheck.pl"/>
-        <File Permission="755" Location="bin/otrs.ITSMChangeDelete.pl"/>
         <File Permission="644" Location="doc/itsm-change-management-database.dia"/>
         <File Permission="644" Location="doc/itsm-change-management-database.png"/>
         <File Permission="644" Location="Kernel/Config/Files/ITSMChangeManagement.xml"/>
@@ -199,11 +197,15 @@
         <File Permission="644" Location="Kernel/System/Stats/Dynamic/ITSMChangeManagementHistory.pm"/>
         <File Permission="644" Location="Kernel/System/Stats/Dynamic/ITSMChangeManagementRfcRequester.pm"/>
         <File Permission="644" Location="Kernel/System/Ticket/Acl/RestrictTicketTypes.pm"/>
+        <File Permission="644" Location="Kernel/System/Console/Command/Admin/ITSM/Change/Delete.pm"/>
+        <File Permission="644" Location="Kernel/System/Console/Command/Admin/ITSM/Change/Check.pm"/>
         <File Permission="644" Location="scripts/test/ITSMChange.t"/>
         <File Permission="644" Location="scripts/test/ITSMCondition.t"/>
         <File Permission="644" Location="scripts/test/ITSMStateMachine.t"/>
         <File Permission="644" Location="scripts/test/ITSMTemplate.t"/>
         <File Permission="644" Location="scripts/test/ITSMWorkOrder.t"/>
+        <File Permission="644" Location="scripts/test/Console/Command/Admin/ITSM/Change/Delete.t"/>
+        <File Permission="644" Location="scripts/test/Console/Command/Admin/ITSM/Change/Check.t"/>
         <File Permission="644" Location="var/cron/itsmchange_check.dist"/>
         <File Permission="644" Location="var/httpd/htdocs/js/ITSM.Agent.ChangeManagement.Search.js"/>
         <File Permission="644" Location="var/httpd/htdocs/js/ITSM.Agent.ChangeManagement.WorkorderGraph.js"/>

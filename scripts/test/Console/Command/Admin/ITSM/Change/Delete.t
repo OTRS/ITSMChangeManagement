@@ -33,4 +33,61 @@ $Self->Is(
     "Option '--all' n",
 );
 
+# get change object
+my $ChangeObject = $Kernel::OM->Get('Kernel::System::ITSMChange');
+my @ChangeNumbers;
+
+# add test changes
+for ( 1 .. 3 ) {
+
+    my $ChangeID = $ChangeObject->ChangeAdd(
+        UserID => 1,
+    );
+    my $Change = $ChangeObject->ChangeGet(
+        ChangeID => $ChangeID,
+        UserID   => 1,
+    );
+
+    $Self->True(
+        $ChangeID,
+        "Test change is created - $Change->{ChangeNumber}",
+    );
+
+    push @ChangeNumbers, $Change->{ChangeNumber};
+}
+
+# check command with option --change-number without specified change number
+$ExitCode = $CommandObject->Execute('--change-number');
+
+$Self->Is(
+    $ExitCode,
+    1,
+    "Option '--change-number' without specified change number.",
+);
+
+# check command with option --change-number with specified change numbers
+$ExitCode = $CommandObject->Execute(
+    '--change-number', $ChangeNumbers[0], '--change-number', $ChangeNumbers[1],
+    '--change-number', $ChangeNumbers[2],
+);
+
+$Self->Is(
+    $ExitCode,
+    0,
+    "Option '--change-number' with specified change numbers.",
+);
+
+# try to execute the command once more with the same parameters
+# the changes have alredy been deleted, and this ones do not exist anymore
+$ExitCode = $CommandObject->Execute(
+    '--change-number', $ChangeNumbers[0], '--change-number', $ChangeNumbers[1],
+    '--change-number', $ChangeNumbers[2],
+);
+
+$Self->Is(
+    $ExitCode,
+    0,
+    "Option '--change-number' with specified change numbers, which do not exists.",
+);
+
 1;

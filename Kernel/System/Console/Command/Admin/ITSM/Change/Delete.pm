@@ -159,7 +159,8 @@ sub DeleteChanges {
             $DeletedChanges++;
         }
     }
-    $Self->Print("<green>$DeletedChanges changes have been deleted.</green>\n\n");
+
+    $Self->Print("<green>Deleted $DeletedChanges change(s).</green>\n\n");
 
     return 1;
 }

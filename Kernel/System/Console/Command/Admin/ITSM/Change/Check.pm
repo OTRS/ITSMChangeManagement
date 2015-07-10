@@ -81,7 +81,7 @@ sub PreRun {
 sub Run {
     my ( $Self, %Param ) = @_;
 
-    $Self->Print("<yellow>Checking ITSM changes..</yellow>\n");
+    $Self->Print("<yellow>Checking ITSM changes...</yellow>\n");
 
     # get change object
     my $ChangeObject = $Kernel::OM->Get('Kernel::System::ITSMChange');

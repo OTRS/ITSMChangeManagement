@@ -681,9 +681,8 @@ sub Run {
             # to store all data
             my %Info;
 
-            # when there is no PDF-Support, $PDFObject will be undefined
-            my $PDFObject
-                = ( $Kernel::OM->Get('Kernel::Config')->Get('PDF') ) ? $Kernel::OM->Get('Kernel::System::PDF') : undef;
+            # get pdf object
+            my $PDFObject = $Kernel::OM->Get('Kernel::System::PDF');
 
             # to send data to the PDF output
             my @PDFData;
@@ -884,7 +883,7 @@ sub Run {
                     Filename    => $Filename . "_" . "$Y-$M-$D" . "_" . "$h-$m.pdf",
                     ContentType => "application/pdf",
                     Content     => $PDFString,
-                    Type        => 'attachment',
+                    Type        => 'inline',
                 );
             }
             else {

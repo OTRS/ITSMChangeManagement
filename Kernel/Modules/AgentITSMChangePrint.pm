@@ -139,9 +139,8 @@ sub Run {
         );
     }
 
-    # when there is no PDF-Support, $PDFObject will be undefined
-    my $PDFObject
-        = ( $Kernel::OM->Get('Kernel::Config')->Get('PDF') ) ? $Kernel::OM->Get('Kernel::System::PDF') : undef;
+    # get pdf object
+    my $PDFObject = $Kernel::OM->Get('Kernel::System::PDF');
 
     # some init for PDF-Output
     if ($PDFObject) {
@@ -443,7 +442,7 @@ sub Run {
             Filename    => $Filename,
             ContentType => 'application/pdf',
             Content     => $PDFString,
-            Type        => 'attachment',
+            Type        => 'inline',
         );
     }
     else {
@@ -483,7 +482,7 @@ sub _StartDocument {
         }
     }
 
-    # when there is no PDF-Support, $PDFObject will be undefined
+    # get PDF object
     my $PDFObject    = $Kernel::OM->Get('Kernel::System::PDF');
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
 
@@ -528,7 +527,7 @@ sub _OutputHeadline {
         }
     }
 
-    # when there is no PDF-Support, $PDFObject will be undefined
+    # get PDF object
     my $PDFObject    = $Kernel::OM->Get('Kernel::System::PDF');
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
 
@@ -1269,7 +1268,7 @@ sub _OutputLongText {
         }
     }
 
-    # when there is no PDF-Support, $PDFObject will be undefined
+    # get PDF object
     my $PDFObject = $Kernel::OM->Get('Kernel::System::PDF');
 
     if ($PDFObject) {
@@ -1346,7 +1345,7 @@ sub _OutputWorkOrderOverview {
         }
     }
 
-    # when there is no PDF-Support, $PDFObject will be undefined
+    # get PDF object
     my $PDFObject    = $Kernel::OM->Get('Kernel::System::PDF');
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
 
@@ -1487,7 +1486,7 @@ sub _OutputLinkedObjects {
         }
     }
 
-    # when there is no PDF-Support, $PDFObject will be undefined
+    # get PDF object
     my $PDFObject    = $Kernel::OM->Get('Kernel::System::PDF');
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
 
@@ -1636,7 +1635,7 @@ sub _PDFOutputTable {
     PAGE:
     for ( $Page->{PageCount} .. $Page->{MaxPages} ) {
 
-        # when there is no PDF-Support, $PDFObject will be undefined
+        # get PDF object
         my $PDFObject = $Kernel::OM->Get('Kernel::System::PDF');
 
         # output table (or a fragment of it)

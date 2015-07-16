@@ -598,7 +598,7 @@ sub Run {
                 for my $ServiceID ( sort keys %UniqueServiceIDs ) {
 
                     # get service data
-                    my %ServiceData = $Kernel::OM->Get('Kernel::System::service')->ServiceGet(
+                    my %ServiceData = $Kernel::OM->Get('Kernel::System::Service')->ServiceGet(
                         ServiceID => $ServiceID,
                         UserID    => $Self->{UserID},
                     );

@@ -142,7 +142,6 @@ sub Run {
     # some init for PDF-Output
     # page controls the PDF-generation
     $Self->{Page} = {};
-
     my $Page = $Self->{Page};
 
     # get maximum number of pages
@@ -495,8 +494,8 @@ sub _OutputHeadline {
         %{$Page},
         FooterRight => $Page->{PageText} . ' ' . $Page->{PageCount},
     );
-    $Page->{PageCount}++;
-    $Self->{Page}->{PageCount} = $Page->{PageCount};
+
+    $Self->{Page}->{PageCount}++;
 
     # get PDF object
     my $PDFObject = $Kernel::OM->Get('Kernel::System::PDF');

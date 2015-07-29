@@ -391,22 +391,6 @@ sub Run {
             # split the content by %%
             my @Values = split m/%%/, $Data{Content};
 
-            $Data{Content} = '';
-
-            # clean the values
-            for my $Value (@Values) {
-                if ( $Data{Content} ) {
-                    $Data{Content} .= '", ';
-                }
-
-                $Data{Content} .= qq{"$Value};
-            }
-
-            # we need at least a double quote
-            if ( !$Data{Content} ) {
-                $Data{Content} = '" ';
-            }
-
             # for what item type is this history entry
             my $HistoryItemType = 'Change';
             if ( $HistoryType =~ m{ \A WorkOrder }xms ) {
@@ -417,7 +401,7 @@ sub Run {
             my $HistoryEntryType = $Data{HistoryType};
             if ( $HistoryEntry->{WorkOrderID} ) {
                 $HistoryEntryType .= 'WithWorkOrderID';
-                $Data{Content} = '"' . $HistoryEntry->{WorkOrderID} . '", ' . $Data{Content};
+                unshift @Values, $HistoryEntry->{WorkOrderID};
             }
 
             # handle condition add with id
@@ -435,33 +419,13 @@ sub Run {
                 $HistoryEntryType .= 'ID';
             }
 
-            # handle action execute
-            if ( $HistoryEntryType eq 'ActionExecute' ) {
-
-                # get content elements
-                my @ActionExecuteData = split m/,/, $Data{Content};
-
-                # extract result
-                my $ActionExecuteResult = ( $ActionExecuteData[1] =~ m{ ( unsuccessfully | successfully ) }xms )[0];
-
-                # translate result
-                $ActionExecuteData[1] = ' "' . $Self->{LayoutObject}->{LanguageObject}->Translate(
-                    $HistoryEntryType . '::' . $ActionExecuteResult,
-                ) . '"';
-
-                # create content for translation
-                $Data{Content} = join ',', @ActionExecuteData;
-            }
-
             # useful for debugging, can be added to dtl to see the untranslated output
             $Data{ContentUntranslated} = $Data{Content};
 
             # show 'nice' output with variable substitution
-            # sample input:
-            # ChangeHistory::ChangeLinkAdd", "Ticket", "1
-            # YES, this looks strange, but this is the correct way!!!
             $Data{Content} = $Self->{LayoutObject}->{LanguageObject}->Translate(
-                $HistoryItemType . 'History::' . $HistoryEntryType . '", ' . $Data{Content},
+                $HistoryItemType . 'History::' . $HistoryEntryType,
+                @Values,
             );
 
             # remove not needed place holder

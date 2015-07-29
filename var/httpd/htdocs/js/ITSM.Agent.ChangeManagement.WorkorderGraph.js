@@ -1,7 +1,7 @@
 // --
 // ITSM.Agent.ChangeManagement.WorkorderGraph.js - provides the special module functions for the
 // workorder graph
-// Copyright (C) 2001-2010 OTRS AG, http://otrs.org/\n";
+// Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
 // --
 // This software comes with ABSOLUTELY NO WARRANTY. For details, see
 // the enclosed file COPYING for license information (AGPL). If you

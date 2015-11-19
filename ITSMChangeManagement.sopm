@@ -200,6 +200,7 @@
         <File Permission="644" Location="Kernel/System/Stats/Dynamic/ITSMChangeManagementRfcRequester.pm"/>
         <File Permission="644" Location="Kernel/System/Ticket/Acl/RestrictTicketTypes.pm"/>
         <File Permission="644" Location="scripts/test/ITSMChange.t"/>
+        <File Permission="644" Location="scripts/test/ITSMChangeNotification.t"/>
         <File Permission="644" Location="scripts/test/ITSMCondition.t"/>
         <File Permission="644" Location="scripts/test/ITSMStateMachine.t"/>
         <File Permission="644" Location="scripts/test/ITSMTemplate.t"/>

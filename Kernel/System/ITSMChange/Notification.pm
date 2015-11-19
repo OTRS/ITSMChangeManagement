@@ -73,9 +73,6 @@ sub new {
     # do we use richtext
     $Self->{RichText} = $Kernel::OM->Get('Kernel::Config')->Get('Frontend::RichText');
 
-    # set up empty cache for _NotificationGet()
-    $Self->{NotificationCache} = {};
-
     @ISA = (
         'Kernel::System::EventHandler',
     );
@@ -1011,9 +1008,16 @@ sub _NotificationGet {
     my $NotificationKey = $Param{NotificationKey};
 
     # check the cache
-    if ( $Self->{NotificationCache}->{$NotificationKey} ) {
-        return $Self->{NotificationCache}->{$NotificationKey};
-    }
+    my $CacheKey = 'NotificationGet::' . $NotificationKey;
+    my $Cache    = $Kernel::OM->Get('Kernel::System::Cache')->Get(
+        Type           => $Self->{CacheType},
+        Key            => $CacheKey,
+        CacheInMemory  => 1,
+        CacheInBackend => 0,
+    );
+
+    # make a local copy of the notification data to avoid it being altered in-memory later
+    return { %{ $Cache } } if $Cache;
 
     # get from database
     my %NotificationData = $Kernel::OM->Get('Kernel::System::Notification')->NotificationGet(
@@ -1046,11 +1050,19 @@ sub _NotificationGet {
         );
     }
 
-    # cache data
-    $Self->{NotificationCache}->{$NotificationKey} = \%NotificationData;
+    $Kernel::OM->Get('Kernel::System::Cache')->Set(
+        Type           => $Self->{CacheType},
+        TTL            => $Self->{CacheTTL},
+        Key            => $CacheKey,
 
-    # return data
-    return \%NotificationData;
+        # make a local copy of the notification data to avoid it being altered in-memory later
+        Value          => { %NotificationData },
+        CacheInMemory  => 1,
+        CacheInBackend => 0,
+    );
+
+    # make a local copy of the notification data to avoid it being altered in-memory later
+    return { %NotificationData };
 }
 
 =item _NotificationReplaceMacros()

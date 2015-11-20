@@ -12,9 +12,13 @@ package Kernel::Modules::AgentITSMChangeReset;
 use strict;
 use warnings;
 
+use Kernel::System::VariableCheck qw(:all);
+
 use Kernel::System::ITSMChange;
 use Kernel::System::ITSMChange::ITSMStateMachine;
 use Kernel::System::ITSMChange::ITSMWorkOrder;
+use Kernel::System::DynamicField;
+use Kernel::System::DynamicField::Backend;
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -37,6 +41,8 @@ sub new {
     $Self->{ChangeObject}       = Kernel::System::ITSMChange->new(%Param);
     $Self->{WorkOrderObject}    = Kernel::System::ITSMChange::ITSMWorkOrder->new(%Param);
     $Self->{StateMachineObject} = Kernel::System::ITSMChange::ITSMStateMachine->new(%Param);
+    $Self->{DynamicFieldObject} = Kernel::System::DynamicField->new(%Param);
+    $Self->{BackendObject}      = Kernel::System::DynamicField::Backend->new(%Param);
 
     # get config of frontend module
     $Self->{Config} = $Self->{ConfigObject}->Get("ITSMChange::Frontend::$Self->{Action}");
@@ -105,8 +111,32 @@ sub Run {
         );
         my $WorkOrderStartStateID = $NextWorkOrderStateIDs->[0];
 
+        # get all dynamic fields for the object type ITSMWorkOrder
+        my $DynamicFieldListWorkOrder = $Self->{DynamicFieldObject}->DynamicFieldListGet(
+            ObjectType => 'ITSMWorkOrder',
+            Valid      => 0,
+        );
+
         # reset WorkOrders
         for my $WorkOrderID ( @{ $Change->{WorkOrderIDs} } ) {
+
+            # delete dynamicfield values for this workorder
+            DYNAMICFIELD:
+            for my $DynamicFieldConfig ( @{$DynamicFieldListWorkOrder} ) {
+
+                next DYNAMICFIELD if !$DynamicFieldConfig;
+                next DYNAMICFIELD if !IsHashRefWithData($DynamicFieldConfig);
+                next DYNAMICFIELD if !$DynamicFieldConfig->{Name};
+                next DYNAMICFIELD if !IsHashRefWithData( $DynamicFieldConfig->{Config} );
+
+                $Self->{BackendObject}->ValueDelete(
+                    DynamicFieldConfig => $DynamicFieldConfig,
+                    ObjectID           => $WorkOrderID,
+                    UserID             => $Self->{UserID},
+                );
+            }
+
+            # reset workorder
             my $CouldUpdateWorkOrder = $Self->{WorkOrderObject}->WorkOrderUpdate(
                 WorkOrderID        => $WorkOrderID,
                 WorkOrderStateID   => $WorkOrderStartStateID,
@@ -125,6 +155,28 @@ sub Run {
                     Comment => 'Please contact the admin.',
                 );
             }
+        }
+
+        # get all dynamic fields for the object type ITSMChange
+        my $DynamicFieldListChange = $Self->{DynamicFieldObject}->DynamicFieldListGet(
+            ObjectType => 'ITSMChange',
+            Valid      => 0,
+        );
+
+        # delete dynamicfield values for this change
+        DYNAMICFIELD:
+        for my $DynamicFieldConfig ( @{$DynamicFieldListChange} ) {
+
+            next DYNAMICFIELD if !$DynamicFieldConfig;
+            next DYNAMICFIELD if !IsHashRefWithData($DynamicFieldConfig);
+            next DYNAMICFIELD if !$DynamicFieldConfig->{Name};
+            next DYNAMICFIELD if !IsHashRefWithData( $DynamicFieldConfig->{Config} );
+
+            $Self->{BackendObject}->ValueDelete(
+                DynamicFieldConfig => $DynamicFieldConfig,
+                ObjectID           => $ChangeID,
+                UserID             => $Self->{UserID},
+            );
         }
 
         # reset Change

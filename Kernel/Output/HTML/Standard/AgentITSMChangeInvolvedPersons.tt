@@ -157,7 +157,7 @@
 
 [% WRAPPER JSOnDocumentComplete %]
 <script type="text/javascript">//<![CDATA[
-    $('#[% Data.InternalUserType %][% Data.UserID | html %]').bind('click', function(){
+    $('#[% Data.InternalUserType %][% Data.UserID.replace('(\!|\"|\#|\$|\%|\&|\'|\(|\)|\*|\+|\,|\.|\/|\:|\;|\<|\=|\>|\?|\@|\[|\\|\]|\^|\`|\{|\||\}|\~)','\\\\\\\\$1') | html %]').bind('click', function(){
         $(this).closest('form').append("<input name=\"Delete[% Data.InternalUserType %][% Data.UserID | html %]\" type=\"hidden\" value=\"1\"/>").end().submit();
     });
 //]]></script>

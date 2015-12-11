@@ -10,7 +10,7 @@
 [% RenderBlockStart("WorkOrderGraph") %]
 <style type="text/css" media="screen">
     .LabelMargin {
-        margin-left: [% Data.LabelMargin | html %]px;
+        margin-left: 150px;
     }
 
     .RTL .LabelMargin {
@@ -19,7 +19,7 @@
     }
 
     div.WorkorderLabel {
-        width: [% Data.LabelWidth | html %]px;
+        width: 150px;
     }
 
 /* [% RenderBlockStart("CSSWorkOrderType") %] */
@@ -62,7 +62,7 @@
                 <span class="[% Data.WorkOrderStateSignal | html %]">[% Translate(Data.WorkOrderState) | html %]</span>
             </div>
             <a href="[% Env("Baselink") %]Action=AgentITSMWorkOrderZoom;WorkOrderID=[% Data.WorkOrderID | uri %]">
-                [% Data.WorkOrderNumber | html %].
+                [% Data.WorkOrderTitle | truncate(35) | html %].
 [% RenderBlockStart("WorkOrderItemState") %]
                 - [% Translate(Data.WorkOrderState) | html %]
 [% RenderBlockEnd("WorkOrderItemState") %]

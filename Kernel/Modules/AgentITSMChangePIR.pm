@@ -176,7 +176,7 @@ sub Run {
     }
 
     # if only one filter exists
-    if ( scalar sort keys %Filters == 1 ) {
+    if ( scalar keys %Filters == 1 ) {
 
         # get the name of the only filter
         my ($FilterName) = sort keys %Filters;

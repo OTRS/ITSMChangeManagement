@@ -1,6 +1,6 @@
 # --
 # Kernel/Modules/AgentITSMChangePrint.pm - the OTRS ITSM ChangeManagement change print module
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2016 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -541,8 +541,8 @@ sub _OutputHeadline {
     }
 
     if ( $Self->{PDFObject} ) {
-        my $PrintedBy = $Self->{LayoutObject}->{LanguageObject}->Translate('printed by');
-        my $Time = $Self->{LayoutObject}->{Time};
+        my $PrintedBy    = $Self->{LayoutObject}->{LanguageObject}->Translate('printed by');
+        my $Time         = $Self->{LayoutObject}->{Time};
         my $UserFullName = $Self->{UserObject}->UserName(
             UserID => $Self->{UserID},
         );

@@ -1,6 +1,6 @@
 # --
 # Kernel/System/ITSMChange/Notification.pm - lib for notifications in change management
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2016 OTRS AG, http://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -1017,7 +1017,7 @@ sub _NotificationGet {
     );
 
     # make a local copy of the notification data to avoid it being altered in-memory later
-    return { %{ $Cache } } if $Cache;
+    return { %{$Cache} } if $Cache;
 
     # get from database
     my %NotificationData = $Kernel::OM->Get('Kernel::System::Notification')->NotificationGet(
@@ -1051,18 +1051,18 @@ sub _NotificationGet {
     }
 
     $Kernel::OM->Get('Kernel::System::Cache')->Set(
-        Type           => $Self->{CacheType},
-        TTL            => $Self->{CacheTTL},
-        Key            => $CacheKey,
+        Type => $Self->{CacheType},
+        TTL  => $Self->{CacheTTL},
+        Key  => $CacheKey,
 
         # make a local copy of the notification data to avoid it being altered in-memory later
-        Value          => { %NotificationData },
+        Value          => {%NotificationData},
         CacheInMemory  => 1,
         CacheInBackend => 0,
     );
 
     # make a local copy of the notification data to avoid it being altered in-memory later
-    return { %NotificationData };
+    return {%NotificationData};
 }
 
 =item _NotificationReplaceMacros()

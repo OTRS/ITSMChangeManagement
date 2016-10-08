@@ -1,5 +1,4 @@
 // --
-// ITSM.Agent.ChangeManagement.Zoom.js - provides the special module functions for the Zoom (change and workorder zoom)
 // Copyright (C) 2001-2016 OTRS AG, http://otrs.com/\n";
 // --
 // This software comes with ABSOLUTELY NO WARRANTY. For details, see

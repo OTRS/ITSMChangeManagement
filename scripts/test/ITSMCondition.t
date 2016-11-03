@@ -105,9 +105,9 @@ for my $ObjectMethod (@ObjectMethods) {
     );
 }
 
-#------------------------
+#
 # make some preparations
-#------------------------
+#
 
 # keep track of a time before objects were added,
 # for comparisons in expression match tests
@@ -171,9 +171,9 @@ for my $CreateWorkOrder ( 0 .. ( ( 3 * ( scalar @ChangeIDs ) ) - 1 ) ) {
     push @WorkOrderTitles, $WorkOrderTitle;
 }
 
-#------------------------
+#
 # condition tests
-#------------------------
+#
 
 # create new condition
 my @ConditionIDs;
@@ -350,9 +350,9 @@ for my $ChangeID ( sort keys %ConditionCount ) {
 
 }
 
-#------------------------
+#
 # condition object tests
-#------------------------
+#
 
 # check condition sub-objects
 for my $ConditionSubObjectName (qw(ITSMChange ITSMWorkOrder)) {
@@ -454,9 +454,9 @@ for my $ObjectID (@ConditionObjectCreated) {
     );
 }
 
-#----------------------------
+#
 # condition attributes tests
-#----------------------------
+#
 
 # check for default condition attributes
 my @ConditionAttributes = qw(
@@ -565,9 +565,9 @@ for my $AttributeID (@ConditionAttributeCreated) {
     );
 }
 
-#-------------------------
+#
 # condition operator tests
-#-------------------------
+#
 
 # check for default condition operators
 my @ConditionOperators = (
@@ -685,9 +685,9 @@ for my $OperatorID (@ConditionOperatorCreated) {
     );
 }
 
-#-------------------------
+#
 # condition expression tests
-#-------------------------
+#
 
 # check for default condition expressions
 my @ExpressionTests = (
@@ -1964,9 +1964,9 @@ for my $ExpressionCounter ( 0 .. ( scalar @ExpressionIDs - 1 ) ) {
     }
 }
 
-#-------------------------
+#
 # condition action tests
-#-------------------------
+#
 
 # check for default condition actions
 my @ActionTests = (

@@ -74,7 +74,7 @@ sub Run {
     if ($DeleteFound) {
         my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
         my $GroupObject  = $Kernel::OM->Get('Kernel::System::Group');
-        my $ModuleReg    = $ConfigObject->Get('Frontend::Module')->{AgentITSMChangeDelete};
+        my $ModuleReg    = $ConfigObject->Get('Frontend::Module')->{AgentITSMTemplateDelete};
 
         my %Groups;
         $Groups{GroupRo} = {

@@ -120,7 +120,7 @@ $Selenium->RunTest(
         # click ok to dismiss
         $Selenium->find_element( 'div.Dialog button#DialogButton1', 'css' )->VerifiedClick();
 
-        # verify that test created change is present
+        # verify that test created change is not present
         $Self->True(
             index( $Selenium->get_page_source(), $ChangeTitleRandom ) == -1,
             "$ChangeTitleRandom is not found",

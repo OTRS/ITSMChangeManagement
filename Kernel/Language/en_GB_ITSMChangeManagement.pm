@@ -519,6 +519,7 @@ sub Data {
     $Self->{Translation}->{'Change Print.'} = 'Change Print.';
     $Self->{Translation}->{'Change Schedule'} = 'Change Schedule';
     $Self->{Translation}->{'Change Schedule.'} = 'Change Schedule.';
+    $Self->{Translation}->{'Change Zoom'} = '';
     $Self->{Translation}->{'Change Zoom.'} = 'Change Zoom.';
     $Self->{Translation}->{'Change and Workorder Templates'} = '';
     $Self->{Translation}->{'Change and workorder templates edited by this user.'} = '';
@@ -960,6 +961,7 @@ sub Data {
     $Self->{Translation}->{'Workorder History Zoom.'} = 'Workorder History Zoom.';
     $Self->{Translation}->{'Workorder History.'} = 'Workorder History.';
     $Self->{Translation}->{'Workorder Report.'} = 'Workorder Report.';
+    $Self->{Translation}->{'Workorder Zoom'} = '';
     $Self->{Translation}->{'Workorder Zoom.'} = 'Workorder Zoom.';
     $Self->{Translation}->{'once'} = 'once';
     $Self->{Translation}->{'regularly'} = 'regularly';

@@ -93,7 +93,7 @@ sub Data {
     $Self->{Translation}->{'Edit %s%s'} = '';
 
     # Template: AgentITSMChangeHistory
-    $Self->{Translation}->{'History of %s%s'} = '';
+    $Self->{Translation}->{'History of %s%s'} = 'История для %s%s';
     $Self->{Translation}->{'Workorder'} = 'Задача';
     $Self->{Translation}->{'Show details'} = 'Показать подробно';
     $Self->{Translation}->{'Show workorder'} = 'Показать задачу';
@@ -519,6 +519,7 @@ sub Data {
     $Self->{Translation}->{'Change Print.'} = 'Печать Изменения.';
     $Self->{Translation}->{'Change Schedule'} = 'Планировщик изменений';
     $Self->{Translation}->{'Change Schedule.'} = 'Изменение расписания.';
+    $Self->{Translation}->{'Change Zoom'} = '';
     $Self->{Translation}->{'Change Zoom.'} = 'Подробный просмотр Изменения.';
     $Self->{Translation}->{'Change and Workorder Templates'} = '';
     $Self->{Translation}->{'Change and workorder templates edited by this user.'} = '';
@@ -960,6 +961,7 @@ sub Data {
     $Self->{Translation}->{'Workorder History Zoom.'} = 'История Задачи подробно.';
     $Self->{Translation}->{'Workorder History.'} = 'История Задачи.';
     $Self->{Translation}->{'Workorder Report.'} = 'Отчет по Задаче.';
+    $Self->{Translation}->{'Workorder Zoom'} = '';
     $Self->{Translation}->{'Workorder Zoom.'} = 'Просмотр Задачи.';
     $Self->{Translation}->{'once'} = 'один раз';
     $Self->{Translation}->{'regularly'} = 'регулярно';

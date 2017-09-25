@@ -4,9 +4,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OTRS\n"
-"POT-Creation-Date: 2017-07-10 14:46+0000\n"
-"PO-Revision-Date: 2017-07-10 12:46+0000\n"
-"Last-Translator: Udo Bretz\n"
+"POT-Creation-Date: 2017-08-21 12:33+0000\n"
+"PO-Revision-Date: 2017-09-23 20:27+0000\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/otrs/OTRS/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -234,9 +234,13 @@ msgstr "Új művelet hozzáadása"
 msgid "Do you really want to delete this change?"
 msgstr "Valóban törölni szeretné ezt a változást?"
 
+#. Template: AgentITSMChangeEdit
+msgid "Edit %s%s"
+msgstr "%s%s szerkesztése"
+
 #. Template: AgentITSMChangeHistory
-msgid "History of"
-msgstr "Előzmények"
+msgid "History of %s%s"
+msgstr "%s%s előzményei"
 
 #. Template: AgentITSMChangeHistory
 msgid "Workorder"
@@ -251,8 +255,8 @@ msgid "Show workorder"
 msgstr "Munkamegrendelés megjelenítése"
 
 #. Template: AgentITSMChangeHistoryZoom
-msgid "Detailed history information of"
-msgstr "Részletes előzmény információk:"
+msgid "Detailed history information of %s"
+msgstr "%s részletes előzményinformációi"
 
 #. Template: AgentITSMChangeHistoryZoom
 msgid "Modified"
@@ -265,6 +269,10 @@ msgstr "Régi érték"
 #. Template: AgentITSMChangeHistoryZoom
 msgid "New Value"
 msgstr "Új érték"
+
+#. Template: AgentITSMChangeInvolvedPersons
+msgid "Edit Involved Persons of %s%s"
+msgstr "%s%s résztvevő személyeinek szerkesztése"
 
 #. Template: AgentITSMChangeInvolvedPersons
 msgid "Involved Persons"
@@ -323,31 +331,39 @@ msgid "Changes per page"
 msgstr "Oldalankénti változások"
 
 #. Template: AgentITSMChangeOverviewSmall
-msgid "WorkOrderTitle"
-msgstr "Munkamegrendelés cím"
+msgid "Workorder Title"
+msgstr "Munkamegrendelés-cím"
 
 #. Template: AgentITSMChangeOverviewSmall
-msgid "ChangeTitle"
+msgid "Change Title"
 msgstr "Változáscím"
 
 #. Template: AgentITSMChangeOverviewSmall
-msgid "WorkOrderAgent"
-msgstr "Munkamegrendelés ügyintéző"
+msgid "Workorder Agent"
+msgstr "Munkamegrendelés ügyintézője"
+
+#. Template: AgentITSMChangeOverviewSmall
+msgid "Change Builder"
+msgstr "Változás-összeállító"
+
+#. Template: AgentITSMChangeOverviewSmall
+msgid "Change Manager"
+msgstr "Változásmenedzser"
 
 #. Template: AgentITSMChangeOverviewSmall
 msgid "Workorders"
 msgstr "Munkamegrendelések"
 
 #. Template: AgentITSMChangeOverviewSmall
-msgid "ChangeState"
+msgid "Change State"
 msgstr "Változásállapot"
 
 #. Template: AgentITSMChangeOverviewSmall
-msgid "WorkOrderState"
+msgid "Workorder State"
 msgstr "Munkamegrendelés-állapot"
 
 #. Template: AgentITSMChangeOverviewSmall
-msgid "WorkOrderType"
+msgid "Workorder Type"
 msgstr "Munkamegrendelés-típus"
 
 #. Template: AgentITSMChangeOverviewSmall
@@ -355,19 +371,19 @@ msgid "Requested Time"
 msgstr "Kért idő"
 
 #. Template: AgentITSMChangeOverviewSmall
-msgid "PlannedStartTime"
+msgid "Planned Start Time"
 msgstr "Tervezett kezdési idő"
 
 #. Template: AgentITSMChangeOverviewSmall
-msgid "PlannedEndTime"
+msgid "Planned End Time"
 msgstr "Tervezett befejezési idő"
 
 #. Template: AgentITSMChangeOverviewSmall
-msgid "ActualStartTime"
+msgid "Actual Start Time"
 msgstr "Tényleges kezdési idő"
 
 #. Template: AgentITSMChangeOverviewSmall
-msgid "ActualEndTime"
+msgid "Actual End Time"
 msgstr "Tényleges befejezési idő"
 
 #. Template: AgentITSMChangeReset
@@ -379,28 +395,32 @@ msgid "(e.g. 10*5155 or 105658*)"
 msgstr "(például 10*5155 vagy 105658*)"
 
 #. Template: AgentITSMChangeSearch
-msgid "CABAgent"
-msgstr "CAB ügyintéző"
+msgid "CAB Agent"
+msgstr "CAB-ügyintéző"
 
 #. Template: AgentITSMChangeSearch
 msgid "e.g."
 msgstr "például"
 
 #. Template: AgentITSMChangeSearch
-msgid "CABCustomer"
-msgstr "CAB ügyfél"
+msgid "CAB Customer"
+msgstr "CAB-ügyfél"
 
 #. Template: AgentITSMChangeSearch
-msgid "ITSM Workorder"
-msgstr "ITSM munkamegrendelés"
+msgid "ITSM Workorder Instruction"
+msgstr "ITSM munkamegrendelés utasítás"
 
 #. Template: AgentITSMChangeSearch
-msgid "Instruction"
-msgstr "Utasítás"
+msgid "ITSM Workorder Report"
+msgstr "ITSM munkamegrendelés jelentés"
 
 #. Template: AgentITSMChangeSearch
-msgid "Report"
-msgstr "Jelentés"
+msgid "ITSM Change Priority"
+msgstr "ITSM változás prioritás"
+
+#. Template: AgentITSMChangeSearch
+msgid "ITSM Change Impact"
+msgstr "ITSM változás hatás"
 
 #. Template: AgentITSMChangeSearch
 msgid "Change Category"
@@ -447,20 +467,16 @@ msgid "Change Information"
 msgstr "Változás információk"
 
 #. Template: AgentITSMChangeZoom
-msgid "PlannedEffort"
+msgid "Planned Effort"
 msgstr "Tervezett ráfordítás"
+
+#. Template: AgentITSMChangeZoom
+msgid "Accounted Time"
+msgstr "Elszámolt idő"
 
 #. Template: AgentITSMChangeZoom
 msgid "Change Initiator(s)"
 msgstr "Változáskezdeményezők"
-
-#. Template: AgentITSMChangeZoom
-msgid "Change Manager"
-msgstr "Változásmenedzser"
-
-#. Template: AgentITSMChangeZoom
-msgid "Change Builder"
-msgstr "Változás-összeállító"
 
 #. Template: AgentITSMChangeZoom
 msgid "CAB"
@@ -477,10 +493,6 @@ msgstr "Utoljára módosította"
 #. Template: AgentITSMChangeZoom
 msgid "Ok"
 msgstr "OK"
-
-#. Template: AgentITSMChangeZoom
-msgid "ITSMChange"
-msgstr "ITSM változás"
 
 #. Template: AgentITSMChangeZoom
 msgid ""
@@ -530,7 +542,7 @@ msgid "Do you want to proceed?"
 msgstr "Szeretné folytatni?"
 
 #. Template: AgentITSMTemplateOverviewSmall
-msgid "TemplateID"
+msgid "Template ID"
 msgstr "Sablon-azonosító"
 
 #. Template: AgentITSMTemplateOverviewSmall
@@ -538,20 +550,16 @@ msgid "Edit Content"
 msgstr "Tartalom szerkesztése"
 
 #. Template: AgentITSMTemplateOverviewSmall
-msgid "CreateBy"
+msgid "Create by"
 msgstr "Létrehozta"
 
 #. Template: AgentITSMTemplateOverviewSmall
-msgid "CreateTime"
-msgstr "Létrehozás ideje"
-
-#. Template: AgentITSMTemplateOverviewSmall
-msgid "ChangeBy"
+msgid "Change by"
 msgstr "Módosította"
 
 #. Template: AgentITSMTemplateOverviewSmall
-msgid "ChangeTime"
-msgstr "Módosítás ideje"
+msgid "Change Time"
+msgstr "Idő megváltoztatása"
 
 #. Template: AgentITSMTemplateOverviewSmall
 msgid "Edit Template Content"
@@ -562,8 +570,12 @@ msgid "Delete Template"
 msgstr "Sablon törlése"
 
 #. Template: AgentITSMWorkOrderAdd
-msgid "Add Workorder to"
-msgstr "Munkamegrendelés hozzáadása ehhez:"
+msgid "Add Workorder to %s%s"
+msgstr "Munkamegrendelés hozzáadása ehhez: %s%s"
+
+#. Template: AgentITSMWorkOrderAdd
+msgid "Instruction"
+msgstr "Utasítás"
 
 #. Template: AgentITSMWorkOrderAdd
 msgid "Invalid workorder type."
@@ -581,6 +593,10 @@ msgstr "Érvénytelen formátum."
 msgid "Select Workorder Template"
 msgstr "Munkamegrendelés-sablon kiválasztása"
 
+#. Template: AgentITSMWorkOrderAgent
+msgid "Edit Workorder Agent of %s%s"
+msgstr "%s%s munkamegrendelés-ügyintézőjének szerkesztése"
+
 #. Template: AgentITSMWorkOrderDelete
 msgid "Do you really want to delete this workorder?"
 msgstr "Valóban törölni szeretné ezt a munkamegrendelést?"
@@ -595,6 +611,10 @@ msgid "This Workorder is used in the following Condition(s)"
 msgstr "Ezt a munkamegrendelést a következő feltételekben használják"
 
 #. Template: AgentITSMWorkOrderEdit
+msgid "Edit %s%s-%s"
+msgstr "%s%s-%s szerkesztése"
+
+#. Template: AgentITSMWorkOrderEdit
 msgid "Move following workorders accordingly"
 msgstr "A követő munkamegrendelések áthelyezése eszerint"
 
@@ -603,6 +623,18 @@ msgid ""
 "If the planned end time of this workorder is changed, the planned start "
 "times of all following workorders will be changed accordingly"
 msgstr "Ha ennek a munkamegrendelésnek megváltozik a tervezett befejezési ideje, akkor az összes azt követő munkamegrendelés tervezett kezdési ideje is meg fog változni eszerint"
+
+#. Template: AgentITSMWorkOrderHistory
+msgid "History of %s%s-%s"
+msgstr "%s%s-%s előzményei"
+
+#. Template: AgentITSMWorkOrderReport
+msgid "Edit Report of %s%s-%s"
+msgstr "%s%s-%s jelentésének szerkesztése"
+
+#. Template: AgentITSMWorkOrderReport
+msgid "Report"
+msgstr "Jelentés"
 
 #. Template: AgentITSMWorkOrderReport
 msgid "The actual start time must be before the actual end time!"
@@ -647,10 +679,6 @@ msgstr "Áttekintő: ITSM változások"
 #. Perl Module: Kernel/Modules/AgentITSMChangeAdd.pm
 msgid "Ticket with TicketID %s does not exist!"
 msgstr "A(z) %s jegyazonosítóval rendelkező jegy nem létezik!"
-
-#. Perl Module: Kernel/Modules/AgentITSMChangeAdd.pm
-msgid "Please contact the admin."
-msgstr "Vegye fel a kapcsolatot a rendszergazdával."
 
 #. Perl Module: Kernel/Modules/AgentITSMChangeAdd.pm
 msgid "Missing sysconfig option \"ITSMChange::AddChangeLinkTicketTypes\"!"
@@ -817,12 +845,32 @@ msgid "unknown change title"
 msgstr "ismeretlen változáscím"
 
 #. Perl Module: Kernel/Modules/AgentITSMChangePrint.pm
+msgid "ITSM Workorder"
+msgstr "ITSM munkamegrendelés"
+
+#. Perl Module: Kernel/Modules/AgentITSMChangePrint.pm
 msgid "unknown workorder title"
 msgstr "ismeretlen munkamegrendelés-cím"
 
 #. Perl Module: Kernel/Modules/AgentITSMChangePrint.pm
 msgid "ITSM Workorder Overview (%s)"
 msgstr "ITSM munkamegrendelés áttekintés (%s)"
+
+#. Perl Module: Kernel/Modules/AgentITSMChangePrint.pm
+msgid "PlannedStartTime"
+msgstr "Tervezett kezdési idő"
+
+#. Perl Module: Kernel/Modules/AgentITSMChangePrint.pm
+msgid "PlannedEndTime"
+msgstr "Tervezett befejezési idő"
+
+#. Perl Module: Kernel/Modules/AgentITSMChangePrint.pm
+msgid "ActualStartTime"
+msgstr "Tényleges kezdési idő"
+
+#. Perl Module: Kernel/Modules/AgentITSMChangePrint.pm
+msgid "ActualEndTime"
+msgstr "Tényleges befejezési idő"
 
 #. Perl Module: Kernel/Modules/AgentITSMChangeReset.pm
 msgid "Was not able to reset WorkOrder %s of Change %s!"
@@ -841,8 +889,16 @@ msgid "Change Search"
 msgstr "Változáskeresés"
 
 #. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
+msgid "ChangeTitle"
+msgstr "Változáscím"
+
+#. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
 msgid "WorkOrders"
 msgstr "Munkamegrendelések"
+
+#. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
+msgid "ChangeState"
+msgstr "Változásállapot"
 
 #. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
 msgid "Change Search Result"
@@ -853,20 +909,8 @@ msgid "Change Number"
 msgstr "Változásszám"
 
 #. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
-msgid "Change Title"
-msgstr "Változáscím"
-
-#. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
 msgid "Work Order Title"
 msgstr "Munkamegrendelés-cím"
-
-#. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
-msgid "CAB Agent"
-msgstr "CAB-ügyintéző"
-
-#. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
-msgid "CAB Customer"
-msgstr "CAB-ügyfél"
 
 #. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
 msgid "Change Description"
@@ -893,10 +937,6 @@ msgid "Change Impact"
 msgstr "Változáshatás"
 
 #. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
-msgid "Change State"
-msgstr "Változásállapot"
-
-#. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
 msgid "Created By"
 msgstr "Létrehozta"
 
@@ -911,26 +951,6 @@ msgstr "Munkamegrendelés-típus"
 #. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
 msgid "WorkOrder Agent"
 msgstr "Munkamegrendelés-ügyintéző"
-
-#. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
-msgid "Planned Start Time"
-msgstr "Tervezett kezdési idő"
-
-#. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
-msgid "Planned End Time"
-msgstr "Tervezett befejezési idő"
-
-#. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
-msgid "Actual Start Time"
-msgstr "Tényleges kezdési idő"
-
-#. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
-msgid "Actual End Time"
-msgstr "Tényleges befejezési idő"
-
-#. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
-msgid "Change Time"
-msgstr "Idő megváltoztatása"
 
 #. Perl Module: Kernel/Modules/AgentITSMChangeSearch.pm
 msgid "before"
@@ -2176,6 +2196,10 @@ msgid "ITSM event module to set the actual start and end times of workorders."
 msgstr "ITSM eseménymodul a munkamegrendelések tényleges kezdési és befejezési idejének beállításához."
 
 #. SysConfig
+msgid "ITSMChange"
+msgstr "ITSM változás"
+
+#. SysConfig
 msgid "ITSMWorkOrder"
 msgstr "ITSM munkamegrendelés"
 
@@ -2767,10 +2791,6 @@ msgstr "Munkamegrendelés hozzáadása (sablonból)."
 #. SysConfig
 msgid "Workorder Add."
 msgstr "Munkamegrendelés hozzáadása."
-
-#. SysConfig
-msgid "Workorder Agent"
-msgstr "Munkamegrendelés ügyintézője"
 
 #. SysConfig
 msgid "Workorder Agent."

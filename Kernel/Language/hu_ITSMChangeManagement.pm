@@ -90,22 +90,22 @@ sub Data {
     $Self->{Translation}->{'Do you really want to delete this change?'} = 'Valóban törölni szeretné ezt a változást?';
 
     # Template: AgentITSMChangeEdit
-    $Self->{Translation}->{'Edit %s%s'} = '';
+    $Self->{Translation}->{'Edit %s%s'} = '%s%s szerkesztése';
 
     # Template: AgentITSMChangeHistory
-    $Self->{Translation}->{'History of %s%s'} = '';
+    $Self->{Translation}->{'History of %s%s'} = '%s%s előzményei';
     $Self->{Translation}->{'Workorder'} = 'Munkamegrendelés';
     $Self->{Translation}->{'Show details'} = 'Részletek megjelenítése';
     $Self->{Translation}->{'Show workorder'} = 'Munkamegrendelés megjelenítése';
 
     # Template: AgentITSMChangeHistoryZoom
-    $Self->{Translation}->{'Detailed history information of %s'} = '';
+    $Self->{Translation}->{'Detailed history information of %s'} = '%s részletes előzményinformációi';
     $Self->{Translation}->{'Modified'} = 'Módosítva';
     $Self->{Translation}->{'Old Value'} = 'Régi érték';
     $Self->{Translation}->{'New Value'} = 'Új érték';
 
     # Template: AgentITSMChangeInvolvedPersons
-    $Self->{Translation}->{'Edit Involved Persons of %s%s'} = '';
+    $Self->{Translation}->{'Edit Involved Persons of %s%s'} = '%s%s résztvevő személyeinek szerkesztése';
     $Self->{Translation}->{'Involved Persons'} = 'Résztvevő személyek';
     $Self->{Translation}->{'ChangeManager'} = 'Változásmenedzser';
     $Self->{Translation}->{'User invalid.'} = 'Érvénytelen felhasználó.';
@@ -124,15 +124,15 @@ sub Data {
     $Self->{Translation}->{'Changes per page'} = 'Oldalankénti változások';
 
     # Template: AgentITSMChangeOverviewSmall
-    $Self->{Translation}->{'Workorder Title'} = '';
+    $Self->{Translation}->{'Workorder Title'} = 'Munkamegrendelés-cím';
     $Self->{Translation}->{'Change Title'} = 'Változáscím';
     $Self->{Translation}->{'Workorder Agent'} = 'Munkamegrendelés ügyintézője';
     $Self->{Translation}->{'Change Builder'} = 'Változás-összeállító';
     $Self->{Translation}->{'Change Manager'} = 'Változásmenedzser';
     $Self->{Translation}->{'Workorders'} = 'Munkamegrendelések';
     $Self->{Translation}->{'Change State'} = 'Változásállapot';
-    $Self->{Translation}->{'Workorder State'} = '';
-    $Self->{Translation}->{'Workorder Type'} = '';
+    $Self->{Translation}->{'Workorder State'} = 'Munkamegrendelés-állapot';
+    $Self->{Translation}->{'Workorder Type'} = 'Munkamegrendelés-típus';
     $Self->{Translation}->{'Requested Time'} = 'Kért idő';
     $Self->{Translation}->{'Planned Start Time'} = 'Tervezett kezdési idő';
     $Self->{Translation}->{'Planned End Time'} = 'Tervezett befejezési idő';
@@ -147,10 +147,10 @@ sub Data {
     $Self->{Translation}->{'CAB Agent'} = 'CAB-ügyintéző';
     $Self->{Translation}->{'e.g.'} = 'például';
     $Self->{Translation}->{'CAB Customer'} = 'CAB-ügyfél';
-    $Self->{Translation}->{'ITSM Workorder Instruction'} = '';
-    $Self->{Translation}->{'ITSM Workorder Report'} = '';
-    $Self->{Translation}->{'ITSM Change Priority'} = '';
-    $Self->{Translation}->{'ITSM Change Impact'} = '';
+    $Self->{Translation}->{'ITSM Workorder Instruction'} = 'ITSM munkamegrendelés utasítás';
+    $Self->{Translation}->{'ITSM Workorder Report'} = 'ITSM munkamegrendelés jelentés';
+    $Self->{Translation}->{'ITSM Change Priority'} = 'ITSM változás prioritás';
+    $Self->{Translation}->{'ITSM Change Impact'} = 'ITSM változás hatás';
     $Self->{Translation}->{'Change Category'} = 'Kategória módosítása';
     $Self->{Translation}->{'(before/after)'} = '(előtt/után)';
     $Self->{Translation}->{'(between)'} = '(között)';
@@ -168,8 +168,8 @@ sub Data {
 
     # Template: AgentITSMChangeZoom
     $Self->{Translation}->{'Change Information'} = 'Változás információk';
-    $Self->{Translation}->{'Planned Effort'} = '';
-    $Self->{Translation}->{'Accounted Time'} = '';
+    $Self->{Translation}->{'Planned Effort'} = 'Tervezett ráfordítás';
+    $Self->{Translation}->{'Accounted Time'} = 'Elszámolt idő';
     $Self->{Translation}->{'Change Initiator(s)'} = 'Változáskezdeményezők';
     $Self->{Translation}->{'CAB'} = 'CAB';
     $Self->{Translation}->{'Last changed'} = 'Utoljára módosítva';
@@ -196,16 +196,16 @@ sub Data {
     $Self->{Translation}->{'Do you want to proceed?'} = 'Szeretné folytatni?';
 
     # Template: AgentITSMTemplateOverviewSmall
-    $Self->{Translation}->{'Template ID'} = '';
+    $Self->{Translation}->{'Template ID'} = 'Sablon-azonosító';
     $Self->{Translation}->{'Edit Content'} = 'Tartalom szerkesztése';
-    $Self->{Translation}->{'Create by'} = '';
-    $Self->{Translation}->{'Change by'} = '';
+    $Self->{Translation}->{'Create by'} = 'Létrehozta';
+    $Self->{Translation}->{'Change by'} = 'Módosította';
     $Self->{Translation}->{'Change Time'} = 'Idő megváltoztatása';
     $Self->{Translation}->{'Edit Template Content'} = 'Sablontartalom szerkesztése';
     $Self->{Translation}->{'Delete Template'} = 'Sablon törlése';
 
     # Template: AgentITSMWorkOrderAdd
-    $Self->{Translation}->{'Add Workorder to %s%s'} = '';
+    $Self->{Translation}->{'Add Workorder to %s%s'} = 'Munkamegrendelés hozzáadása ehhez: %s%s';
     $Self->{Translation}->{'Instruction'} = 'Utasítás';
     $Self->{Translation}->{'Invalid workorder type.'} = 'Érvénytelen munkamegrendelés-típus.';
     $Self->{Translation}->{'The planned start time must be before the planned end time!'} = 'A tervezett kezdési időnek a tervezett befejezési idő előtt kell lennie!';
@@ -215,7 +215,7 @@ sub Data {
     $Self->{Translation}->{'Select Workorder Template'} = 'Munkamegrendelés-sablon kiválasztása';
 
     # Template: AgentITSMWorkOrderAgent
-    $Self->{Translation}->{'Edit Workorder Agent of %s%s'} = '';
+    $Self->{Translation}->{'Edit Workorder Agent of %s%s'} = '%s%s munkamegrendelés-ügyintézőjének szerkesztése';
 
     # Template: AgentITSMWorkOrderDelete
     $Self->{Translation}->{'Do you really want to delete this workorder?'} = 'Valóban törölni szeretné ezt a munkamegrendelést?';
@@ -224,16 +224,16 @@ sub Data {
     $Self->{Translation}->{'This Workorder is used in the following Condition(s)'} = 'Ezt a munkamegrendelést a következő feltételekben használják';
 
     # Template: AgentITSMWorkOrderEdit
-    $Self->{Translation}->{'Edit %s%s-%s'} = '';
+    $Self->{Translation}->{'Edit %s%s-%s'} = '%s%s-%s szerkesztése';
     $Self->{Translation}->{'Move following workorders accordingly'} = 'A követő munkamegrendelések áthelyezése eszerint';
     $Self->{Translation}->{'If the planned end time of this workorder is changed, the planned start times of all following workorders will be changed accordingly'} =
         'Ha ennek a munkamegrendelésnek megváltozik a tervezett befejezési ideje, akkor az összes azt követő munkamegrendelés tervezett kezdési ideje is meg fog változni eszerint';
 
     # Template: AgentITSMWorkOrderHistory
-    $Self->{Translation}->{'History of %s%s-%s'} = '';
+    $Self->{Translation}->{'History of %s%s-%s'} = '%s%s-%s előzményei';
 
     # Template: AgentITSMWorkOrderReport
-    $Self->{Translation}->{'Edit Report of %s%s-%s'} = '';
+    $Self->{Translation}->{'Edit Report of %s%s-%s'} = '%s%s-%s jelentésének szerkesztése';
     $Self->{Translation}->{'Report'} = 'Jelentés';
     $Self->{Translation}->{'The actual start time must be before the actual end time!'} = 'A tényleges kezdési időnek a tényleges befejezési idő előtt kell lennie!';
     $Self->{Translation}->{'The actual start time must be set, when the actual end time is set!'} =
@@ -519,6 +519,7 @@ sub Data {
     $Self->{Translation}->{'Change Print.'} = 'Változásnyomtatás.';
     $Self->{Translation}->{'Change Schedule'} = 'Változtatási ütemterv';
     $Self->{Translation}->{'Change Schedule.'} = 'Változtatási ütemterv.';
+    $Self->{Translation}->{'Change Zoom'} = '';
     $Self->{Translation}->{'Change Zoom.'} = 'Változásnagyítás.';
     $Self->{Translation}->{'Change and Workorder Templates'} = 'Változás és munkamegrendelés sablonok';
     $Self->{Translation}->{'Change and workorder templates edited by this user.'} = 'A felhasználó által szerkesztett változás és munkamegrendelés sablonok.';
@@ -960,6 +961,7 @@ sub Data {
     $Self->{Translation}->{'Workorder History Zoom.'} = 'Munkamegrendelés előzményeinek nagyítása.';
     $Self->{Translation}->{'Workorder History.'} = 'Munkamegrendelés előzményei.';
     $Self->{Translation}->{'Workorder Report.'} = 'Munkamegrendelés jelentése.';
+    $Self->{Translation}->{'Workorder Zoom'} = '';
     $Self->{Translation}->{'Workorder Zoom.'} = 'Munkamegrendelés nagyítása.';
     $Self->{Translation}->{'once'} = 'egyszer';
     $Self->{Translation}->{'regularly'} = 'rendszeresen';

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ITSMChangeManagement\n"
-"POT-Creation-Date: 2017-08-21 12:33+0000\n"
+"POT-Creation-Date: 2017-09-25 09:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1335,6 +1335,10 @@ msgid "Change Schedule."
 msgstr ""
 
 #. SysConfig
+msgid "Change Zoom"
+msgstr ""
+
+#. SysConfig
 msgid "Change Zoom."
 msgstr ""
 
@@ -2516,6 +2520,10 @@ msgstr ""
 
 #. SysConfig
 msgid "Workorder Report."
+msgstr ""
+
+#. SysConfig
+msgid "Workorder Zoom"
 msgstr ""
 
 #. SysConfig

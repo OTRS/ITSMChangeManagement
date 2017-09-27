@@ -325,7 +325,7 @@ sub StateTransitionDeleteAll {
     my ( $Self, %Param ) = @_;
 
     # check needed parameter
-    if ( ! $Param{Class} ) {
+    if ( !$Param{Class} ) {
         $Kernel::OM->Get('Kernel::System::Log')->Log(
             Priority => 'error',
             Message  => 'Need Class!',

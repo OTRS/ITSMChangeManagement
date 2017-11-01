@@ -197,7 +197,9 @@ $Selenium->RunTest(
         );
 
         # Click to edit change and set its impact on '4 high' to trigger condition.
-        $Selenium->find_element("//a[contains(\@href, \'Action=AgentITSMChangeEdit;ChangeID=$ChangeID' )]")->click();
+        $Selenium->execute_script(
+            "\$('a[href*=\"Action=AgentITSMChangeEdit;ChangeID=$ChangeID\"]').trigger('click');"
+        );
 
         $Selenium->WaitFor( WindowCount => 2 );
         $Handles = $Selenium->get_window_handles();
@@ -212,15 +214,23 @@ $Selenium->RunTest(
             "\$('#ImpactID').val('$CatalogImpactDataRef->{ItemID}').trigger('redraw.InputField').trigger('change');"
         );
 
+        $Selenium->WaitFor(
+            JavaScript => "return \$('#ImpactID').val() == '$CatalogImpactDataRef->{ItemID}'"
+        );
+
         # Submit and change window.
         $Selenium->find_element("//button[\@value='Submit'][\@type='submit']")->click();
         $Selenium->WaitFor( WindowCount => 1 );
         $Selenium->switch_to_window( $Handles->[0] );
 
+        $Selenium->VerifiedRefresh();
+
         $Selenium->WaitFor(
             JavaScript => 'return typeof(Core) == "object" && typeof(Core.App) == "object" && Core.App.PageLoadComplete'
-                .
-                ' && typeof($) == "function" && $(".Value:contains(\'Successful\')").length'
+        );
+
+        $Selenium->WaitFor(
+            JavaScript => 'return $(".Value:contains(\'Successful\')").length'
         );
 
         # Check for expected change state to verify test condition.
@@ -229,9 +239,9 @@ $Selenium->RunTest(
             "Successful state is found",
         );
 
-        # Click on 'Conditions' and switch window.
-        $Selenium->find_element("//a[contains(\@href, \'Action=AgentITSMChangeCondition;ChangeID=$ChangeID' )]")
-            ->click();
+        $Selenium->execute_script(
+            "\$('a[href*=\"Action=AgentITSMChangeCondition;ChangeID=$ChangeID\"]').trigger('click');"
+        );
 
         $Selenium->WaitFor( WindowCount => 2 );
         $Handles = $Selenium->get_window_handles();
@@ -243,9 +253,9 @@ $Selenium->RunTest(
                 "return typeof(\$) === 'function' && \$('.CancelClosePopup').length && \$('a[href*=\"Action=AgentITSMChangeCondition;ChangeID=$ChangeID\"]').length"
         );
 
-        # Click to delete test condition.
-        $Selenium->find_element("//a[contains(\@href, \'Action=AgentITSMChangeCondition;ChangeID=$ChangeID' )]")
-            ->click();
+        $Selenium->execute_script(
+            "\$('a[href*=\"Action=AgentITSMChangeCondition;ChangeID=$ChangeID\"]').trigger('click');"
+        );
         $Selenium->WaitFor(
             JavaScript =>
                 "return typeof(\$) === 'function' && !\$('a[href*=\"Action=AgentITSMChangeCondition;ChangeID=$ChangeID\"]').length"

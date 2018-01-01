@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # --
-# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2018 OTRS AG, http://otrs.com/
 # --
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU AFFERO General Public License as published by
@@ -86,7 +86,7 @@ getopt( 'hf', \%Opts );
 if ( exists $Opts{h} ) {
     print "\n";
     print "otrs.ITSMChangesCheck.pl - check itsm changes\n";
-    print "Copyright (C) 2001-2017 OTRS AG, http://otrs.com/\n\n";
+    print "Copyright (C) 2001-2018 OTRS AG, http://otrs.com/\n\n";
     print "usage: otrs.ITSMChangesCheck.pl [-f force]\n\n";
     exit 1;
 }

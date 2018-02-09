@@ -13,6 +13,7 @@ use warnings;
 
 ## nofilter(TidyAll::Plugin::OTRS::Perl::Dumper)
 use Data::Dumper;
+use Kernel::System::VariableCheck qw(:all);
 
 our @ObjectDependencies = (
     'Kernel::System::ITSMChange',
@@ -24,6 +25,9 @@ our @ObjectDependencies = (
     'Kernel::System::Log',
     'Kernel::System::Main',
     'Kernel::System::Time',
+    'Kernel::System::User',
+    'Kernel::System::CustomerUser',
+    'Kernel::System::Valid',
 );
 
 =head1 NAME
@@ -324,10 +328,14 @@ info like ChangeID.
 sub _ChangeAdd {
     my ( $Self, %Param ) = @_;
 
+    my $LogObject          = $Kernel::OM->Get('Kernel::System::Log');
+    my $UserObject         = $Kernel::OM->Get('Kernel::System::User');
+    my $CustomerUserObject = $Kernel::OM->Get('Kernel::System::CustomerUser');
+
     # check needed stuff
     for my $Argument (qw(UserID Data)) {
         if ( !$Param{$Argument} ) {
-            $Kernel::OM->Get('Kernel::System::Log')->Log(
+            $LogObject->Log(
                 Priority => 'error',
                 Message  => "Need $Argument!",
             );
@@ -374,6 +382,71 @@ sub _ChangeAdd {
     # replace the ChangeBuilderID from the saved template with the current user id
     $Data{ChangeBuilderID} = $Param{UserID};
 
+    if ( $Data{ChangeManagerID} ) {
+
+        # Check if the change manager is still valid, leave empty if not
+        my %UserData = $UserObject->GetUserData(
+            UserID => $Data{ChangeManagerID},
+            Valid  => 1,
+        );
+
+        if ( !$UserData{UserID} ) {
+            delete $Data{ChangeManagerID};
+        }
+    }
+
+    # Check if CAB agents are valid agents, otherwise remove them.
+    if ( IsArrayRefWithData( $Data{CABAgents} ) ) {
+
+        my @NewCABAgents;
+
+        # check users
+        USERID:
+        for my $UserID ( @{ $Data{CABAgents} } ) {
+
+            # get user data
+            my %UserData = $UserObject->GetUserData(
+                UserID => $UserID,
+                Valid  => 1,
+            );
+
+            next USERID if !$UserData{UserID};
+
+            push @NewCABAgents, $UserID;
+        }
+
+        $Data{CABAgents} = \@NewCABAgents;
+    }
+
+
+    # Check if CAB customers are valid customers, otherwise remove them.
+    if ( IsArrayRefWithData( $Data{CABCustomers} ) ) {
+
+        my @NewCABCustomers;
+
+        # get the valid id for "valid"
+        my $ValidID = $Kernel::OM->Get('Kernel::System::Valid')->ValidLookup(
+            Valid => 'valid',
+        );
+
+        # check customer users
+        CUSTOMERUSER:
+        for my $CustomerUser ( @{ $Data{CABCustomers} } ) {
+
+            # get customer user data
+            my %CustomerUserData = $CustomerUserObject->CustomerUserDataGet(
+                User  => $CustomerUser,
+                Valid => 1,
+            );
+
+            next CUSTOMERUSER if $CustomerUserData{ValidID} ne $ValidID;
+
+            push @NewCABCustomers, $CustomerUser;
+        }
+
+        $Data{CABCustomers} = \@NewCABCustomers;
+    }
+
     # add the change
     my $ChangeID = $Kernel::OM->Get('Kernel::System::ITSMChange')->ChangeAdd(
         %Data,
@@ -382,7 +455,7 @@ sub _ChangeAdd {
 
     # error handling
     if ( !$ChangeID ) {
-        $Kernel::OM->Get('Kernel::System::Log')->Log(
+        $LogObject->Log(
             Priority => 'error',
             Message  => "Could not create change!",
         );

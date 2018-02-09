@@ -21,6 +21,7 @@ our @ObjectDependencies = (
     'Kernel::System::Log',
     'Kernel::System::Main',
     'Kernel::System::Time',
+    'Kernel::System::User',
 );
 
 =head1 NAME
@@ -360,6 +361,18 @@ sub _WorkOrderAdd {
                     Difference  => $Difference,
                 );
             }
+        }
+    }
+
+    if ( $Data{WorkOrderAgentID} ) {
+        # Check if the workorder agent is still valid, leave empty if not
+        my %UserData = $Kernel::OM->Get('Kernel::System::User')->GetUserData(
+            UserID => $Data{WorkOrderAgentID},
+            Valid  => 1,
+        );
+
+        if ( !$UserData{UserID} ) {
+            delete $Data{WorkOrderAgentID};
         }
     }
 

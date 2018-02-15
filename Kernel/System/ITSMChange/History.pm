@@ -547,6 +547,7 @@ Returns a single history entry. The hash reference has these information:
     $Info{UserLogin}
     $Info{UserLastname}
     $Info{UserFirstname}
+    $Info{UserFullname}
 
     my $HistoryEntry = $HistoryObject->HistoryEntryGet(
         HistoryEntryID => 123,
@@ -612,6 +613,7 @@ sub HistoryEntryGet {
         $HistoryEntry{UserLogin}     = $User{UserLogin};
         $HistoryEntry{UserFirstname} = $User{UserFirstname};
         $HistoryEntry{UserLastname}  = $User{UserLastname};
+        $HistoryEntry{UserFullname}  = $User{UserFullname};
     }
 
     return \%HistoryEntry;

@@ -365,6 +365,7 @@ sub _WorkOrderAdd {
     }
 
     if ( $Data{WorkOrderAgentID} ) {
+
         # Check if the workorder agent is still valid, leave empty if not
         my %UserData = $Kernel::OM->Get('Kernel::System::User')->GetUserData(
             UserID => $Data{WorkOrderAgentID},

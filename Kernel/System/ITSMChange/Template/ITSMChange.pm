@@ -418,7 +418,6 @@ sub _ChangeAdd {
         $Data{CABAgents} = \@NewCABAgents;
     }
 
-
     # Check if CAB customers are valid customers, otherwise remove them.
     if ( IsArrayRefWithData( $Data{CABCustomers} ) ) {
 

@@ -193,14 +193,14 @@ sub _Edit {
         Sort       => 'NumericKey',
     );
     $Param{EventOption} = $Self->{LayoutObject}->BuildSelection(
-        Data => $Self->{HistoryObject}->HistoryTypeList( UserID => 1 ) || [],
-        Name => 'EventID',
+        Data       => $Self->{HistoryObject}->HistoryTypeList( UserID => 1 ) || [],
+        Name       => 'EventID',
         SelectedID => $Param{EventID},
     );
     $Param{RecipientOption} = $Self->{LayoutObject}->BuildSelection(
-        Data => $Self->{NotificationObject}->RecipientList( UserID => 1 ) || [],
-        Name => 'RecipientIDs',
-        Multiple   => 1,
+        Data     => $Self->{NotificationObject}->RecipientList( UserID => 1 ) || [],
+        Name     => 'RecipientIDs',
+        Multiple => 1,
         Size       => 13,                     # current number of default recipients, avoid scrolling
         SelectedID => $Param{RecipientIDs},
     );

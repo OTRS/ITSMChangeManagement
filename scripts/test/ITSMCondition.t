@@ -144,7 +144,7 @@ CREATEWORKORDER:
 for my $CreateWorkOrder ( 0 .. ( ( 3 * ( scalar @ChangeIDs ) ) - 1 ) ) {
     my $WorkOrderTitle = 'UnitTestWO' . $CreateWorkOrder;
     my $WorkOrderID    = $WorkOrderObject->WorkOrderAdd(
-        ChangeID => $ChangeIDs[ ( $CreateWorkOrder % scalar @ChangeIDs ) ],
+        ChangeID         => $ChangeIDs[ ( $CreateWorkOrder % scalar @ChangeIDs ) ],
         WorkOrderTitle   => $WorkOrderTitle,
         PlannedStartTime => $TimeObject->CurrentTimestamp(),
         PlannedEndTime   => $TimeObject->SystemTime2TimeStamp(

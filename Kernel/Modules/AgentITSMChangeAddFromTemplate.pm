@@ -310,7 +310,7 @@ sub Run {
             },
         ],
         SelectedID => $GetParam{MoveTimeType} || 'PlannedStartTime',
-        Class => 'Validate_Required ' . ( $ValidationError{MoveTimeTypeInvalid} || '' ),
+        Class      => 'Validate_Required ' . ( $ValidationError{MoveTimeTypeInvalid} || '' ),
     );
 
     # time period that can be selected from the GUI

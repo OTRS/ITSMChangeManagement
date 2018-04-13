@@ -1264,7 +1264,7 @@ sub ConditionListByObjectType {
         $_ => $Self->ExpressionList(
             ConditionID => $_,
             UserID      => $Param{UserID},
-            ) || []
+        ) || []
     } @{$ChangeConditions};
 
     # get actions of conditions
@@ -1272,7 +1272,7 @@ sub ConditionListByObjectType {
         $_ => $Self->ActionList(
             ConditionID => $_,
             UserID      => $Param{UserID},
-            ) || []
+        ) || []
     } @{$ChangeConditions};
 
     # get object id of object type

@@ -310,7 +310,7 @@ my @DefaultChangeStates = (
 my %ChangeStateID2Name = %{
     $GeneralCatalogObject->ItemList(
         Class => 'ITSM::ChangeManagement::Change::State',
-        ) || {}
+    ) || {}
 };
 my %ChangeStateName2ID   = reverse %ChangeStateID2Name;
 my @SortedChangeStateIDs = sort keys %ChangeStateID2Name;
@@ -473,7 +473,7 @@ my @CIPValues = ( '1 very low', '2 low', '3 normal', '4 high', '5 very high' );
 my %ChangeCategoryID2Name = %{
     $GeneralCatalogObject->ItemList(
         Class => 'ITSM::ChangeManagement::Category',
-        ) || {}
+    ) || {}
 };
 my %ChangeCategoryName2ID   = reverse %ChangeCategoryID2Name;
 my @SortedChangeCategoryIDs = sort keys %ChangeCategoryID2Name;
@@ -482,7 +482,7 @@ my @SortedChangeCategoryIDs = sort keys %ChangeCategoryID2Name;
 my %ChangeImpactID2Name = %{
     $GeneralCatalogObject->ItemList(
         Class => 'ITSM::ChangeManagement::Impact',
-        ) || {}
+    ) || {}
 };
 my %ChangeImpactName2ID   = reverse %ChangeImpactID2Name;
 my @SortedChangeImpactIDs = sort keys %ChangeImpactID2Name;
@@ -491,7 +491,7 @@ my @SortedChangeImpactIDs = sort keys %ChangeImpactID2Name;
 my %ChangePriorityID2Name = %{
     $GeneralCatalogObject->ItemList(
         Class => 'ITSM::ChangeManagement::Priority',
-        ) || {}
+    ) || {}
 };
 my %ChangePriorityName2ID   = reverse %ChangePriorityID2Name;
 my @SortedChangePriorityIDs = sort keys %ChangePriorityID2Name;
@@ -635,7 +635,7 @@ my @ChangeTests = (
             },
         },
         SearchTest => [ 25, 26 ],
-        Label => 'ChangeLookupTest',    # this change will be used for testing ChangeLookup().
+        Label      => 'ChangeLookupTest',    # this change will be used for testing ChangeLookup().
     },
 
     # Change contains only required data - default user (required attributes)
@@ -894,7 +894,7 @@ my @ChangeTests = (
             },
         },
         SearchTest => [ 2, 3, 4, 5, 6, 8, 9, 10, 12, 13, 23, 24, 27 ],
-        Label => 'SearchTest',    # this test will be used for search tests
+        Label      => 'SearchTest',                                      # this test will be used for search tests
     },
 
     # change contains title, description, justification, changemanagerid and changebuilderid
@@ -1446,7 +1446,7 @@ my @ChangeTests = (
             },
         },
         SearchTest => [ 6, 51, 54, 57, 60, 63, 64 ],
-        Label => 'OrderByCIPTests',    # this change will be used in order by search tests
+        Label      => 'OrderByCIPTests',               # this change will be used in order by search tests
     },
 
     # Test invalid category
@@ -1482,7 +1482,7 @@ my @ChangeTests = (
             },
         },
         SearchTest => [ 6, 52, 55, 58, 61 ],
-        Label => 'OrderByCIPTests',    # this change will be used in order by search tests
+        Label      => 'OrderByCIPTests',       # this change will be used in order by search tests
     },
 
     # Test invalid impact
@@ -1518,7 +1518,7 @@ my @ChangeTests = (
             },
         },
         SearchTest => [ 6, 53, 56, 59, 62 ],
-        Label => 'OrderByCIPTests',    # this change will be used in order by search tests
+        Label      => 'OrderByCIPTests',       # this change will be used in order by search tests
     },
 
     # Test invalid priority
@@ -1778,7 +1778,7 @@ my @ChangeTests = (
             },
         },
         SearchTest => [ 6, 54, 60 ],
-        Label => 'OrderByCIPTests',    # this change will be used in order by search tests
+        Label      => 'OrderByCIPTests',    # this change will be used in order by search tests
     },
 
     # Test invalid category
@@ -1807,7 +1807,7 @@ my @ChangeTests = (
             },
         },
         SearchTest => [ 6, 54, 60, 63, 64 ],
-        Label => 'OrderByCIPTests',    # this change will be used in order by search tests
+        Label      => 'OrderByCIPTests',       # this change will be used in order by search tests
     },
 
     # Test impact
@@ -1835,7 +1835,7 @@ my @ChangeTests = (
             },
         },
         SearchTest => [ 6, 55, 61 ],
-        Label => 'OrderByCIPTests',    # this change will be used in order by search tests
+        Label      => 'OrderByCIPTests',    # this change will be used in order by search tests
     },
 
     # Test invalid impact
@@ -1864,7 +1864,7 @@ my @ChangeTests = (
             },
         },
         SearchTest => [ 6, 55, 61 ],
-        Label => 'OrderByCIPTests',    # this change will be used in order by search tests
+        Label      => 'OrderByCIPTests',    # this change will be used in order by search tests
     },
 
     # Test priority
@@ -1892,7 +1892,7 @@ my @ChangeTests = (
             },
         },
         SearchTest => [ 6, 56, 62 ],
-        Label => 'OrderByCIPTests',    # this change will be used in order by search tests
+        Label      => 'OrderByCIPTests',    # this change will be used in order by search tests
     },
 
     # Test invalid priority
@@ -1921,7 +1921,7 @@ my @ChangeTests = (
             },
         },
         SearchTest => [ 6, 56, 62 ],
-        Label => 'OrderByCIPTests',    # this change will be used in order by search tests
+        Label      => 'OrderByCIPTests',    # this change will be used in order by search tests
     },
 
     #----------------------------------#
@@ -2696,7 +2696,7 @@ for my $Test (@ChangeTests) {
             $Self->False(
                 $CABUpdateSuccess,
                 "Test $TestCount: |- ChangeCABUpdate",
-                )
+            );
         }
         else {
             $Self->True(
@@ -4121,7 +4121,7 @@ if ($SearchTestChangeID) {
             Description => 'ChangeNumber (with wildcard), two creators',
             SearchData  => {
                 ChangeNumber => substr( $SearchTestChange->{ChangeNumber}, 0, 10 ) . '%',
-                CreateBy => [ $SearchTestChange->{CreateBy}, $SearchTestChange->{CreateBy} + 1 ],
+                CreateBy     => [ $SearchTestChange->{CreateBy}, $SearchTestChange->{CreateBy} + 1 ],
             },
             ResultData => {
                 TestExistence => 1,
@@ -4272,7 +4272,7 @@ for my $Test (@ChangeSearchTests) {
 
         # get defined expected result count (defined in search test case!)
         if ( exists $Test->{ResultData}->{Count} ) {
-            $ExpectedCount = $Test->{ResultData}->{Count}
+            $ExpectedCount = $Test->{ResultData}->{Count};
         }
 
         # check the number of IDs in the returned arrayref
@@ -5380,7 +5380,7 @@ for my $ChangeID (@WOSTChangeIDs) {
 my %WorkOrderStateID2Name = %{
     $GeneralCatalogObject->ItemList(
         Class => 'ITSM::ChangeManagement::WorkOrder::State',
-        ) || {}
+    ) || {}
 };
 my %WorkOrderStateName2ID = reverse %WorkOrderStateID2Name;
 

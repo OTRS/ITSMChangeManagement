@@ -84,13 +84,13 @@ $Selenium->RunTest(
         $Self->True(
             index(
                 $Selenium->get_page_source(), "Description: New: Test Description &lt;- Old: -"
-                ) > -1,
+            ) > -1,
             "Description: New: Test Description <- Old: is found",
         );
         $Self->True(
             index(
                 $Selenium->get_page_source(), "Justification: New: Test Justification &lt;- Old: -"
-                ) > -1,
+            ) > -1,
             "Justification: New: Test Justification <- Old:- found",
         );
 

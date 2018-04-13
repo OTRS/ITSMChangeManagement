@@ -600,7 +600,7 @@ sub _PrepareAndAddInfoRow {
         }
     }
     elsif ( $RowSpec->{ValueIsDynamicField} ) {
-        $Value = $RowSpec->{Value},
+        $Value = $RowSpec->{Value},;
     }
     else {
 
@@ -610,7 +610,7 @@ sub _PrepareAndAddInfoRow {
 
     # translate the value
     if ( $Value && $RowSpec->{ValueIsTranslatable} ) {
-        $Value = $LayoutObject->{LanguageObject}->Translate($Value),
+        $Value = $LayoutObject->{LanguageObject}->Translate($Value),;
     }
 
     # add separator between key and value

@@ -334,14 +334,14 @@ sub _Edit {
         Sort       => 'NumericKey',
     );
     $Param{EventOption} = $LayoutObject->BuildSelection(
-        Data => $Kernel::OM->Get('Kernel::System::ITSMChange::History')->HistoryTypeList( UserID => 1 ) || [],
-        Name => 'EventID',
+        Data       => $Kernel::OM->Get('Kernel::System::ITSMChange::History')->HistoryTypeList( UserID => 1 ) || [],
+        Name       => 'EventID',
         SelectedID => $Param{EventID},
     );
     $Param{RecipientOption} = $LayoutObject->BuildSelection(
-        Data => $Kernel::OM->Get('Kernel::System::ITSMChange::Notification')->RecipientList( UserID => 1 ) || [],
-        Name => 'RecipientIDs',
-        Multiple   => 1,
+        Data     => $Kernel::OM->Get('Kernel::System::ITSMChange::Notification')->RecipientList( UserID => 1 ) || [],
+        Name     => 'RecipientIDs',
+        Multiple => 1,
         Size       => 13,                     # current number of default recipients, avoid scrolling
         SelectedID => $Param{RecipientIDs},
     );

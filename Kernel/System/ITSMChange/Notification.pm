@@ -1146,7 +1146,7 @@ sub NotificationRuleList {
     # fetch IDs
     my @IDs;
     while ( my @Row = $Kernel::OM->Get('Kernel::System::DB')->FetchrowArray() ) {
-        push @IDs, $Row[0],;
+        push @IDs, $Row[0];
     }
 
     # save values in cache
@@ -1227,7 +1227,7 @@ sub NotificationRuleSearch {
     # fetch IDs
     my @IDs;
     while ( my @Row = $Kernel::OM->Get('Kernel::System::DB')->FetchrowArray() ) {
-        push @IDs, $Row[0],;
+        push @IDs, $Row[0];
     }
 
     # save values in cache

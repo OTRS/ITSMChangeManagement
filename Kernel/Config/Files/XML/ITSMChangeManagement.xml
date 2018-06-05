@@ -5277,7 +5277,7 @@
         </Value>
     </Setting>
     <Setting Name="ITSMChange::NumberGenerator::MinCounterSize" Required="1" Valid="1">
-        <Description Translatable="1">Sets the minimal change counter size if "AutoIncrement" was selected as ChangeNumberGenerator. Default is 5, this means the counter starts from 10000.</Description>
+        <Description Translatable="1">Sets the minimal change counter size (if "AutoIncrement" was selected as ITSMChange::NumberGenerator). Default is 5, this means the counter starts from 10000.</Description>
         <Navigation>Core::ITSMChange</Navigation>
         <Value>
             <Item ValueType="String" ValueRegex="^[0-9]$">5</Item>
@@ -5291,7 +5291,7 @@
         </Value>
     </Setting>
     <Setting Name="ITSMChange::NumberGenerator::Date::UseFormattedCounter" Required="1" Valid="1">
-        <Description Translatable="1">Enables the minimal change counter size (if "Date" was selected as ChangeNumberGenerator).</Description>
+        <Description Translatable="1">Enables the minimal change counter size (if "Date" was selected as ITSMChange::NumberGenerator).</Description>
         <Navigation>Core::ITSMChange</Navigation>
         <Value>
             <Item ValueType="Checkbox">1</Item>

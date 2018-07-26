@@ -239,32 +239,6 @@ $Selenium->RunTest(
             "Successful state is found",
         );
 
-        $Selenium->execute_script(
-            "\$('a[href*=\"Action=AgentITSMChangeCondition;ChangeID=$ChangeID\"]').click();"
-        );
-
-        $Selenium->WaitFor( WindowCount => 2 );
-        $Handles = $Selenium->get_window_handles();
-        $Selenium->switch_to_window( $Handles->[1] );
-
-        # Wait until page has loaded, if necessary.
-        $Selenium->WaitFor(
-            JavaScript =>
-                "return typeof(\$) === 'function' && \$('.CancelClosePopup').length && \$('a[href*=\"Action=AgentITSMChangeCondition;ChangeID=$ChangeID\"]').length"
-        );
-
-        $Selenium->execute_script(
-            "\$('a[href*=\"Action=AgentITSMChangeCondition;ChangeID=$ChangeID\"]').click();"
-        );
-        $Selenium->WaitFor(
-            JavaScript =>
-                "return typeof(\$) === 'function' && \$('button[value=Add]').length"
-        );
-
-        # Close popup.
-        $Selenium->find_element( ".CancelClosePopup", 'css' )->click();
-        $Selenium->WaitFor( WindowCount => 1 );
-
         # Delete test created change.
         my $Success = $ChangeObject->ChangeDelete(
             ChangeID => $ChangeID,

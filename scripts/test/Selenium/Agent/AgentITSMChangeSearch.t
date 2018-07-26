@@ -77,6 +77,15 @@ $Selenium->RunTest(
             $Element->is_displayed();
         }
 
+        # Check if ITSMChange Search form contain Excel output option, see bug#12769.
+        $Self->Is(
+            $Selenium->execute_script(
+                "return \$('#ResultForm option:contains(\"Excel\")').length"
+            ),
+            '1',
+            'ITSMChange Search contain Excel output',
+        );
+
         # Input change title and number as search param and run it.
         $Selenium->find_element("//a[\@class='AddButton']")->click();
         $Selenium->find_element( "ChangeNumber",      'name' )->send_keys( $ChangeData->{ChangeNumber} );

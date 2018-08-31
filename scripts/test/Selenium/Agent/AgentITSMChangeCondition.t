@@ -221,22 +221,17 @@ $Selenium->RunTest(
         # Submit and change window.
         $Selenium->find_element("//button[\@value='Submit'][\@type='submit']")->click();
         $Selenium->WaitFor( WindowCount => 1 );
-        $Selenium->switch_to_window( $Handles->[0] );
 
-        $Selenium->VerifiedRefresh();
-
-        $Selenium->WaitFor(
-            JavaScript => 'return typeof(Core) == "object" && typeof(Core.App) == "object" && Core.App.PageLoadComplete'
-        );
-
-        $Selenium->WaitFor(
-            JavaScript => 'return $(".Value:contains(\'Successful\')").length'
+        my $Change = $ChangeObject->ChangeGet(
+            ChangeID => $ChangeID,
+            UserID   => 1,
+            LogNo    => 1,
         );
 
         # Check for expected change state to verify test condition.
         $Self->True(
-            $Selenium->execute_script('return $(".Value:contains(\'Successful\')").length === 1'),
-            "Successful state is found",
+            $Change->{ChangeState},
+            "Check for expected change state - Successful",
         );
 
         # Delete test created change.

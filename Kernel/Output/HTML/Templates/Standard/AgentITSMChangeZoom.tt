@@ -386,11 +386,6 @@
     return false;
     });
 
-    $('ul.Actions a.HistoryBack').bind('click', function (Event) {
-        history.back();
-        return false;
-    });
-
     // Initialize allocation list for link object table.
     Core.Agent.TableFilters.SetAllocationList();
 

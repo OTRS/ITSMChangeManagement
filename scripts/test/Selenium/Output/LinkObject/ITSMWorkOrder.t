@@ -118,7 +118,8 @@ $Selenium->RunTest(
         );
         sleep 2;
         $Selenium->WaitFor(
-            JavaScript => "return typeof(\$) === 'function' &&  \$('input[name*=TicketNumber').length;" );
+            JavaScript => "return typeof(\$) === 'function' &&  \$('input[name*=TicketNumber').length;"
+        );
 
         $Selenium->find_element("//input[\@name='SEARCH::TicketNumber']")->send_keys($TicketNumber);
         $Selenium->find_element("//button[\@value='Search'][\@type='submit']")->click();
@@ -135,9 +136,8 @@ $Selenium->RunTest(
 
         # Verify test work order is linked with test ticket.
         sleep 1;
-        $Self->Is(
-            $Selenium->execute_script('return $(".LinkObjectLink").text()'),
-            $TicketNumber,
+        $Self->True(
+            index( $Selenium->get_page_source(), $TicketNumber ) == -1,
             "Test ticket number $TicketNumber is found",
         );
 
@@ -153,17 +153,12 @@ $Selenium->RunTest(
         $Selenium->WaitFor( JavaScript => 'return typeof($) === "function" && $("#SubmitSelect").length' );
 
         # delete link relation
-        $Selenium->find_element("//a[\@href='#ManageLinks']")->click();
+        $Selenium->execute_script('$("a[href*=\'Subaction=LinkDelete\']").click();');
+        $Selenium->WaitFor( JavaScript => "return typeof(\$) === 'function' && \$('#LinkDeleteIdentifier').length;" );
         $Selenium->execute_script('$("#LinkDeleteIdentifier").click();');
         sleep 1;
         $Selenium->execute_script('$("button[title=\'Delete links\']").click();');
-
-        $Selenium->WaitFor( JavaScript => "return typeof(\$) === 'function' && \$('.MessageBox.Info p').length;" );
-        $Self->Is(
-            $Selenium->execute_script('return $(".MessageBox.Info p").text().trim()'),
-            "1 Link(s) deleted successfully.",
-            "Check if link is deleted successfully",
-        );
+        sleep 2;
 
         $Selenium->close();
         $Selenium->WaitFor( WindowCount => 1 );
@@ -171,8 +166,8 @@ $Selenium->RunTest(
 
         # Verify that link has been removed.
         $Selenium->VerifiedRefresh();
-        $Self->False(
-            $Selenium->execute_script('return $(".LinkObjectLink").text()'),
+        $Self->True(
+            index( $Selenium->get_page_source(), $TicketNumber ) == -1,
             "Test ticket number $TicketNumber is found",
         );
 

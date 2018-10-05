@@ -112,10 +112,13 @@ $Selenium->RunTest(
 
         $Selenium->WaitFor( JavaScript => 'return typeof($) === "function" && $("body").length' );
 
-        # verify test change is linked with test ticket
-        $Self->True(
-            index( $Selenium->get_page_source(), $TicketNumber ) > -1,
-            "Test ticket number $TicketNumber is found",
+        # Verify test change is linked with test ticket.
+        $Selenium->VerifiedRefresh();
+        sleep 1;
+        $Self->Is(
+            $Selenium->execute_script( return '$("a.LinkObjectLink").text();' ),
+            $TicketNumber,
+            "Test ticket number $TicketNumber is not found",
         );
 
         # click on 'Link' and switch screens
@@ -143,13 +146,15 @@ $Selenium->RunTest(
 
         $Selenium->WaitFor( JavaScript => 'return typeof($) === "function" && $("body").length' );
 
-        # verify that link has been removed
-        $Self->True(
-            index( $Selenium->get_page_source(), $TicketNumber ) == -1,
-            "Test ticket number $TicketNumber is found",
+        # Verify that link has been removed.
+        $Selenium->VerifiedRefresh();
+        sleep 1;
+        $Self->False(
+            $Selenium->execute_script( return '$("a.LinkObjectLink").text();' ),
+            "Test ticket number $TicketNumber is not found",
         );
 
-        # delete test created change
+        # Delete test created change.
         my $Success = $ChangeObject->ChangeDelete(
             ChangeID => $ChangeID,
             UserID   => 1,
@@ -159,7 +164,7 @@ $Selenium->RunTest(
             "$ChangeTitleRandom is deleted",
         );
 
-        # delete test created ticket
+        # Delete test created ticket.
         $Success = $TicketObject->TicketDelete(
             TicketID => $TicketID,
             UserID   => 1,
@@ -169,7 +174,7 @@ $Selenium->RunTest(
             "Ticket ID $TicketID is deleted",
         );
 
-        # make sure cache is correct
+        # Make sure cache is correct.
         $Kernel::OM->Get('Kernel::System::Cache')->CleanUp( Type => 'ITSMChange*' );
     }
 );

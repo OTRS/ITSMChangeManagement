@@ -132,12 +132,12 @@ $Selenium->RunTest(
         $Selenium->WaitFor( WindowCount => 1 );
         $Selenium->switch_to_window( $Handles->[0] );
 
-        $Selenium->VerifiedRefresh();
-
         # Verify test work order is linked with test ticket.
+        $Selenium->VerifiedRefresh();
         sleep 1;
-        $Self->True(
-            index( $Selenium->get_page_source(), $TicketNumber ) == -1,
+        $Self->Is(
+            $Selenium->execute_script( return '$("a.LinkObjectLink").text();' ),
+            $TicketNumber,
             "Test ticket number $TicketNumber is found",
         );
 
@@ -166,9 +166,10 @@ $Selenium->RunTest(
 
         # Verify that link has been removed.
         $Selenium->VerifiedRefresh();
-        $Self->True(
-            index( $Selenium->get_page_source(), $TicketNumber ) == -1,
-            "Test ticket number $TicketNumber is found",
+        sleep 1;
+        $Self->False(
+            $Selenium->execute_script( return '$("a.LinkObjectLink").text();' ),
+            "Test ticket number $TicketNumber is not found",
         );
 
         # delete test created work order

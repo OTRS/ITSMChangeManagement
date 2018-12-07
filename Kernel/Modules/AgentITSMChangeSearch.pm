@@ -1071,7 +1071,7 @@ sub Run {
 sub _MaskForm {
     my ( $Self, %Param ) = @_;
 
-    my $Profile = $Self->{ParamObject}->GetParam( Param => 'Profile' ) || '';
+    my $Profile     = $Self->{ParamObject}->GetParam( Param => 'Profile' ) || '';
     my $EmptySearch = $Self->{ParamObject}->GetParam( Param => 'EmptySearch' );
     if ( !$Profile ) {
         $EmptySearch = 1;

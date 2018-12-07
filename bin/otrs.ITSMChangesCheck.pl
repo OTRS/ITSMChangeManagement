@@ -396,7 +396,7 @@ sub SentWithinPeriod {
 
     # calc diff
     my $EpocheSinceSent = $SystemTime - $SentEpoche;
-    my $HoursSinceSent = int( $EpocheSinceSent / ( 60 * 60 ) );
+    my $HoursSinceSent  = int( $EpocheSinceSent / ( 60 * 60 ) );
 
     if ( $HoursSinceSent >= $Config->{Hours} ) {
         return;

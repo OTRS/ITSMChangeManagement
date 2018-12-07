@@ -86,7 +86,7 @@ sub Run {
 
         # check cache
         my $CacheKey = join ',', sort ChangeStates;
-        my $Cache = $Kernel::OM->Get('Kernel::System::Cache')->Get(
+        my $Cache    = $Kernel::OM->Get('Kernel::System::Cache')->Get(
             Type => $Self->{CacheType},
             Key  => $CacheKey,
         );

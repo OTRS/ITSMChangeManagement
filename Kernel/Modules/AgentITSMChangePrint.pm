@@ -379,7 +379,7 @@ sub Run {
         }
 
         # start a new page for every workorder
-        my $HeaderArea = $Self->{LayoutObject}->{LanguageObject}->Translate('ITSM Workorder');
+        my $HeaderArea  = $Self->{LayoutObject}->{LanguageObject}->Translate('ITSM Workorder');
         my $HeaderValue = join '-', $Change->{ChangeNumber}, $WorkOrder->{WorkOrderNumber};
         if ( !$Self->{PDFObject} ) {
             $Self->{LayoutObject}->Block( Name => 'WorkOrder' );
@@ -502,7 +502,7 @@ sub _StartDocument {
 
         # Title of the PDF-Document, or the HTML-Page
         my $Product = $Self->{ConfigObject}->Get('Product');
-        my $Title = sprintf '%s: %s#%s', $Product, $Param{HeaderArea}, $Param{HeaderValue};
+        my $Title   = sprintf '%s: %s#%s', $Product, $Param{HeaderArea}, $Param{HeaderValue};
 
         # create new PDF document
         $Self->{PDFObject}->DocumentNew(
@@ -1448,7 +1448,7 @@ sub _OutputLinkedObjects {
         for my $LinkTypeLinkDirection ( sort { lc $a cmp lc $b } keys %{ $Param{LinkData} } ) {
 
             # investigate link type name
-            my @LinkData = split q{::}, $LinkTypeLinkDirection;
+            my @LinkData     = split q{::}, $LinkTypeLinkDirection;
             my $LinkTypeName = $TypeList{ $LinkData[0] }->{ $LinkData[1] . 'Name' };
             $LinkTypeName = $Self->{LayoutObject}->{LanguageObject}->Translate($LinkTypeName);
 
@@ -1525,7 +1525,7 @@ sub _OutputLinkedObjects {
         for my $LinkTypeLinkDirection ( sort { lc $a cmp lc $b } keys %{ $Param{LinkData} } ) {
 
             # investigate link type name
-            my @LinkData = split q{::}, $LinkTypeLinkDirection;
+            my @LinkData     = split q{::}, $LinkTypeLinkDirection;
             my $LinkTypeName = $TypeList{ $LinkData[0] }->{ $LinkData[1] . 'Name' };
 
             # output link type data

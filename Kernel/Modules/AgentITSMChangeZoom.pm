@@ -207,7 +207,7 @@ sub Run {
     elsif ( $Self->{Subaction} eq 'DownloadAttachment' ) {
 
         # get data for attachment
-        my $Filename = $Self->{ParamObject}->GetParam( Param => 'Filename' );
+        my $Filename       = $Self->{ParamObject}->GetParam( Param => 'Filename' );
         my $AttachmentData = $Self->{ChangeObject}->ChangeAttachmentGet(
             ChangeID => $ChangeID,
             Filename => $Filename,

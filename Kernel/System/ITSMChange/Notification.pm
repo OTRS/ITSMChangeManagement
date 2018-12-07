@@ -180,7 +180,7 @@ sub NotificationSend {
             $Param{Data}->{WorkOrderAgent} = {
                 $Kernel::OM->Get('Kernel::System::User')->GetUserData(
                     UserID => $WorkOrder->{WorkOrderAgentID},
-                    )
+                )
             };
         }
 
@@ -213,7 +213,7 @@ sub NotificationSend {
             $Param{Data}->{ChangeBuilder} = {
                 $Kernel::OM->Get('Kernel::System::User')->GetUserData(
                     UserID => $Change->{ChangeBuilderID},
-                    )
+                )
             };
         }
 
@@ -221,7 +221,7 @@ sub NotificationSend {
             $Param{Data}->{ChangeManager} = {
                 $Kernel::OM->Get('Kernel::System::User')->GetUserData(
                     UserID => $Change->{ChangeManagerID},
-                    )
+                )
             };
         }
     }
@@ -238,7 +238,7 @@ sub NotificationSend {
     }
 
     # get the valid ids
-    my @ValidIDs = $Kernel::OM->Get('Kernel::System::Valid')->ValidIDsGet();
+    my @ValidIDs      = $Kernel::OM->Get('Kernel::System::Valid')->ValidIDsGet();
     my %ValidIDLookup = map { $_ => 1 } @ValidIDs;
 
     my %AgentsSent;
@@ -1140,7 +1140,7 @@ sub _NotificationReplaceMacros {
     $Text =~ s{ $Tag .+? $End }{-}gi;
 
     $Tag = $Start . 'OTRS_Agent_';
-    my $Tag2 = $Start . 'OTRS_CURRENT_';
+    my $Tag2        = $Start . 'OTRS_CURRENT_';
     my %CurrentUser = $Kernel::OM->Get('Kernel::System::User')->GetUserData( UserID => $Param{UserID} );
 
     # html quoting of content

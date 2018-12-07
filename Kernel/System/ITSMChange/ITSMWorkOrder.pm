@@ -2145,7 +2145,7 @@ sub WorkOrderTypeLookup {
     my %WorkOrderType = %{
         $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
             Class => 'ITSM::ChangeManagement::WorkOrder::Type',
-            )
+        )
     };
 
     # check the workorder types hash
@@ -3326,7 +3326,7 @@ sub _CheckTimestamps {
 
             # remove all non-digit characters
             $StartTime =~ s{ \D }{}xmsg;
-            $EndTime =~ s{ \D }{}xmsg;
+            $EndTime   =~ s{ \D }{}xmsg;
 
             # start time must be smaller than end time
             if ( $StartTime >= $EndTime ) {

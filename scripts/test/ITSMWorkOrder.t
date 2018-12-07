@@ -2244,7 +2244,7 @@ for my $ChangeID ( sort keys %WorkOrderIDForChangeID ) {
 }
 
 # count all tests that are required to and planned for fail
-my $Fails = scalar grep { $_->{Fails} } @WorkOrderTests;
+my $Fails              = scalar grep { $_->{Fails} } @WorkOrderTests;
 my $NrCreateWorkOrders = ( scalar @WorkOrderTests ) - $Fails;
 
 # test if the workorders were created
@@ -2801,7 +2801,7 @@ for my $Test (@WorkOrderSearchTests) {
         );
     }
 
-    $WorkOrderIDs ||= [];
+    $WorkOrderIDs      ||= [];
     $CountWorkOrderIDs ||= 0;
 
     if ( $Test->{ResultData}->{TestCount} ) {

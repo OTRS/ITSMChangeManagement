@@ -196,7 +196,7 @@ sub Run {
         elsif (%DeleteMember) {
 
             # find users who are still member of CAB
-            my $Type = $DeleteMember{Type};
+            my $Type         = $DeleteMember{Type};
             my @StillMembers = grep { $_ ne $DeleteMember{ID} } @{ $Change->{$Type} };
 
             # update ChangeCAB

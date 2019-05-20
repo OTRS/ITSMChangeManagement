@@ -3,8 +3,8 @@
     <Name>ITSMChangeManagement</Name>
 <!-- nofilter(TidyAll::Plugin::OTRS::SOPM::DocumentationPresent) -->
     <Version>0.0.0</Version>
-    <Framework Minimum="5.0.35">5.0.x</Framework>
-    <PackageRequired Version="5.0.35">ITSMCore</PackageRequired>
+    <Framework Minimum="5.0.36">5.0.x</Framework>
+    <PackageRequired Version="5.0.36">ITSMCore</PackageRequired>
     <Vendor>OTRS AG</Vendor>
     <URL>https://otrs.com/</URL>
     <License>GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</License>
@@ -1752,12 +1752,12 @@
     ]]></CodeReinstall>
     <CodeUpgrade Type="pre" Version="3.2.91"><![CDATA[
 
-        # uninstall Feature AddOn OTRSWorkOrderTimeDependency that has been integrated in OTRS::ITSM 3.2.91 (OTRS::ITSM 5.0.35 Beta 1)
+        # uninstall Feature AddOn OTRSWorkOrderTimeDependency that has been integrated in OTRS::ITSM 3.2.91 (OTRS::ITSM 5.0.36 Beta 1)
         $Kernel::OM->Get('Kernel::System::Package')->_PackageUninstallMerged(
             Name => 'OTRSWorkOrderTimeDependency',
         );
 
-        # uninstall Feature AddOn OTRSWorkOrderReportAttachments that has been integrated in OTRS::ITSM 3.2.91 (OTRS::ITSM 5.0.35 Beta 1)
+        # uninstall Feature AddOn OTRSWorkOrderReportAttachments that has been integrated in OTRS::ITSM 3.2.91 (OTRS::ITSM 5.0.36 Beta 1)
         $Kernel::OM->Get('Kernel::System::Package')->_PackageUninstallMerged(
             Name => 'OTRSWorkOrderReportAttachments',
         );
@@ -1862,7 +1862,7 @@
         <br/>
         <strong>REQUIRED OTRS PACKAGES</strong>
         <ul>
-        <li>ITSMCore 5.0.35</li>
+        <li>ITSMCore 5.0.36</li>
         </ul>
         <br/>
         ((enjoy))<br/>
@@ -1880,7 +1880,7 @@
         <br/>
         <strong>BENÖTIGTE OTRS-PAKETE</strong>
         <ul>
-        <li>ITSMCore 5.0.35</li>
+        <li>ITSMCore 5.0.36</li>
         </ul>
         <br/>
         ((enjoy))<br/>
@@ -1897,7 +1897,7 @@
         <br/>
         <strong>PAQUETES OTRS REQUERIDOS</strong>
         <ul>
-        <li>ITSMCore 5.0.35</li>
+        <li>ITSMCore 5.0.36</li>
         </ul>
         <br/>
         ((enjoy))<br/>
@@ -1914,7 +1914,7 @@
         <br/>
         <strong>SZÜKSÉGES OTRS CSOMAGOK</strong>
         <ul>
-        <li>ITSMCore 5.0.35</li>
+        <li>ITSMCore 5.0.36</li>
         </ul>
         <br/>
         ((enjoy))<br/>
@@ -1996,7 +1996,7 @@
         <br/>
         <strong>REQUIRED OTRS PACKAGES</strong>
         <ul>
-        <li>ITSMCore 5.0.35</li>
+        <li>ITSMCore 5.0.36</li>
         </ul>
         <br/>
         ((enjoy))<br/>
@@ -2014,7 +2014,7 @@
         <br/>
         <strong>BENÖTIGTE OTRS-PAKETE</strong>
         <ul>
-        <li>ITSMCore 5.0.35</li>
+        <li>ITSMCore 5.0.36</li>
         </ul>
         <br/>
         ((enjoy))<br/>
@@ -2032,7 +2032,7 @@
         <br/>
         <strong>PAQUETES OTRS REQUERIDOS</strong>
         <ul>
-        <li>ITSMCore 5.0.35</li>
+        <li>ITSMCore 5.0.36</li>
         </ul>
         <br/>
         ((enjoy))<br/>
@@ -2050,7 +2050,7 @@
         <br/>
         <strong>SZÜKSÉGES OTRS CSOMAGOK</strong>
         <ul>
-        <li>ITSMCore 5.0.35</li>
+        <li>ITSMCore 5.0.36</li>
         </ul>
         <br/>
         ((enjoy))<br/>

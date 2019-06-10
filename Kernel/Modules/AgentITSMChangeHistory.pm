@@ -311,7 +311,7 @@ sub Run {
                         # ContentNew and ContentOld contain a '%%' seperated list of user ids
                         # look up the login names from the user ids and
                         # format it as a comma separated list
-                        my @UserIDs = split m/%%/, $HistoryEntry->{$ContentNewOrOld};
+                        my @UserIDs    = split m/%%/, $HistoryEntry->{$ContentNewOrOld};
                         my @UserLogins = map { $UserObject->UserLookup( UserID => $_ ) } @UserIDs;
                         $HistoryEntry->{$ContentNewOrOld} = join ',', @UserLogins;
                     }

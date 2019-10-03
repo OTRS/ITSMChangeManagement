@@ -220,15 +220,16 @@ $Selenium->RunTest(
 
         # Scroll to the submit button.
         $Selenium->execute_script(
-            "\$('button[value=Submit][type=submit]')[0].scrollIntoView(true);",
+            "\$('#SubmitChangeEdit')[0].scrollIntoView(true);"
         );
+        sleep 1;
         $Self->True(
-            $Selenium->execute_script("return \$('button[value=Submit][type=submit]').length;"),
+            $Selenium->execute_script("return \$('#SubmitChangeEdit').length;"),
             "Submit button is found in the screen",
         );
 
         # Submit and change window.
-        $Selenium->find_element("//button[\@value='Submit'][\@type='submit']")->click();
+        $Selenium->find_element( "#SubmitChangeEdit", 'css' )->click();
         $Selenium->WaitFor( WindowCount => 1 );
 
         my $Change = $ChangeObject->ChangeGet(

@@ -68,13 +68,13 @@ $Selenium->RunTest(
         # Wait until page has loaded, if necessary.
         $Selenium->WaitFor(
             JavaScript =>
-                'return typeof($) === "function" && $(".CancelClosePopup").length && $("button[name=AddCondition]").length'
+                'return typeof($) === "function" && $(".CancelClosePopup").length && $("button[name=AddCondition]").length;'
         );
 
         # Click 'Add new condition'.
         $Selenium->find_element("//button[\@name='AddCondition'][\@type='submit']")->click();
         $Selenium->WaitFor(
-            JavaScript => 'return typeof($) === "function" && $("#Name").length && $("#Comment").length'
+            JavaScript => 'return typeof($) === "function" && $("#Name").length && $("#Comment").length;'
         );
 
         # Create test condition.
@@ -107,7 +107,7 @@ $Selenium->RunTest(
         # In change object for test change, look for impact value of '4 high'.
         $Selenium->find_element("//button[\@name='AddExpressionButton'][\@type='submit']")->click();
         $Selenium->WaitFor(
-            JavaScript => 'return typeof($) === "function" && $("#ExpressionID-NEW-ObjectID option[value=1]").length'
+            JavaScript => 'return typeof($) === "function" && $("#ExpressionID-NEW-ObjectID option[value=1]").length;'
         );
 
         $Selenium->find_element( "#ExpressionID-NEW-ObjectID option[value='1']", 'css' )->click();
@@ -134,7 +134,7 @@ $Selenium->RunTest(
         # In change object for test change, set change state on successful.
         $Selenium->find_element("//button[\@name='AddActionButton'][\@type='submit']")->click();
         $Selenium->WaitFor(
-            JavaScript => 'return typeof($) === "function" && $("#ActionID-NEW-ObjectID option[value=1]").length'
+            JavaScript => 'return typeof($) === "function" && $("#ActionID-NEW-ObjectID option[value=1]").length;'
         );
 
         $Selenium->find_element( "#ActionID-NEW-ObjectID option[value='1']", 'css' )->click();
@@ -161,7 +161,7 @@ $Selenium->RunTest(
         $Selenium->find_element( "#SaveButton", 'css' )->click();
         $Selenium->WaitFor(
             JavaScript =>
-                'return typeof($) === "function" && $(".WidgetSimple .Header h2").text() === "Conditions and Actions"'
+                'return typeof($) === "function" && $(".WidgetSimple .Header h2").text() === "Conditions and Actions";'
         );
 
         # Check screen.
@@ -181,12 +181,12 @@ $Selenium->RunTest(
         $Selenium->switch_to_window( $Handles->[0] );
 
         $Selenium->WaitFor(
-            JavaScript => 'return typeof($) == "function" && $(".Value:contains(\'Pending PIR\')").length'
+            JavaScript => 'return typeof($) == "function" && $(".Value:contains(\'Pending PIR\')").length;'
         );
 
         # Check test change state.
         $Self->True(
-            $Selenium->execute_script('return $(".Value:contains(\'Pending PIR\')").length === 1'),
+            $Selenium->execute_script('return $(".Value:contains(\'Pending PIR\')").length === 1;'),
             "Pending PIR state is found",
         );
 
@@ -207,7 +207,7 @@ $Selenium->RunTest(
 
         # Wait until page has loaded, if necessary.
         $Selenium->WaitFor(
-            JavaScript => 'return typeof($) === "function" && $("body").length && $("#ImpactID").length'
+            JavaScript => 'return typeof($) === "function" && $("body").length && $("#ImpactID").length;'
         );
 
         $Selenium->execute_script(
@@ -215,7 +215,16 @@ $Selenium->RunTest(
         );
 
         $Selenium->WaitFor(
-            JavaScript => "return \$('#ImpactID').val() == '$CatalogImpactDataRef->{ItemID}'"
+            JavaScript => "return \$('#ImpactID').val() == '$CatalogImpactDataRef->{ItemID}';"
+        );
+
+        # Scroll to the submit button.
+        $Selenium->execute_script(
+            "\$('button[value=Submit][type=submit]')[0].scrollIntoView(true);",
+        );
+        $Self->True(
+            $Selenium->execute_script("return \$('button[value=Submit][type=submit]').length;"),
+            "Submit button is found in the screen",
         );
 
         # Submit and change window.

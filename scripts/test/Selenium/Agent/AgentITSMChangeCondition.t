@@ -230,7 +230,21 @@ $Selenium->RunTest(
 
         # Submit and change window.
         $Selenium->find_element( "#SubmitChangeEdit", 'css' )->click();
+        sleep 2;
+
         $Selenium->WaitFor( WindowCount => 1 );
+        $Selenium->switch_to_window( $Handles->[0] );
+
+        $Selenium->VerifiedRefresh();
+
+        $Selenium->WaitFor(
+            JavaScript =>
+                'return typeof(Core) == "object" && typeof(Core.App) == "object" && Core.App.PageLoadComplete;'
+        );
+
+        $Selenium->WaitFor(
+            JavaScript => 'return typeof($) === "function" && $(".Value:contains(\'Successful\')").length;'
+        );
 
         my $Change = $ChangeObject->ChangeGet(
             ChangeID => $ChangeID,

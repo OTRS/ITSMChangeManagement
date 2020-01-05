@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2001-2019 OTRS AG, https://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (GPL). If you
@@ -2179,7 +2179,7 @@ for my $ChangeID ( sort keys %WorkOrderIDForChangeID ) {
         ChangeID => $ChangeID,
     ) || {};
     my $ListFromChangeObject = $Change->{WorkOrderIDs} || [];
-    my %MapFromChangeObject = map { $_ => 1 } @{$ListFromChangeObject};
+    my %MapFromChangeObject  = map { $_ => 1 } @{$ListFromChangeObject};
 
     # check whether the created workorders were found by WorkOrderList()
     for my $WorkOrderID ( sort keys %{ $WorkOrderIDForChangeID{$ChangeID} } ) {
@@ -3178,30 +3178,30 @@ for my $OrderByColumn (qw(PlannedStartTime PlannedEndTime ActualStartTime Actual
     );
 
     if (
-        Data::Dumper::Dumper($SearchResultUp)    ## no critic
+        Data::Dumper::Dumper($SearchResultUp)                      ## no critic
         eq Data::Dumper::Dumper( [ reverse @ResultReference ] )    ## no critic
         )
     {
         $Self->Is(
-            Data::Dumper::Dumper($SearchResultUp),                 ## no critic
-            Data::Dumper::Dumper( [ reverse @ResultReference ] ),  ## no critic
+            Data::Dumper::Dumper($SearchResultUp),                   ## no critic
+            Data::Dumper::Dumper( [ reverse @ResultReference ] ),    ## no critic
             "Test $TestCount: ChangeSearch OrderBy $OrderByColumn (Up)",
         );
     }
     elsif (
-        Data::Dumper::Dumper($SearchResultUp)                      ## no critic
+        Data::Dumper::Dumper($SearchResultUp)                                 ## no critic
         eq Data::Dumper::Dumper( [ reverse @ResultReferenceAlternative ] )    ## no critic
         )
     {
         $Self->Is(
-            Data::Dumper::Dumper($SearchResultUp),                            ## no critic
-            Data::Dumper::Dumper( [ reverse @ResultReferenceAlternative ] ),  ## no critic
+            Data::Dumper::Dumper($SearchResultUp),                              ## no critic
+            Data::Dumper::Dumper( [ reverse @ResultReferenceAlternative ] ),    ## no critic
             "Test $TestCount: ChangeSearch OrderBy $OrderByColumn (Up)",
         );
     }
     else {
         $Self->Is(
-            Data::Dumper::Dumper($SearchResultUp),                            ## no critic
+            Data::Dumper::Dumper($SearchResultUp),                              ## no critic
             undef,
             "Test $TestCount: ChangeSearch OrderBy $OrderByColumn (Up)",
         );

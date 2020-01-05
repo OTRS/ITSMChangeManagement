@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2001-2019 OTRS AG, https://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (GPL). If you
@@ -50,7 +50,7 @@ sub Run {
     # change
     # ------------------------------------------------------------ #
     if ( $Self->{Subaction} eq 'Change' ) {
-        my $ID = $Self->{ParamObject}->GetParam( Param => 'ID' ) || '';
+        my $ID   = $Self->{ParamObject}->GetParam( Param => 'ID' ) || '';
         my $Data = $Self->{NotificationObject}->NotificationRuleGet( ID => $ID );
 
         $Self->_Edit(
@@ -235,7 +235,7 @@ sub _Overview {
     my %ValidList = $Self->{ValidObject}->ValidList();
     for my $RuleID ( @{$RuleIDs} ) {
 
-        my $Data = $Self->{NotificationObject}->NotificationRuleGet( ID => $RuleID );
+        my $Data       = $Self->{NotificationObject}->NotificationRuleGet( ID => $RuleID );
         my $Recipients = join ', ', @{ $Data->{Recipients} || [] };
 
         $Self->{LayoutObject}->Block(

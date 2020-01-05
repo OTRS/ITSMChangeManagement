@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2001-2019 OTRS AG, https://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (GPL). If you
@@ -46,7 +46,7 @@ sub new {
     # get filter and view params
     $Self->{Filter} = $Self->{ParamObject}->GetParam( Param => 'Filter' ) || 'All';
     $Self->{View}   = $Self->{ParamObject}->GetParam( Param => 'View' )   || '';
-    $Self->{StartHit} = int( $Self->{ParamObject}->GetParam( Param => 'StartHit' ) || 1 );
+    $Self->{StartHit}  = int( $Self->{ParamObject}->GetParam( Param => 'StartHit' ) || 1 );
     $Self->{PageShown} = $Self->{UserShowTickets} || 1;
 
     return $Self;

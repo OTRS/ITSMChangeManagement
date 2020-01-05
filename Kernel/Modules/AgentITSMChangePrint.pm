@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2001-2019 OTRS AG, https://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (GPL). If you
@@ -73,7 +73,7 @@ sub Run {
     # Find out whether a change or a workorder should be printed.
     # A workorder is to be printed when the WorkOrderID is passed.
     # Otherwise a change should be printed.
-    my $WorkOrderID = $Self->{ParamObject}->GetParam( Param => 'WorkOrderID' );
+    my $WorkOrderID    = $Self->{ParamObject}->GetParam( Param => 'WorkOrderID' );
     my $PrintWorkOrder = $WorkOrderID ? 1 : 0;
     my $PrintChange    = !$WorkOrderID;
     my $WorkOrder      = {};

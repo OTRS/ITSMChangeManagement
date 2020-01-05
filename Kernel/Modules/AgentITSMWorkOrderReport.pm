@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2001-2019 OTRS AG, https://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (GPL). If you
@@ -637,8 +637,8 @@ sub Run {
                 Format                => 'DateInputFormatLong',
                 Prefix                => $TimeType,
                 "${TimeType}Optional" => 1,
-                $TimeType . 'Class' => $ValidationError{ $TimeType . 'Invalid' } || '',
-                Validate => 1,
+                $TimeType . 'Class'   => $ValidationError{ $TimeType . 'Invalid' } || '',
+                Validate              => 1,
                 %TimePeriod,
             );
 

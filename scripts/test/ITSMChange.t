@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2001-2019 OTRS AG, https://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (GPL). If you
@@ -3035,7 +3035,7 @@ if ($ChangeLookupTestChangeID) {
 # test if ChangeList returns at least as many changes as we created
 # we cannot test for a specific number as these tests can be run in existing environments
 # where other changes already exist
-my $ChangeList = $ChangeObject->ChangeList( UserID => 1 ) || [];
+my $ChangeList    = $ChangeObject->ChangeList( UserID => 1 ) || [];
 my %ChangeListMap = map { $_ => 1 } @{$ChangeList};
 
 # check whether the created changes were found by ChangeList()

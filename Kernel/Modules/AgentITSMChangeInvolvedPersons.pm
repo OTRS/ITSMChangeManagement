@@ -1,10 +1,9 @@
 # --
-# Kernel/Modules/AgentITSMChangeInvolvedPersons.pm - the OTRS ITSM ChangeManagement change involved persons module
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 package Kernel::Modules::AgentITSMChangeInvolvedPersons;
@@ -196,7 +195,7 @@ sub Run {
         elsif (%DeleteMember) {
 
             # find users who are still member of CAB
-            my $Type = $DeleteMember{Type};
+            my $Type         = $DeleteMember{Type};
             my @StillMembers = grep { $_ ne $DeleteMember{ID} } @{ $Change->{$Type} };
 
             # update ChangeCAB
@@ -547,7 +546,7 @@ sub _CheckChangeManagerAndChangeBuilder {
         }
     }
 
-    return %Errors
+    return %Errors;
 }
 
 sub _IsNewCABMemberOk {

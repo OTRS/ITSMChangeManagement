@@ -1,10 +1,9 @@
 # --
-# ITSMChangeManagement.pm - code to excecute during package installation
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 package var::packagesetup::ITSMChangeManagement;    ## no critic
@@ -726,29 +725,29 @@ sub _StateMachineDefaultSet {
     my %Name2ChangeStateID = reverse %{
         $Self->{GeneralCatalogObject}->ItemList(
             Class => 'ITSM::ChangeManagement::Change::State',
-            )
+        )
     };
 
     # get the workorder states from the general catalog
     my %Name2WorkOrderStateID = reverse %{
         $Self->{GeneralCatalogObject}->ItemList(
             Class => 'ITSM::ChangeManagement::WorkOrder::State',
-            )
+        )
     };
 
     # define ChangeState transitions
     my %ChangeStateTransitions = (
-        0           => ['requested'],
-        'requested' => [ 'rejected', 'retracted', 'pending approval', 'in progress' ],
-        'pending approval' => [ 'rejected',  'retracted', 'approved' ],
+        0                  => ['requested'],
+        'requested'        => [ 'rejected', 'retracted', 'pending approval', 'in progress' ],
+        'pending approval' => [ 'rejected', 'retracted', 'approved' ],
         'approved'         => [ 'retracted', 'in progress' ],
-        'in progress' => [ 'pending pir', 'retracted', 'failed', 'successful', 'canceled' ],
-        'pending pir' => [ 'failed',      'successful' ],
-        'rejected'    => [0],
-        'retracted'   => [0],
-        'failed'      => [0],
-        'successful'  => [0],
-        'canceled'    => [0],
+        'in progress'      => [ 'pending pir', 'retracted', 'failed', 'successful', 'canceled' ],
+        'pending pir'      => [ 'failed', 'successful' ],
+        'rejected'         => [0],
+        'retracted'        => [0],
+        'failed'           => [0],
+        'successful'       => [0],
+        'canceled'         => [0],
     );
 
     # define WorkOrderState transitions
@@ -3110,10 +3109,10 @@ sub _DeleteSystemNotifications {
 
 =head1 TERMS AND CONDITIONS
 
-This software is part of the OTRS project (L<http://otrs.org/>).
+This software is part of the OTRS project (L<https://otrs.org/>).
 
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
-the enclosed file COPYING for license information (AGPL). If you
-did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
+the enclosed file COPYING for license information (GPL). If you
+did not receive this file, see L<https://www.gnu.org/licenses/gpl-3.0.txt>.
 
 =cut

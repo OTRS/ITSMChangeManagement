@@ -1,10 +1,9 @@
 # --
-# Kernel/System/ITSMChange/ITSMWorkOrder.pm - all workorder functions
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 package Kernel::System::ITSMChange::ITSMWorkOrder;
@@ -1342,7 +1341,7 @@ sub WorkOrderSearch {
         if (
             $Self->{DBType} eq 'oracle'
             && (
-                $StringParam    eq 'Instruction'
+                $StringParam eq 'Instruction'
                 || $StringParam eq 'Report'
                 || $StringParam eq 'ChangeDescription'
                 || $StringParam eq 'ChangeJustification'
@@ -2031,7 +2030,7 @@ sub WorkOrderPossibleStatesGet {
             };
         }
 
-        return \@ArrayHashRef
+        return \@ArrayHashRef;
     }
 
     # assemble the array of hash refs with all next states
@@ -2086,7 +2085,7 @@ sub WorkOrderTypeLookup {
     my %WorkOrderType = %{
         $Self->{GeneralCatalogObject}->ItemList(
             Class => 'ITSM::ChangeManagement::WorkOrder::Type',
-            )
+        )
     };
 
     # check the workorder types hash
@@ -3115,7 +3114,7 @@ sub _CheckWorkOrderParams {
 
         # check the maximum length of description and justification
         if (
-            $Argument    eq 'Instruction'
+            $Argument eq 'Instruction'
             || $Argument eq 'InstructionPlain'
             || $Argument eq 'Report'
             || $Argument eq 'ReportPlain'
@@ -3622,10 +3621,10 @@ sub _WorkOrderFreeTextDelete {
 
 =head1 TERMS AND CONDITIONS
 
-This software is part of the OTRS project (L<http://otrs.org/>).
+This software is part of the OTRS project (L<https://otrs.org/>).
 
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
-the enclosed file COPYING for license information (AGPL). If you
-did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
+the enclosed file COPYING for license information (GPL). If you
+did not receive this file, see L<https://www.gnu.org/licenses/gpl-3.0.txt>.
 
 =cut

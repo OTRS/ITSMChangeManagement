@@ -1,10 +1,9 @@
 # --
-# Kernel/Modules/AgentITSMChangeSearch.pm - module for change search
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 package Kernel::Modules::AgentITSMChangeSearch;
@@ -56,9 +55,9 @@ sub Run {
     my ( $Self, %Param ) = @_;
 
     # get confid data
-    $Self->{StartHit} = int( $Self->{ParamObject}->GetParam( Param => 'StartHit' ) || 1 );
+    $Self->{StartHit}    = int( $Self->{ParamObject}->GetParam( Param => 'StartHit' ) || 1 );
     $Self->{SearchLimit} = $Self->{Config}->{SearchLimit} || 500;
-    $Self->{SortBy} = $Self->{ParamObject}->GetParam( Param => 'SortBy' )
+    $Self->{SortBy}      = $Self->{ParamObject}->GetParam( Param => 'SortBy' )
         || $Self->{Config}->{'SortBy::Default'}
         || 'ChangeID';
     $Self->{OrderBy} = $Self->{ParamObject}->GetParam( Param => 'OrderBy' )
@@ -800,7 +799,10 @@ sub Run {
                 );
 
                 # start table output
-                $Self->{PDFObject}->PageNew( %PageParam, FooterRight => $Page . ' 1', );
+                $Self->{PDFObject}->PageNew(
+                    %PageParam,
+                    FooterRight => $Page . ' 1',
+                );
                 for ( 2 .. $MaxPages ) {
 
                     # output table (or a fragment of it)
@@ -986,7 +988,7 @@ sub Run {
 sub _MaskForm {
     my ( $Self, %Param ) = @_;
 
-    my $Profile = $Self->{ParamObject}->GetParam( Param => 'Profile' ) || '';
+    my $Profile     = $Self->{ParamObject}->GetParam( Param => 'Profile' ) || '';
     my $EmptySearch = $Self->{ParamObject}->GetParam( Param => 'EmptySearch' );
     if ( !$Profile ) {
         $EmptySearch = 1;

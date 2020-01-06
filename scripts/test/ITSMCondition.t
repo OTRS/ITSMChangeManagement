@@ -1,10 +1,9 @@
 # --
-# ITSMCondition.t - Condition tests
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 use strict;
@@ -113,9 +112,9 @@ for my $ObjectMethod (@ObjectMethods) {
     );
 }
 
-#------------------------
+#
 # make some preparations
-#------------------------
+#
 
 # keep track of a time before objects were added,
 # for comparisons in expression match tests
@@ -152,7 +151,7 @@ CREATEWORKORDER:
 for my $CreateWorkOrder ( 0 .. ( ( 3 * ( scalar @ChangeIDs ) ) - 1 ) ) {
     my $WorkOrderTitle = 'UnitTestWO' . $CreateWorkOrder;
     my $WorkOrderID    = $WorkOrderObject->WorkOrderAdd(
-        ChangeID => $ChangeIDs[ ( $CreateWorkOrder % scalar @ChangeIDs ) ],
+        ChangeID         => $ChangeIDs[ ( $CreateWorkOrder % scalar @ChangeIDs ) ],
         WorkOrderTitle   => $WorkOrderTitle,
         PlannedStartTime => $Self->{TimeObject}->CurrentTimestamp(),
         PlannedEndTime   => $Self->{TimeObject}->SystemTime2TimeStamp(
@@ -179,9 +178,9 @@ for my $CreateWorkOrder ( 0 .. ( ( 3 * ( scalar @ChangeIDs ) ) - 1 ) ) {
     push @WorkOrderTitles, $WorkOrderTitle;
 }
 
-#------------------------
+#
 # condition tests
-#------------------------
+#
 
 # create new condition
 my @ConditionIDs;
@@ -358,9 +357,9 @@ for my $ChangeID ( sort keys %ConditionCount ) {
 
 }
 
-#------------------------
+#
 # condition object tests
-#------------------------
+#
 
 # check for default condition objects
 my @ConditionObjects = qw(ITSMChange ITSMWorkOrder);
@@ -463,9 +462,9 @@ for my $ObjectID (@ConditionObjectCreated) {
     );
 }
 
-#----------------------------
+#
 # condition attributes tests
-#----------------------------
+#
 
 # check for default condition attributes
 my @ConditionAttributes = qw(
@@ -574,9 +573,9 @@ for my $AttributeID (@ConditionAttributeCreated) {
     );
 }
 
-#-------------------------
+#
 # condition operator tests
-#-------------------------
+#
 
 # check for default condition operators
 my @ConditionOperators = (
@@ -694,9 +693,9 @@ for my $OperatorID (@ConditionOperatorCreated) {
     );
 }
 
-#-------------------------
+#
 # condition expression tests
-#-------------------------
+#
 
 # check for default condition expressions
 my @ExpressionTests = (
@@ -1971,9 +1970,9 @@ for my $ExpressionCounter ( 0 .. ( scalar @ExpressionIDs - 1 ) ) {
     }
 }
 
-#-------------------------
+#
 # condition action tests
-#-------------------------
+#
 
 # check for default condition actions
 my @ActionTests = (

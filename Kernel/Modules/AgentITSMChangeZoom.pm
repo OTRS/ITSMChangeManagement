@@ -1,10 +1,9 @@
 # --
-# Kernel/Modules/AgentITSMChangeZoom.pm - the OTRS ITSM ChangeManagement change zoom module
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 package Kernel::Modules::AgentITSMChangeZoom;
@@ -119,7 +118,7 @@ sub Run {
     if ( $Self->{Subaction} eq 'DownloadAttachment' ) {
 
         # get data for attachment
-        my $Filename = $Self->{ParamObject}->GetParam( Param => 'Filename' );
+        my $Filename       = $Self->{ParamObject}->GetParam( Param => 'Filename' );
         my $AttachmentData = $Self->{ChangeObject}->ChangeAttachmentGet(
             ChangeID => $ChangeID,
             Filename => $Filename,

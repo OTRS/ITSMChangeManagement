@@ -1,10 +1,9 @@
 # --
-# Kernel/Modules/AgentITSMChangeHistory.pm - the OTRS ITSM ChangeManagement change history module
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 package Kernel::Modules::AgentITSMChangeHistory;
@@ -204,7 +203,7 @@ sub Run {
                                 );
                             }
                             elsif (
-                                $Type    eq 'WorkOrderAgent'
+                                $Type eq 'WorkOrderAgent'
                                 || $Type eq 'ChangeBuilder'
                                 || $Type eq 'ChangeManager'
                                 )
@@ -217,7 +216,7 @@ sub Run {
                                 $TranslationNeeded = 0;
                             }
                             elsif (
-                                $Type    eq 'Category'
+                                $Type eq 'Category'
                                 || $Type eq 'Impact'
                                 || $Type eq 'Priority'
                                 )
@@ -313,12 +312,12 @@ sub Run {
                         # ContentNew and ContentOld contain a '%%' seperated list of user ids
                         # look up the login names from the user ids and
                         # format it as a comma separated list
-                        my @UserIDs = split m/%%/, $HistoryEntry->{$ContentNewOrOld};
+                        my @UserIDs    = split m/%%/, $HistoryEntry->{$ContentNewOrOld};
                         my @UserLogins = map { $Self->{UserObject}->UserLookup( UserID => $_ ) } @UserIDs;
                         $HistoryEntry->{$ContentNewOrOld} = join ',', @UserLogins;
                     }
                     elsif (
-                        $HistoryEntry->{Fieldname}    eq 'ExpressionConjunction'
+                        $HistoryEntry->{Fieldname} eq 'ExpressionConjunction'
                         || $HistoryEntry->{Fieldname} eq 'Name'
                         || $HistoryEntry->{Fieldname} eq 'Comment'
                         || $HistoryEntry->{Fieldname} eq 'Selector'
@@ -365,7 +364,7 @@ sub Run {
 
             # add the ID of the Condition, Expression or Action that was updated
             if (
-                $HistoryType    eq 'ConditionUpdate'
+                $HistoryType eq 'ConditionUpdate'
                 || $HistoryType eq 'ExpressionUpdate'
                 || $HistoryType eq 'ActionUpdate'
                 )

@@ -1,10 +1,9 @@
 # --
-# Kernel/System/ITSMChange.pm - all change functions
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 package Kernel::System::ITSMChange;
@@ -766,7 +765,7 @@ sub ChangeGet {
     );
 
     # add result to change data
-    $ChangeData{WorkOrderIDs} = $WorkOrderIDsRef || [];
+    $ChangeData{WorkOrderIDs}   = $WorkOrderIDsRef || [];
     $ChangeData{WorkOrderCount} = scalar @{ $ChangeData{WorkOrderIDs} };
 
     # get planned effort and accounted time for the change
@@ -2009,7 +2008,7 @@ sub ChangeSearch {
         }
 
         # create string
-        my $InString = join ', ', @{ $Param{$WorkOrderParam} };
+        my $InString   = join ', ', @{ $Param{$WorkOrderParam} };
         my $ColumnName = $WorkOrderArrayParams{$WorkOrderParam};
 
         push @SQLWhere,        "wo2.$ColumnName IN ( $InString )";
@@ -2718,7 +2717,7 @@ sub ChangeCIPLookup {
     my %ChangeCIP = %{
         $Self->{GeneralCatalogObject}->ItemList(
             Class => 'ITSM::ChangeManagement::' . $Param{Type},
-            ) || {}
+        ) || {}
     };
 
     if ( $Param{ID} ) {
@@ -3404,7 +3403,7 @@ sub _CheckChangeParams {
 
         # check the maximum length of description and justification
         if (
-            $Argument    eq 'Description'
+            $Argument eq 'Description'
             || $Argument eq 'DescriptionPlain'
             || $Argument eq 'Justification'
             || $Argument eq 'JustificationPlain'
@@ -3851,10 +3850,10 @@ sub _ChangeFreeTextDelete {
 
 =head1 TERMS AND CONDITIONS
 
-This software is part of the OTRS project (L<http://otrs.org/>).
+This software is part of the OTRS project (L<https://otrs.org/>).
 
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
-the enclosed file COPYING for license information (AGPL). If you
-did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
+the enclosed file COPYING for license information (GPL). If you
+did not receive this file, see L<https://www.gnu.org/licenses/gpl-3.0.txt>.
 
 =cut

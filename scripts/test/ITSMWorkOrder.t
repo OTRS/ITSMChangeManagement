@@ -1,10 +1,9 @@
 # --
-# ITSMWorkOrder.t - workorder tests
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 use strict;
@@ -189,7 +188,7 @@ my @DefaultWorkOrderStates = (
 my %WorkOrderStateID2Name = %{
     $Self->{GeneralCatalogObject}->ItemList(
         Class => 'ITSM::ChangeManagement::WorkOrder::State',
-        ) || {}
+    ) || {}
 };
 my %WorkOrderStateName2ID   = reverse %WorkOrderStateID2Name;
 my @SortedWorkOrderStateIDs = sort keys %WorkOrderStateID2Name;
@@ -285,7 +284,7 @@ my @DefaultWorkOrderTypes = (
 my %WorkOrderTypeID2Name = %{
     $Self->{GeneralCatalogObject}->ItemList(
         Class => 'ITSM::ChangeManagement::WorkOrder::Type',
-        ) || {}
+    ) || {}
 };
 my %WorkOrderTypeName2ID = reverse %WorkOrderTypeID2Name;
 my @SortedTypeIDs        = sort keys %WorkOrderTypeID2Name;
@@ -2111,7 +2110,7 @@ for my $ChangeID ( sort keys %WorkOrderIDForChangeID ) {
         ChangeID => $ChangeID,
     ) || {};
     my $ListFromChangeObject = $Change->{WorkOrderIDs} || [];
-    my %MapFromChangeObject = map { $_ => 1 } @{$ListFromChangeObject};
+    my %MapFromChangeObject  = map { $_ => 1 } @{$ListFromChangeObject};
 
     # check whether the created workorders were found by WorkOrderList()
     for my $WorkOrderID ( sort keys %{ $WorkOrderIDForChangeID{$ChangeID} } ) {
@@ -2176,7 +2175,7 @@ for my $ChangeID ( sort keys %WorkOrderIDForChangeID ) {
 }
 
 # count all tests that are required to and planned for fail
-my $Fails = scalar grep { $_->{Fails} } @WorkOrderTests;
+my $Fails              = scalar grep { $_->{Fails} } @WorkOrderTests;
 my $NrCreateWorkOrders = ( scalar @WorkOrderTests ) - $Fails;
 
 # test if the workorders were created
@@ -2725,7 +2724,7 @@ for my $Test (@WorkOrderSearchTests) {
         );
     }
 
-    $WorkOrderIDs ||= [];
+    $WorkOrderIDs      ||= [];
     $CountWorkOrderIDs ||= 0;
 
     if ( $Test->{ResultData}->{TestCount} ) {
@@ -2735,7 +2734,7 @@ for my $Test (@WorkOrderSearchTests) {
 
         # get defined expected result count (defined in search test case!)
         if ( exists $Test->{ResultData}->{Count} ) {
-            $ExpectedCount = $Test->{ResultData}->{Count}
+            $ExpectedCount = $Test->{ResultData}->{Count};
         }
 
         # check the number of IDs in the returned arrayref
@@ -3102,30 +3101,30 @@ for my $OrderByColumn (qw(PlannedStartTime PlannedEndTime ActualStartTime Actual
     );
 
     if (
-        Data::Dumper::Dumper($SearchResultUp)    ## no critic
+        Data::Dumper::Dumper($SearchResultUp)                      ## no critic
         eq Data::Dumper::Dumper( [ reverse @ResultReference ] )    ## no critic
         )
     {
         $Self->Is(
-            Data::Dumper::Dumper($SearchResultUp),                 ## no critic
-            Data::Dumper::Dumper( [ reverse @ResultReference ] ),  ## no critic
+            Data::Dumper::Dumper($SearchResultUp),                   ## no critic
+            Data::Dumper::Dumper( [ reverse @ResultReference ] ),    ## no critic
             "Test $TestCount: ChangeSearch OrderBy $OrderByColumn (Up)",
         );
     }
     elsif (
-        Data::Dumper::Dumper($SearchResultUp)                      ## no critic
+        Data::Dumper::Dumper($SearchResultUp)                                 ## no critic
         eq Data::Dumper::Dumper( [ reverse @ResultReferenceAlternative ] )    ## no critic
         )
     {
         $Self->Is(
-            Data::Dumper::Dumper($SearchResultUp),                            ## no critic
-            Data::Dumper::Dumper( [ reverse @ResultReferenceAlternative ] ),  ## no critic
+            Data::Dumper::Dumper($SearchResultUp),                              ## no critic
+            Data::Dumper::Dumper( [ reverse @ResultReferenceAlternative ] ),    ## no critic
             "Test $TestCount: ChangeSearch OrderBy $OrderByColumn (Up)",
         );
     }
     else {
         $Self->Is(
-            Data::Dumper::Dumper($SearchResultUp),                            ## no critic
+            Data::Dumper::Dumper($SearchResultUp),                              ## no critic
             undef,
             "Test $TestCount: ChangeSearch OrderBy $OrderByColumn (Up)",
         );

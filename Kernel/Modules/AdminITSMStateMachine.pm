@@ -1,10 +1,9 @@
 # --
-# Kernel/Modules/AdminITSMStateMachine.pm - to add/update/delete state transitions
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 package Kernel::Modules::AdminITSMStateMachine;
@@ -224,7 +223,9 @@ sub _StateTransitionUpdatePageGet {
         Data => \%Param,
     );
 
-    $Self->{LayoutObject}->Block( Name => 'ActionOverview', );
+    $Self->{LayoutObject}->Block(
+        Name => 'ActionOverview',
+    );
 
     $Self->{LayoutObject}->Block(
         Name => 'StateTransitionUpdate',
@@ -316,7 +317,9 @@ sub _StateTransitionDeletePageGet {
         Data => \%Param,
     );
 
-    $Self->{LayoutObject}->Block( Name => 'ActionOverview', );
+    $Self->{LayoutObject}->Block(
+        Name => 'ActionOverview',
+    );
 
     $Param{StateName} = $Self->{StateMachineObject}->StateLookup(
         Class   => $Param{Class},
@@ -355,7 +358,9 @@ sub _OverviewStateTransitionsPageGet {
         Data => \%Param,
     );
 
-    $Self->{LayoutObject}->Block( Name => 'ActionOverview', );
+    $Self->{LayoutObject}->Block(
+        Name => 'ActionOverview',
+    );
 
     $Self->{LayoutObject}->Block(
         Name => 'OverviewStateTransitions',

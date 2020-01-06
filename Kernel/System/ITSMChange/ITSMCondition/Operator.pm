@@ -1,10 +1,9 @@
 # --
-# Kernel/System/ITSMChange/ITSMCondition/Operator.pm - all condition operator functions
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 package Kernel::System::ITSMChange::ITSMCondition::Operator;
@@ -477,7 +476,7 @@ sub OperatorExecute {
 
     # handle 'CompareValue' and 'ActionValue' in a special way
     if (
-        ( !exists $Param{CompareValue} || !defined $Param{CompareValue} )
+        ( !exists $Param{CompareValue}   || !defined $Param{CompareValue} )
         && ( !exists $Param{ActionValue} || !defined $Param{ActionValue} )
         )
     {
@@ -1239,7 +1238,7 @@ sub _OperatorSet {
 
         # check objects
         return 1 if !$ActionObjects;
-        return if ref $ActionObjects ne 'ARRAY';
+        return   if ref $ActionObjects ne 'ARRAY';
 
         # execute actions for all objects
         $Result = $BackendObject->$Sub(
@@ -1326,10 +1325,10 @@ sub _OperatorLoadBackend {
 
 =head1 TERMS AND CONDITIONS
 
-This software is part of the OTRS project (L<http://otrs.org/>).
+This software is part of the OTRS project (L<https://otrs.org/>).
 
 This software comes with ABSOLUTELY NO WARRANTY. For details, see
-the enclosed file COPYING for license information (AGPL). If you
-did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
+the enclosed file COPYING for license information (GPL). If you
+did not receive this file, see L<https://www.gnu.org/licenses/gpl-3.0.txt>.
 
 =cut

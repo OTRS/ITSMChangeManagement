@@ -1,11 +1,9 @@
 # --
-# Kernel/Modules/AdminITSMChangeNotification.pm - to add/update/delete
-# notification rules for ITSM change management
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 package Kernel::Modules::AdminITSMChangeNotification;
@@ -52,7 +50,7 @@ sub Run {
     # change
     # ------------------------------------------------------------ #
     if ( $Self->{Subaction} eq 'Change' ) {
-        my $ID = $Self->{ParamObject}->GetParam( Param => 'ID' ) || '';
+        my $ID   = $Self->{ParamObject}->GetParam( Param => 'ID' ) || '';
         my $Data = $Self->{NotificationObject}->NotificationRuleGet( ID => $ID );
 
         $Self->_Edit(
@@ -195,14 +193,14 @@ sub _Edit {
         Sort       => 'NumericKey',
     );
     $Param{EventOption} = $Self->{LayoutObject}->BuildSelection(
-        Data => $Self->{HistoryObject}->HistoryTypeList( UserID => 1 ) || [],
-        Name => 'EventID',
+        Data       => $Self->{HistoryObject}->HistoryTypeList( UserID => 1 ) || [],
+        Name       => 'EventID',
         SelectedID => $Param{EventID},
     );
     $Param{RecipientOption} = $Self->{LayoutObject}->BuildSelection(
-        Data => $Self->{NotificationObject}->RecipientList( UserID => 1 ) || [],
-        Name => 'RecipientIDs',
-        Multiple   => 1,
+        Data     => $Self->{NotificationObject}->RecipientList( UserID => 1 ) || [],
+        Name     => 'RecipientIDs',
+        Multiple => 1,
         Size       => 13,                     # current number of default recipients, avoid scrolling
         SelectedID => $Param{RecipientIDs},
     );
@@ -237,7 +235,7 @@ sub _Overview {
     my %ValidList = $Self->{ValidObject}->ValidList();
     for my $RuleID ( @{$RuleIDs} ) {
 
-        my $Data = $Self->{NotificationObject}->NotificationRuleGet( ID => $RuleID );
+        my $Data       = $Self->{NotificationObject}->NotificationRuleGet( ID => $RuleID );
         my $Recipients = join ', ', @{ $Data->{Recipients} || [] };
 
         $Self->{LayoutObject}->Block(

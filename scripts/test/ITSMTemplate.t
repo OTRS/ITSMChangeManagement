@@ -1,10 +1,9 @@
 # --
-# ITSMTemplate.t - change tests
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 use strict;
@@ -431,7 +430,7 @@ my %ConditionDefinitions = (
             Selector    => $CreatedChangeID{BaseChange},
             ActionValue => 'New Change Title' . $UniqueSignature . int rand 1_000,
             UserID      => 1,
-            }
+        }
     },
 );
 
@@ -454,10 +453,10 @@ for my $ConditionName ( sort keys %ConditionDefinitions ) {
     $CreatedConditionID{$ConditionName} = $ConditionID;
 
     my $ExpressionData = $ConditionDefinitions{$ConditionName}->{ExpressionAdd};
-    my $ExpressionID = _ExpressionAdd( $ExpressionData, $ConditionID );
+    my $ExpressionID   = _ExpressionAdd( $ExpressionData, $ConditionID );
 
     my $ActionData = $ConditionDefinitions{$ConditionName}->{ActionAdd};
-    my $ActionID = _ActionAdd( $ActionData, $ConditionID );
+    my $ActionID   = _ActionAdd( $ActionData, $ConditionID );
 }
 continue {
     $TestCount++;
@@ -632,7 +631,7 @@ for my $ChangeTemplateName ( sort keys %CreatedChangeID ) {
     for my $Attribute (qw(Description Justification)) {
         next ARGUMENT if !$ChangeDefinitions{$ChangeTemplateName}->{$Attribute};
 
-        my $ChangeAttribute = $Change->{"${Attribute}Plain"} || '';
+        my $ChangeAttribute    = $Change->{"${Attribute}Plain"} || '';
         my $ReferenceAttribute = $HTMLUtilsObject->ToAscii(
             String => $ChangeDefinitions{$ChangeTemplateName}->{$Attribute},
         );

@@ -1,10 +1,9 @@
 # --
-# Kernel/Modules/AgentITSMChangePrint.pm - the OTRS ITSM ChangeManagement change print module
-# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
-# the enclosed file COPYING for license information (AGPL). If you
-# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
 # --
 
 package Kernel::Modules::AgentITSMChangePrint;
@@ -62,7 +61,7 @@ sub Run {
     # Find out whether a change or a workorder should be printed.
     # A workorder is to be printed when the WorkOrderID is passed.
     # Otherwise a change should be printed.
-    my $WorkOrderID = $Self->{ParamObject}->GetParam( Param => 'WorkOrderID' );
+    my $WorkOrderID    = $Self->{ParamObject}->GetParam( Param => 'WorkOrderID' );
     my $PrintWorkOrder = $WorkOrderID ? 1 : 0;
     my $PrintChange    = !$WorkOrderID;
     my $WorkOrder      = {};
@@ -368,7 +367,7 @@ sub Run {
         }
 
         # start a new page for every workorder
-        my $HeaderArea = $Self->{LayoutObject}->{LanguageObject}->Get('ITSM Workorder');
+        my $HeaderArea  = $Self->{LayoutObject}->{LanguageObject}->Get('ITSM Workorder');
         my $HeaderValue = join '-', $Change->{ChangeNumber}, $WorkOrder->{WorkOrderNumber};
         if ( !$Self->{PDFObject} ) {
             $Self->{LayoutObject}->Block( Name => 'WorkOrder' );
@@ -491,7 +490,7 @@ sub _StartDocument {
 
         # Title of the PDF-Document, or the HTML-Page
         my $Product = $Self->{ConfigObject}->Get('Product');
-        my $Title = sprintf '%s: %s#%s', $Product, $Param{HeaderArea}, $Param{HeaderValue};
+        my $Title   = sprintf '%s: %s#%s', $Product, $Param{HeaderArea}, $Param{HeaderValue};
 
         # create new PDF document
         $Self->{PDFObject}->DocumentNew(
@@ -530,7 +529,7 @@ sub _OutputHeadline {
 
     if ( $Self->{PDFObject} ) {
         my $PrintedBy = $Self->{LayoutObject}->{LanguageObject}->Get('printed by');
-        my $Time = $Self->{LayoutObject}->Output( Template => '$Env{"Time"}' );
+        my $Time      = $Self->{LayoutObject}->Output( Template => '$Env{"Time"}' );
 
         my $UserFullName = $Self->{UserObject}->UserName(
             UserID => $Self->{UserID},
@@ -635,7 +634,7 @@ sub _PrepareAndAddInfoRow {
 
     # translate the value
     if ( $Value && $RowSpec->{ValueIsTranslatable} ) {
-        $Value = $Self->{LayoutObject}->{LanguageObject}->Get($Value),
+        $Value = $Self->{LayoutObject}->{LanguageObject}->Get($Value),;
     }
 
     # add separator between key and value
@@ -1420,7 +1419,7 @@ sub _OutputLinkedObjects {
         for my $LinkTypeLinkDirection ( sort { lc $a cmp lc $b } keys %{ $Param{LinkData} } ) {
 
             # investigate link type name
-            my @LinkData = split q{::}, $LinkTypeLinkDirection;
+            my @LinkData     = split q{::}, $LinkTypeLinkDirection;
             my $LinkTypeName = $TypeList{ $LinkData[0] }->{ $LinkData[1] . 'Name' };
             $LinkTypeName = $Self->{LayoutObject}->{LanguageObject}->Get($LinkTypeName);
 
@@ -1497,7 +1496,7 @@ sub _OutputLinkedObjects {
         for my $LinkTypeLinkDirection ( sort { lc $a cmp lc $b } keys %{ $Param{LinkData} } ) {
 
             # investigate link type name
-            my @LinkData = split q{::}, $LinkTypeLinkDirection;
+            my @LinkData     = split q{::}, $LinkTypeLinkDirection;
             my $LinkTypeName = $TypeList{ $LinkData[0] }->{ $LinkData[1] . 'Name' };
 
             # output link type data
